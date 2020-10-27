@@ -6,6 +6,7 @@ const cors = require('cors')
 const usersRouter = require('./controllers/users')
 const winesRouter = require('./controllers/wines')
 const loginRouter = require('./controllers/login')
+const reviewRouter = require('./controllers/reviews')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
@@ -28,5 +29,6 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology
   app.use('/api/users', usersRouter)
   app.use('/api/wines', winesRouter)
   app.use('/api/login', loginRouter)
+  app.use('/api/reviews', reviewRouter)
 
   module.exports = app

@@ -40,3 +40,5 @@ reviewRouter.post('/:id', async (request, response, next) => {
 
   response.json(savedReview.toJSON())
 })
+
+module.exports = reviewRouter
