@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const wineSchema = mongoose.Schema({
   name: String,
-  area: String,
+  region: String,
   grapes: String,
   reviews: [
     {
@@ -10,6 +10,10 @@ const wineSchema = mongoose.Schema({
       ref: 'Review'
     }
   ],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
 })
 
 wineSchema.set('toJSON', {
@@ -20,4 +24,4 @@ wineSchema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('Wine', vineSchema)
+module.exports = mongoose.model('Wine', wineSchema)

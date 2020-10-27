@@ -14,6 +14,12 @@ const userSchema = mongoose.Schema({
       ref: 'Review'
     }
   ],
+  wines: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Wine'
+    }
+  ],
 })
 
 userSchema.plugin(uniqueValidator)
