@@ -10,7 +10,7 @@ reviewRouter.get('/', async (request, response, next) => {
     .find({})
     .populate('user', { username: 1, name: 1 })
     .populate('wine', { name: 1, region: 1 })
-  response.json(reviews.map(review => review.toJSON()))
+  response.json(reviews.map(r => r.toJSON()))
 })
 
 reviewRouter.post('/:id', async (request, response, next) => {

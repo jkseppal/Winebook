@@ -9,7 +9,12 @@ winesRouter.get('/', async (request, response, next) => {
   const wines = await Wine
     .find({})
     .populate('user', { username: 1, name: 1 })
-    .populate('reviews', { description: 1, points: 1 })
+    .populate({
+      path : 'reviews',
+      populate : {
+        path : 'user'
+      }
+    })
   response.json(wines.map(w => w.toJSON()))
 })
 
@@ -26,7 +31,7 @@ winesRouter.post('/', async (request, response) => {
 
   const wine = new Wine({
     name: body.name,
-    area: body.area,
+    region: body.region,
     grapes: body.grapes,
     user: user._id
   })

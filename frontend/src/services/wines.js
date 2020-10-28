@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = '/api/wines'
+const baseUrl = 'http://localhost:3001/api/wines'
 
 let token = null
 const setToken = newToken => {
