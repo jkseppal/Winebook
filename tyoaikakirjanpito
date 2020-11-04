@@ -2,5 +2,6 @@
 27.10.2020: 2h, alustavat controllerit luotu backendiin
 27.10.2020: 4h, frontendin työstäminen aloitettu, luotu mahdollisuus sisäänkirjautumiseen
 28.10.2020: 6h, frontendiin luotu mahdollisuus viinien ja arvostelujen lisäämiseen, backendin debuggausta
+04.11.2020: 5h, frontendiin lisätty react router ja redux
 
-yhteensä: 14h
+yhteensä: 19h

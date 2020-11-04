@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import loginService from './services/login'
-//import userService from './services/users'
+import userService from './services/users'
 import wineService from './services/wines'
 import reviewService from './services/reviews'
 import Wine from './components/Wine'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import SingleWine from './components/SingleWine'
+import WineList from './components/WineList'
+import RegistrationForm from './components/RegistrationForm'
+import Login from './components/Login'
 
 const App = () => {
   const [wines, setWines] = useState([])
@@ -13,10 +18,20 @@ const App = () => {
   const [wineName, setWineName] = useState('')
   const [region, setRegion] = useState('')
   const [grapes, setGrapes] = useState('')
+  const [users, setUsers] = useState([])
+  /*const [newName, setNewName] = useState('')
+  const [newUsername, setNewUsername] = useState('')
+  const [newPassword, setNewPassword] = useState('')*/
 
   useEffect(() => {
     wineService.getWines().then(wines =>
       setWines( wines )
+      )
+  }, [])
+
+  useEffect(() => {
+    userService.getUsers().then(users =>
+      setUsers( users )
       )
   }, [])
 
@@ -30,7 +45,7 @@ const App = () => {
     }
   }, [])
 
-  const handleLogin = async (event) => {
+  /*const handleLogin = async (event) => {
     event.preventDefault()
     try {
       const user = await loginService.login({
@@ -47,6 +62,14 @@ const App = () => {
     } catch (exception) {
       console.log('invalid username or password')
     }
+  }*/
+
+  const handleLogout = async (event) => {
+    event.preventDefault()
+    setUser(null)
+    window.localStorage.removeItem('loggedUser')
+    window.location.reload()
+    return false
   }
 
   const handleWineAdd = (event) => {
@@ -69,7 +92,27 @@ const App = () => {
       })
   }
 
-  if (user === null) {
+  /*const handleUserAdd = (event) => {
+    event.preventDefault()
+    addUser({
+      name: newName,
+      username: newUsername,
+      password: newPassword
+    })
+    setNewName('')
+    setNewUsername('')
+    setNewPassword('')
+  }
+
+  const addUser = (userObject) => {
+    userService
+      .createUser(userObject)
+      .then(returnedUser => {
+        setUsers(users.concat(returnedUser))
+      })
+  }*/
+
+  /*if (user === null) {
     return (
       <div>
         <h2>log in to wine application</h2>
@@ -96,12 +139,68 @@ const App = () => {
           </div>
           <button id="login-button" type="submit">login</button>
         </form>
+        {/*<div>
+          <h2>Rekisteröidy käyttäjäksi</h2>
+          <form onSubmit={handleUserAdd}>
+            <div>
+              name
+              <input
+                type="text"
+                value={newName}
+                onChange={({ target }) => setNewName(target.value)}
+              />
+            </div>
+            <div>
+              username
+              <input
+                type="text"
+                value={newUsername}
+                onChange={({ target }) => setNewUsername(target.value)}
+              />
+            </div>
+            <div>
+              password
+              <input
+                type="password"
+                value={newPassword}
+                onChange={({ target }) => setNewPassword(target.value)}
+              />
+            </div>
+            <button type="submit">rekisteröidy</button>
+          </form>
+        </div>
       </div>
     )
-  }
+  }*/
   return (
-    <div>
+    <Router>
+      <div>
+        <div>
+          <Link to="/">home</Link>
+          <Link to="/registration">rekisteröidy</Link>
+          <Link to="/login">kirjaudu sisään</Link>
+          <button onClick={handleLogout}>kirjaudu ulos</button>
+        </div>
+
+        <Switch>
+          <Route path="/wines/:id">
+            <SingleWine wines={wines} user={user} />
+          </Route>
+          <Route path="/registration">
+            <RegistrationForm />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/">
+            <WineList wines={wines} />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+    /*<div>
       <h2>{user.name} logged in</h2>
+      <button onClick={handleLogout}>logout</button>
       <div>
         <h3>add wine:</h3>
         <form onSubmit={handleWineAdd}>
@@ -132,7 +231,7 @@ const App = () => {
           <button type="submit">add wine</button>
         </form>
       </div>
-      {/*<div>
+      <div>
         <h3>wines</h3>
         {wines.map(wine =>
           <div key={wine.id}>
@@ -142,11 +241,11 @@ const App = () => {
             
           </div>
         )}
-        </div>*/}
+        </div>
         {wines.map(wine =>
           <Wine key={wine.id} wine={wine} user={user} />
         )}
-    </div>
+    </div>*/
   )
 }
 
