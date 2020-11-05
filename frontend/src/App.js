@@ -1,29 +1,35 @@
 import React, { useState, useEffect } from 'react'
-import loginService from './services/login'
-import userService from './services/users'
+//import loginService from './services/login'
+//import userService from './services/users'
 import wineService from './services/wines'
 import reviewService from './services/reviews'
-import Wine from './components/Wine'
+//import Wine from './components/Wine'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import SingleWine from './components/SingleWine'
 import WineList from './components/WineList'
 import RegistrationForm from './components/RegistrationForm'
 import Login from './components/Login'
+import { useDispatch, useSelector } from 'react-redux'
+//import { initializeUsers } from './reducers/usersReducer'
+import { createWine, initializeWines } from './reducers/wineReducer'
+import WineForm from './components/WineForm'
 
 const App = () => {
-  const [wines, setWines] = useState([])
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
+  
+  //const [wines, setWines] = useState([])
+  //const [username, setUsername] = useState('')
+  //const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [wineName, setWineName] = useState('')
-  const [region, setRegion] = useState('')
-  const [grapes, setGrapes] = useState('')
-  const [users, setUsers] = useState([])
+  //const [wineName, setWineName] = useState('')
+  //const [region, setRegion] = useState('')
+  //const [grapes, setGrapes] = useState('')
+  //const [users, setUsers] = useState([])
   /*const [newName, setNewName] = useState('')
   const [newUsername, setNewUsername] = useState('')
   const [newPassword, setNewPassword] = useState('')*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     wineService.getWines().then(wines =>
       setWines( wines )
       )
@@ -33,7 +39,18 @@ const App = () => {
     userService.getUsers().then(users =>
       setUsers( users )
       )
-  }, [])
+  }, [])*/
+
+  /*useEffect(() => {
+    dispatch(initializeUsers())
+  },[dispatch])*/
+
+  useEffect(() => {
+    dispatch(initializeWines())
+  },[dispatch])
+
+  //let users = useSelector(state => state.users)
+  let wines = useSelector(state => state.wines)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -72,7 +89,7 @@ const App = () => {
     return false
   }
 
-  const handleWineAdd = (event) => {
+  /*const handleWineAdd = (event) => {
     addWine({
       user: user,
       name: wineName,
@@ -82,14 +99,10 @@ const App = () => {
     setWineName('')
     setRegion('')
     setGrapes('')
-  }
+  }*/
 
   const addWine = (wineObject) => {
-    wineService
-      .addWine(wineObject)
-      .then(returnedWine => {
-        setWines(wines.concat(returnedWine))
-      })
+    dispatch(createWine(wineObject))
   }
 
   /*const handleUserAdd = (event) => {
@@ -177,14 +190,18 @@ const App = () => {
       <div>
         <div>
           <Link to="/">home</Link>
-          <Link to="/registration">rekisteröidy</Link>
-          <Link to="/login">kirjaudu sisään</Link>
-          <button onClick={handleLogout}>kirjaudu ulos</button>
+          {user ? <Link to="/create">lisää viini</Link> : null}
+          {!user ? <Link to="/registration">rekisteröidy</Link> : null}
+          {!user ? <Link to="/login"><button type="button">kirjaudu sisään</button></Link> : null}
+          {user ? <button onClick={handleLogout}>kirjaudu ulos</button> : null}
         </div>
 
         <Switch>
           <Route path="/wines/:id">
             <SingleWine wines={wines} user={user} />
+          </Route>
+          <Route path="/create">
+            <WineForm addWine={addWine} user={user} />
           </Route>
           <Route path="/registration">
             <RegistrationForm />

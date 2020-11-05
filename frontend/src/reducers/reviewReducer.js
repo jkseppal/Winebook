@@ -22,9 +22,9 @@ export const initializeReviews = () => {
   }
 }
 
-export const createReview = content => {
+export const createReview = (id, content) => {
   return async dispatch => {
-    const newReview = await reviewService.createReview(content)
+    const newReview = await reviewService.addReview(id, content)
     dispatch ({
       type: 'NEW_REVIEW',
       data: newReview

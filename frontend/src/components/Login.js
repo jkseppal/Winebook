@@ -32,6 +32,7 @@ const Login = () => {
       setUser(user)
       setUsername('')
       setPassword('')
+      window.location.reload()
     } catch (exception) {
       console.log('invalid username or password')
     }

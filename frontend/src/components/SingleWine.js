@@ -1,27 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import reviewService from '../services/reviews'
+import { createReview, initializeReviews } from '../reducers/reviewReducer'
 
 const SingleWine = ({ wines, user }) => {
+  const dispatch = useDispatch()
+  
   const [description, setDescription] = useState('')
   const [points, setPoints] = useState(0)
   const [reviews, setReviews] = useState([])
-  const [user, setUser] = useState(null)
+  //const [user, setUser] = useState(null)
 
-  useEffect(() => {
+  /*useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
     }
-  }, [])
+  }, [])*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     reviewService.getReviews().then(revs =>
       setReviews( revs )
     )
     console.log('all reviews from effect: ', reviews)
-  }, [])
+  }, [])*/
+
+  /*useEffect(() => {
+    dispatch(initializeReviews())
+  },[dispatch])*/
   
   const id = useParams().id
   const wineToShow = wines.find(wine => wine.id === id)
@@ -37,12 +45,16 @@ const SingleWine = ({ wines, user }) => {
     setPoints('')
   }
 
-  const addReview = (reviewObject) => {
+  /*const addReview = (reviewObject) => {
     reviewService
       .addReview(wineToShow.id, reviewObject)
       .then(returnedReview => {
         setReviews(reviews.concat(returnedReview))
       })
+  }*/
+
+  const addReview = (reviewObject) => {
+    dispatch(createReview(wineToShow.id, reviewObject))
   }
 
   if (!wineToShow) {
@@ -75,7 +87,7 @@ const SingleWine = ({ wines, user }) => {
           </div>
         )}
       </div>
-      <div>
+      {user ? <div>
         <h3>Lisää arvostelu:</h3>
         <form onSubmit={handleReviewAdd}>
         <div>
@@ -96,7 +108,7 @@ const SingleWine = ({ wines, user }) => {
         </div>
         <button type="submit">add a review</button>
       </form>
-      </div>
+      </div> : null}
     </div>
   )
 }

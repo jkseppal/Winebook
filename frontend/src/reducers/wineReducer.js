@@ -14,7 +14,7 @@ const wineReducer = (state = [], action) => {
 
 export const createWine = content => {
   return async dispatch => {
-    const newWine = await wineService.createWine(content)
+    const newWine = await wineService.addWine(content)
     dispatch ({
       type: 'NEW_WINE',
       data: newWine
@@ -24,7 +24,7 @@ export const createWine = content => {
 
 export const initializeWines = () => {
   return async dispatch => {
-    const wines = await wineService.getAll()
+    const wines = await wineService.getWines()
     dispatch ({
       type: 'INIT_WINES',
       data: wines
