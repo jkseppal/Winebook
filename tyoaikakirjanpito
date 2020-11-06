@@ -5,5 +5,6 @@
 04.11.2020: 5h, frontendiin lisätty react router ja redux
 05.11.2020: 4h, reduxin käyttöönottoa, koodin ja rakenteen refaktorointia
 06.11.2020: 4h, refaktorointia, debuggausta, lisätty mahdollisuus määrittää viinin tyyppi sekä vuosikerran lisäämiseen arvosteluun
+06.11.2020: 2h, Sovelluksen ulkoasua parannettu, react bootstrap otettu käyttöön
 
-yhteensä: 27h
+yhteensä: 29h

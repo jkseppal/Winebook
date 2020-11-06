@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import wineService from '../services/wines'
 import reviewService from '../services/reviews'
 import loginService from '../services/login'
+import { Form, Button } from 'react-bootstrap'
 
 const Login = () => {
   const [user, setUser] = useState(null)
@@ -47,7 +48,38 @@ const Login = () => {
     return (
       <div>
         <h2>Kirjaudu sisään:</h2>
-        <form onSubmit={handleLogin}>
+        <Form onSubmit={handleLogin}>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <Form.Label>käyttäjätunnus</Form.Label>
+                </td>
+                <td>
+                  <Form.Control
+                    type="text"
+                    value={username}
+                    onChange={({ target }) => setUsername(target.value)}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <Form.Label>salasana</Form.Label>
+                </td>
+                <td>
+                  <Form.Control
+                    type="password"
+                    value={password}
+                    onChange={({ target }) => setPassword(target.value)}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <Button type="submit">kirjaudu</Button>
+        </Form>
+        {/*<form onSubmit={handleLogin}>
           <div>
             käyttäjätunnus
             <input
@@ -69,7 +101,7 @@ const Login = () => {
             />
           </div>
           <button id="login-button" type="submit">login</button>
-        </form>
+    </form>*/}
       </div>
     )
   }

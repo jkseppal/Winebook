@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Form, Button } from 'react-bootstrap'
 //import userService from '../services/users'
 
 const RegistrationForm = ({ addUser }) => {
@@ -21,33 +22,49 @@ const RegistrationForm = ({ addUser }) => {
   return (
     <div>
       <h2>Rekisteröidy käyttäjäksi</h2>
-      <form onSubmit={handleUserAdd}>
-        <div>
-          name
-          <input
-            type="text"
-            value={newName}
-            onChange={({ target }) => setNewName(target.value)}
-          />
-        </div>
-        <div>
-          username
-          <input
-            type="text"
-            value={newUsername}
-            onChange={({ target }) => setNewUsername(target.value)}
-          />
-        </div>
-        <div>
-          password
-          <input
-            type="password"
-            value={newPassword}
-            onChange={({ target }) => setNewPassword(target.value)}
-          />
-        </div>
-        <button type="submit">rekisteröidy</button>
-      </form>
+      <Form onSubmit={handleUserAdd}>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <Form.Label>nimi</Form.Label>
+              </td>
+              <td>
+                <Form.Control
+                  type="text"
+                  value={newName}
+                  onChange={({ target }) => setNewName(target.value)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Form.Label>käyttäjätunnus</Form.Label>
+              </td>
+              <td>
+                <Form.Control
+                  type="text"
+                  value={newUsername}
+                  onChange={({ target }) => setNewUsername(target.value)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Form.Label>salasana</Form.Label>
+              </td>
+              <td>
+                <Form.Control
+                  type="password"
+                  value={newPassword}
+                  onChange={({ target }) => setNewPassword(target.value)}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <Button type="submit">rekisteröidy</Button>
+      </Form>
     </div>
   )
 }

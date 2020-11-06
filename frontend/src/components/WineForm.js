@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Form, Button } from 'react-bootstrap'
 
 const WineForm = ({ addWine, user }) => {
   const [name, setName] = useState('')
@@ -23,7 +24,71 @@ const WineForm = ({ addWine, user }) => {
   return (
     <div>
       <h2>Lisää uusi viini:</h2>
-      <form onSubmit={handleWineAdd}>
+      <Form onSubmit={handleWineAdd}>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <Form.Label>nimi</Form.Label>
+              </td>
+              <td>
+                <Form.Control
+                  type="text"
+                  value={name}
+                  onChange={({ target }) => setName(target.value)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Form.Label>tyyppi</Form.Label>
+              </td>
+              <td>
+                <Form.Control
+                  as="select"
+                  value={type}
+                  onChange={({ target }) => setType(target.value)}
+                >
+                  <option>punaviini</option>
+                  <option>valkoviini</option>
+                  <option>roseeviini</option>
+                  <option>kuohuviini</option>
+                  <option>maustettu viini</option>
+                  <option>väkevä viini</option>
+                  <option>jälkiruokaviini</option>
+                  <option>muu</option>
+                </Form.Control>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Form.Label>alue</Form.Label>
+              </td>
+              <td>
+                <Form.Control
+                  type="text"
+                  value={region}
+                  onChange={({ target }) => setRegion(target.value)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Form.Label>rypäleet</Form.Label>
+              </td>
+              <td>
+                <Form.Control
+                  type="text"
+                  value={grapes}
+                  onChange={({ target }) => setGrapes(target.value)}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <Button variant="success" type="submit">lisää</Button>
+      </Form>
+      {/*<form onSubmit={handleWineAdd}>
           <div>
             nimi
             <input
@@ -57,7 +122,7 @@ const WineForm = ({ addWine, user }) => {
             />
           </div>
           <button type="submit">lisää</button>
-        </form>
+      </form>*/}
     </div>
   )
 }

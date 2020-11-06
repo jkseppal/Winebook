@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { createReview } from '../reducers/reviewReducer'
+import { Table, Form, Button } from 'react-bootstrap'
 
 const SingleWine = ({ wines, user }) => {
   const dispatch = useDispatch()
@@ -39,6 +40,16 @@ const SingleWine = ({ wines, user }) => {
     dispatch(createReview(wineToShow.id, reviewObject))
   }
 
+  let pointOptions = []
+  for (let i = 0; i < 101; i++) {
+    pointOptions.push(i)
+  }
+
+  let vintageOptions = []
+  for (let i = 1900; i < 2021; i++) {
+    vintageOptions.push(i)
+  }
+
   if (!wineToShow) {
     return null
   }
@@ -54,7 +65,27 @@ const SingleWine = ({ wines, user }) => {
       {average ? <h3>arvostelujen keskiarvo: {average}</h3> : null}
       <div>
         <h3>Arvostelut:</h3>
-        {wineToShow.reviews.map(r =>
+        <Table striped>
+          <thead>
+            <tr>
+              <th>arvostelija</th>
+              <th>arvosteltu vuosikirja</th>
+              <th>pisteet</th>
+              <th>kuvaus</th>
+            </tr>
+          </thead>
+          <tbody>
+            {wineToShow.reviews.map(r =>
+              <tr key={r.id}>
+                <td>{r.user.username}</td>
+                <td>{r.vintage}</td>
+                <td>{r.points}</td>
+                <td>{r.description}</td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
+        {/*wineToShow.reviews.map(r =>
           <div key={r.id}>
             <p>
               arvostelija:<br />
@@ -73,11 +104,63 @@ const SingleWine = ({ wines, user }) => {
               {r.points}
             </p>
           </div>
-        )}
+        )*/}
       </div>
       {user ? <div>
         <h3>Lisää arvostelu:</h3>
-        <form onSubmit={handleReviewAdd}>
+        <Form onSubmit={handleReviewAdd}>
+          <Table>
+            <tbody>
+              <tr>
+                <td>
+                  <Form.Label>arvosteltu vuosikerta</Form.Label>
+                </td>
+                <td>
+                  <Form.Control
+                    as="select"
+                    value={vintage}
+                    onChange={({ target }) => setVintage(target.value)}
+                  >
+                    <option>--</option>
+                    {vintageOptions.map(v => (
+                      <option key={v}>{v}</option>
+                    ))}
+                  </Form.Control>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <Form.Label>kuvaus</Form.Label>
+                </td>
+                <td>
+                  <Form.Control
+                    type="text"
+                    value={description}
+                    onChange={({ target }) => setDescription(target.value)}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <Form.Label>pisteet</Form.Label>
+                </td>
+                <td>
+                  <Form.Control
+                    as="select"
+                    value={points}
+                    onChange={({ target }) => setPoints(target.value)}
+                  >
+                    {pointOptions.map(p => (
+                      <option key={p}>{p}</option>
+                    ))}
+                  </Form.Control>
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+          <Button variant="success" type="submit">lisää arvostelu</Button>
+        </Form>
+        {/*<form onSubmit={handleReviewAdd}>
           <div>
             arvosteltu vuosikerta
             <input
@@ -103,7 +186,7 @@ const SingleWine = ({ wines, user }) => {
             />
           </div>
           <button type="submit">lisää</button>
-        </form>
+      </form>*/}
       </div> : null}
     </div>
   )

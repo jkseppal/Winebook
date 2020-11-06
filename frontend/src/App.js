@@ -12,6 +12,7 @@ import { createWine, initializeWines } from './reducers/wineReducer'
 import WineForm from './components/WineForm'
 import { initializeUsers, createUser } from './reducers/usersReducer'
 import SingleUser from './components/SingleUser'
+import { Navbar, Nav, Button } from 'react-bootstrap'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -57,8 +58,32 @@ const App = () => {
 
   return (
     <Router>
-      <div>
-        <div>
+      <div className="container">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link href="#" as="span">
+                <Link to={'/'}>etusivu</Link>
+              </Nav.Link>
+              {user ? <Nav.Link href="#" as="span">
+                <Link to={'/create'}>lisää viini</Link>
+              </Nav.Link> : null}
+              {user ? <Nav.Link href="#" as="span">
+                <Link to={'/users'}>käyttäjät</Link>
+              </Nav.Link> : null}
+              {!user ? <Nav.Link href="#" as="span">
+                <Link to={'/registration'}>rekisteröidy käyttäjäksi</Link>
+              </Nav.Link> : null}
+              {!user ? <Nav.Link href="#" as="span">
+                <Link to={'/login'}><Button type="button">kirjaudu sisään</Button></Link>
+              </Nav.Link> : null}
+              {user ? <Navbar.Brand>{user.username} kirjautunut sisään</Navbar.Brand> : null}
+              {user ? <Button variant="secondary" onClick={handleLogout}>kirjaudu ulos</Button> : null}
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+        {/*<div>
           <Link to="/">etusivu</Link>
           {user ? <Link to="/create">lisää viini</Link> : null}
           {user ? <Link to="/users">käyttäjät</Link> : null}
@@ -68,7 +93,7 @@ const App = () => {
         </div>
         <div>
           {user ? <h3>{user.username} kirjautunut sisään</h3> : null}
-        </div>
+        </div>*/}
 
         <Switch>
           <Route path="/wines/:id">
