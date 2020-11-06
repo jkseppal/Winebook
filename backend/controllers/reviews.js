@@ -28,6 +28,7 @@ reviewRouter.post('/:id', async (request, response, next) => {
   const review = new Review({
     description: body.description,
     points: body.points,
+    vintage: body.vintage,
     wine: wine._id,
     user: user._id
   })

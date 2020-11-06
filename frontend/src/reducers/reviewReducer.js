@@ -1,6 +1,6 @@
 import reviewService from '../services/reviews'
 
-const reviewReducer = (state = {}, action) => {
+const reviewReducer = (state = [], action) => {
 
   switch (action.type) {
     case 'INIT_REVIEWS':

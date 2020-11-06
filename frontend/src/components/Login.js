@@ -22,11 +22,12 @@ const Login = () => {
     event.preventDefault()
     try {
       const user = await loginService.login({
-        username, password,
+        username, password
       })
       window.localStorage.setItem(
         'loggedUser', JSON.stringify(user)
       )
+      console.log('user: ', window.localStorage.getItem('loggedUser'))
       wineService.setToken(user.token)
       reviewService.setToken(user.token)
       setUser(user)
@@ -40,15 +41,15 @@ const Login = () => {
 
   if (user) {
     return (
-      <h2>{user.username} logged in</h2>
+      <h2>Sisäänkirjautuminen onnistunut</h2>
     )
   } else {
     return (
       <div>
-        <h2>log in to wine application</h2>
+        <h2>Kirjaudu sisään:</h2>
         <form onSubmit={handleLogin}>
           <div>
-            username
+            käyttäjätunnus
             <input
               id='username'
               type="text"
@@ -58,7 +59,7 @@ const Login = () => {
             />
           </div>
           <div>
-            password
+            salasana
             <input
               id='password'
               type="password"

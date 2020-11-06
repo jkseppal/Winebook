@@ -4,6 +4,13 @@ const User = require('../models/user')
 
 usersRouter.get('/', async (request, response) => {
   const users = await User.find({})
+  .populate('wines', { name: 1, region: 1 })
+  .populate({
+    path : 'reviews',
+    populate : {
+      path : 'wine'
+    }
+  })
   response.json(users.map(u => u.toJSON()))
 })
 

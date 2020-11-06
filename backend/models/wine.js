@@ -4,6 +4,7 @@ const wineSchema = mongoose.Schema({
   name: String,
   region: String,
   grapes: String,
+  type: String,
   reviews: [
     {
       type: mongoose.Schema.Types.ObjectId,

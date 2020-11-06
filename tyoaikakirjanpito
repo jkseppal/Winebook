@@ -4,5 +4,6 @@
 28.10.2020: 6h, frontendiin luotu mahdollisuus viinien ja arvostelujen lisäämiseen, backendin debuggausta
 04.11.2020: 5h, frontendiin lisätty react router ja redux
 05.11.2020: 4h, reduxin käyttöönottoa, koodin ja rakenteen refaktorointia
+06.11.2020: 4h, refaktorointia, debuggausta, lisätty mahdollisuus määrittää viinin tyyppi sekä vuosikerran lisäämiseen arvosteluun
 
-yhteensä: 23h
+yhteensä: 27h

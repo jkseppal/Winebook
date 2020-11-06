@@ -32,6 +32,7 @@ winesRouter.post('/', async (request, response) => {
   const wine = new Wine({
     name: body.name,
     region: body.region,
+    type: body.type,
     grapes: body.grapes,
     user: user._id
   })

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 const WineForm = ({ addWine, user }) => {
   const [name, setName] = useState('')
+  const [type, setType] = useState('')
   const [region, setRegion] = useState('')
   const [grapes, setGrapes] = useState('')
 
@@ -9,10 +10,12 @@ const WineForm = ({ addWine, user }) => {
     addWine({
       user: user,
       name: name,
+      type: type,
       region: region,
       grapes: grapes
     })
     setName('')
+    setType('')
     setRegion('')
     setGrapes('')
   }
@@ -22,7 +25,7 @@ const WineForm = ({ addWine, user }) => {
       <h2>Lisää uusi viini:</h2>
       <form onSubmit={handleWineAdd}>
           <div>
-            name
+            nimi
             <input
               type="text"
               value={name}
@@ -30,7 +33,15 @@ const WineForm = ({ addWine, user }) => {
             />
           </div>
           <div>
-            region
+            tyyppi
+            <input
+              type="text"
+              value={type}
+              onChange={({ target }) => setType(target.value)}
+            />
+          </div>
+          <div>
+            alue
             <input
               type="text"
               value={region}
@@ -38,14 +49,14 @@ const WineForm = ({ addWine, user }) => {
             />
           </div>
           <div>
-            grapes
+            rypäleet
             <input
               type="text"
               value={grapes}
               onChange={({ target }) => setGrapes(target.value)}
             />
           </div>
-          <button type="submit">add wine</button>
+          <button type="submit">lisää</button>
         </form>
     </div>
   )

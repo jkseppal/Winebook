@@ -1,38 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import reviewService from '../services/reviews'
-import { createReview, initializeReviews } from '../reducers/reviewReducer'
+import { createReview } from '../reducers/reviewReducer'
 
 const SingleWine = ({ wines, user }) => {
   const dispatch = useDispatch()
   
   const [description, setDescription] = useState('')
   const [points, setPoints] = useState(0)
-  const [reviews, setReviews] = useState([])
-  //const [user, setUser] = useState(null)
-
-  /*useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-    }
-  }, [])*/
-
-  /*useEffect(() => {
-    reviewService.getReviews().then(revs =>
-      setReviews( revs )
-    )
-    console.log('all reviews from effect: ', reviews)
-  }, [])*/
-
-  /*useEffect(() => {
-    dispatch(initializeReviews())
-  },[dispatch])*/
+  const [vintage, setVintage] = useState(0)
   
   const id = useParams().id
   const wineToShow = wines.find(wine => wine.id === id)
+
+  let average = null
+
+  if (wineToShow && wineToShow.reviews.length > 0) {
+    let sum = 0
+    for (let i = 0; i < wineToShow.reviews.length; i++) {
+      sum = sum + wineToShow.reviews[i].points
+    }
+    average = sum / wineToShow.reviews.length
+  }
 
   const handleReviewAdd = (event) => {
     addReview({
@@ -40,18 +29,11 @@ const SingleWine = ({ wines, user }) => {
       wine: wineToShow,
       description: description,
       points: points,
+      vintage: vintage,
     })
     setDescription('')
     setPoints('')
   }
-
-  /*const addReview = (reviewObject) => {
-    reviewService
-      .addReview(wineToShow.id, reviewObject)
-      .then(returnedReview => {
-        setReviews(reviews.concat(returnedReview))
-      })
-  }*/
 
   const addReview = (reviewObject) => {
     dispatch(createReview(wineToShow.id, reviewObject))
@@ -65,9 +47,11 @@ const SingleWine = ({ wines, user }) => {
     <div>
       <h2>{wineToShow.name}</h2>
       <p>
+        tyyppi: {wineToShow.type}<br />
         alue: {wineToShow.region}<br />
         rypäleet: {wineToShow.grapes}<br />
       </p>
+      {average ? <h3>arvostelujen keskiarvo: {average}</h3> : null}
       <div>
         <h3>Arvostelut:</h3>
         {wineToShow.reviews.map(r =>
@@ -77,7 +61,11 @@ const SingleWine = ({ wines, user }) => {
               {r.user.username}
             </p>
             <p>
-              arvostelu:<br />
+              arvosteltu vuosikerta:<br />
+              {r.vintage}
+            </p>
+            <p>
+              kuvaus:<br />
               {r.description}
             </p>
             <p>
@@ -90,24 +78,32 @@ const SingleWine = ({ wines, user }) => {
       {user ? <div>
         <h3>Lisää arvostelu:</h3>
         <form onSubmit={handleReviewAdd}>
-        <div>
-          description
-          <input
-            type="text"
-            value={description}
-            onChange={({ target }) => setDescription(target.value)}
-          />
-        </div>
-        <div>
-          points
-          <input
-            type="text"
-            value={points}
-            onChange={({ target }) => setPoints(target.value)}
-          />
-        </div>
-        <button type="submit">add a review</button>
-      </form>
+          <div>
+            arvosteltu vuosikerta
+            <input
+              type="text"
+              value={vintage}
+              onChange={({ target }) => setVintage(target.value)}
+            />
+          </div>
+          <div>
+            kuvaus
+            <input
+              type="text"
+              value={description}
+              onChange={({ target }) => setDescription(target.value)}
+            />
+          </div>
+          <div>
+            pisteet
+            <input
+              type="text"
+              value={points}
+             onChange={({ target }) => setPoints(target.value)}
+            />
+          </div>
+          <button type="submit">lisää</button>
+        </form>
       </div> : null}
     </div>
   )

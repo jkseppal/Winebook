@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import userService from '../services/users'
+//import userService from '../services/users'
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ addUser }) => {
   const [newName, setNewName] = useState('')
   const [newUsername, setNewUsername] = useState('')
   const [newPassword, setNewPassword] = useState('')
@@ -16,14 +16,6 @@ const RegistrationForm = () => {
     setNewName('')
     setNewUsername('')
     setNewPassword('')
-  }
-
-  const addUser = (userObject) => {
-    userService
-      .createUser(userObject)
-      /*.then(returnedUser => {
-        setUsers(users.concat(returnedUser))
-      })*/
   }
 
   return (
