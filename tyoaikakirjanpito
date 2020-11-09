@@ -6,5 +6,6 @@
 05.11.2020: 4h, reduxin käyttöönottoa, koodin ja rakenteen refaktorointia
 06.11.2020: 4h, refaktorointia, debuggausta, lisätty mahdollisuus määrittää viinin tyyppi sekä vuosikerran lisäämiseen arvosteluun
 06.11.2020: 2h, Sovelluksen ulkoasua parannettu, react bootstrap otettu käyttöön
+09.11.2020: 2h, Viinien näkymään lisätty mahdollisuus suodattaa näytettäviä viinejä
 
-yhteensä: 29h
+yhteensä: 31h

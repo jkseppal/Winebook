@@ -9,7 +9,7 @@ const SingleWine = ({ wines, user }) => {
   
   const [description, setDescription] = useState('')
   const [points, setPoints] = useState(0)
-  const [vintage, setVintage] = useState(0)
+  const [vintage, setVintage] = useState('--')
   
   const id = useParams().id
   const wineToShow = wines.find(wine => wine.id === id)
