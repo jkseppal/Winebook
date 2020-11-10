@@ -7,10 +7,12 @@ import WineList from './components/WineList'
 import RegistrationForm from './components/RegistrationForm'
 import Login from './components/Login'
 import UserList from './components/UserList'
+import Notification from './components/Notification'
 import { useDispatch, useSelector } from 'react-redux'
 import { createWine, initializeWines } from './reducers/wineReducer'
 import WineForm from './components/WineForm'
 import { initializeUsers, createUser } from './reducers/usersReducer'
+import { notificationChange } from './reducers/notificationReducer'
 import SingleUser from './components/SingleUser'
 import { Navbar, Nav, Button } from 'react-bootstrap'
 
@@ -50,15 +52,17 @@ const App = () => {
 
   const addWine = (wineObject) => {
     dispatch(createWine(wineObject))
+    dispatch(notificationChange(`viini ${wineObject.name} lisätty`, 5))
   }
 
   const addUser = (userObject) => {
     dispatch(createUser(userObject))
+    dispatch(notificationChange('rekisteröityminen onnistunut', 5))
   }
 
   return (
     <Router>
-      <div className="container">
+      <div>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -83,18 +87,8 @@ const App = () => {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        {/*<div>
-          <Link to="/">etusivu</Link>
-          {user ? <Link to="/create">lisää viini</Link> : null}
-          {user ? <Link to="/users">käyttäjät</Link> : null}
-          {!user ? <Link to="/registration">rekisteröidy</Link> : null}
-          {!user ? <Link to="/login"><button type="button">kirjaudu sisään</button></Link> : null}
-          {user ? <button onClick={handleLogout}>kirjaudu ulos</button> : null}
-        </div>
-        <div>
-          {user ? <h3>{user.username} kirjautunut sisään</h3> : null}
-        </div>*/}
-
+        <div className="container">
+        <Notification />
         <Switch>
           <Route path="/wines/:id">
             <SingleWine wines={wines} user={user} />
@@ -118,6 +112,7 @@ const App = () => {
             <WineList wines={wines} />
           </Route>
         </Switch>
+        </div>
       </div>
     </Router>
   )

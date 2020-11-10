@@ -8,7 +8,7 @@ const SingleUser = ({ users }) => {
 
   return (
     <div>
-      <h3>käyttäjänimi: {userToShow.username}</h3>
+      <h3>käyttäjätunnus: {userToShow.username}</h3>
       <h3>nimi: {userToShow.name}</h3>
       <h3>käyttäjän lisäämät viinit:</h3>
       {userToShow.wines.map(wine =>

@@ -1,21 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 //import { useDispatch, useSelector } from 'react-redux'
 //import { initializeUsers } from '../reducers/usersReducer'
 import { Link } from 'react-router-dom'
 
 const UserList = ({ users }) => {
-  /*const dispatch = useDispatch()
+  const [findFilter, setFindFilter] = useState('')
 
-  useEffect(() => {
-    dispatch(initializeUsers())
-  })
+  let usersToShow = users.filter(u => u.username.includes(findFilter))
 
-  let users = useSelector(state => state.users)*/
+  const handleFindFilterChange = (event) => {
+    setFindFilter(event.target.value)
+  }
 
   return (
     <div>
       <h2>rekisteröityneet käyttäjät:</h2>
-      {users.map(u =>
+      Hae käyttäjätunnuksella:
+        <input
+          placeholder="hae..."
+          value={findFilter}
+          onChange={handleFindFilterChange}
+        />
+      {usersToShow.map(u =>
         <div key={u.id}>
           <Link to={`/users/${u.id}`}>{u.username}</Link>
         </div>

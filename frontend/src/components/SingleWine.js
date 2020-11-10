@@ -134,7 +134,8 @@ const SingleWine = ({ wines, user }) => {
                 </td>
                 <td>
                   <Form.Control
-                    type="text"
+                    as="textarea"
+                    rows={4}
                     value={description}
                     onChange={({ target }) => setDescription(target.value)}
                   />

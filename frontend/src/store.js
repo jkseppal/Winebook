@@ -5,11 +5,13 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import usersReducer from './reducers/usersReducer'
 import wineReducer from './reducers/wineReducer'
 import reviewReducer from './reducers/reviewReducer'
+import notificationReducer from './reducers/notificationReducer'
 
 const reducer = combineReducers({
   users: usersReducer,
   wines: wineReducer,
-  reviews: reviewReducer
+  reviews: reviewReducer,
+  notification: notificationReducer
 })
 
 const store = createStore(

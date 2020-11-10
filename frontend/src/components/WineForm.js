@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap'
 
 const WineForm = ({ addWine, user }) => {
   const [name, setName] = useState('')
-  const [type, setType] = useState('')
+  const [type, setType] = useState('punaviini')
   const [region, setRegion] = useState('')
   const [grapes, setGrapes] = useState('')
 

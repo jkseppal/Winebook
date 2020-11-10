@@ -44,6 +44,7 @@ const WineList = ({ wines }) => {
         </select>
       Hae viinin nimellä:
         <input
+          placeholder="hae..."
           value={findFilter}
           onChange={handleFindFilterChange}
         />
