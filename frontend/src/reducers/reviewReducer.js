@@ -7,6 +7,16 @@ const reviewReducer = (state = [], action) => {
       return action.data
     case 'NEW_REVIEW':
       return [...state, action.data]
+    case 'LIKE': {
+      const id = action.data.id
+      const reviewToLike = state.find(r => r.id === id)
+      const likedReview = {
+        ...reviewToLike,
+        likes: reviewToLike.likes + 1
+      }
+      return state.map(rev =>
+        rev.id !== id ? rev : likedReview)
+    }
     default:
       return state
   }
@@ -28,6 +38,16 @@ export const createReview = (id, content) => {
     dispatch ({
       type: 'NEW_REVIEW',
       data: newReview
+    })
+  }
+}
+
+export const likeReview = (id, content) => {
+  return async dispatch => {
+    const likedReview = await reviewService.updateReview(id, content)
+    dispatch({
+      type: 'LIKE',
+      data: likedReview
     })
   }
 }

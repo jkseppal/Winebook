@@ -29,6 +29,7 @@ reviewRouter.post('/:id', async (request, response, next) => {
     description: body.description,
     points: body.points,
     vintage: body.vintage,
+    likes: 0,
     wine: wine._id,
     user: user._id
   })
@@ -39,6 +40,22 @@ reviewRouter.post('/:id', async (request, response, next) => {
   wine.reviews = wine.reviews.concat(savedReview._id)
   await wine.save()
 
+  response.json(savedReview.toJSON())
+})
+
+reviewRouter.put('/:id', async (request, response) => {
+  const body = request.body
+
+  const review = {
+    description: body.description,
+    points: body.points,
+    vintage: body.vintage,
+    likes: body.likes,
+    wine: body.wine,
+    user: body.user
+  }
+
+  const savedReview = await Review.findByIdAndUpdate(request.params.id, review, { new: true, useFindAndModify: false })
   response.json(savedReview.toJSON())
 })
 

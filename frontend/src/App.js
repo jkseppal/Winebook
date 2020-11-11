@@ -15,6 +15,7 @@ import { initializeUsers, createUser } from './reducers/usersReducer'
 import { notificationChange } from './reducers/notificationReducer'
 import SingleUser from './components/SingleUser'
 import { Navbar, Nav, Button } from 'react-bootstrap'
+import { likeReview } from './reducers/reviewReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -60,6 +61,10 @@ const App = () => {
     dispatch(notificationChange('rekisteröityminen onnistunut', 5))
   }
 
+  const addLike = (reviewObject) => {
+    dispatch(likeReview(reviewObject.id, reviewObject))
+  }
+
   return (
     <Router>
       <div>
@@ -91,7 +96,7 @@ const App = () => {
         <Notification />
         <Switch>
           <Route path="/wines/:id">
-            <SingleWine wines={wines} user={user} />
+            <SingleWine wines={wines} user={user} addLike={addLike} />
           </Route>
           <Route path="/users/:id">
             <SingleUser users={users} />

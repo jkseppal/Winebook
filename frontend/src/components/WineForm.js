@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap'
 
 const WineForm = ({ addWine, user }) => {
   const [name, setName] = useState('')
+  const [country, setCountry] = useState('muu')
   const [type, setType] = useState('punaviini')
   const [region, setRegion] = useState('')
   const [grapes, setGrapes] = useState('')
@@ -12,11 +13,13 @@ const WineForm = ({ addWine, user }) => {
       user: user,
       name: name,
       type: type,
+      country: country,
       region: region,
       grapes: grapes
     })
     setName('')
     setType('')
+    setCountry('muu')
     setRegion('')
     setGrapes('')
   }
@@ -62,6 +65,33 @@ const WineForm = ({ addWine, user }) => {
             </tr>
             <tr>
               <td>
+                <Form.Label>maa</Form.Label>
+              </td>
+              <td>
+                <Form.Control
+                  as="select"
+                  value={country}
+                  onChange={({ target }) => setCountry(target.value)}
+                >
+                  <option>muu</option>
+                  <option>Ranska</option>
+                  <option>Italia</option>
+                  <option>Espanja</option>
+                  <option>Saksa</option>
+                  <option>Portugali</option>
+                  <option>Chile</option>
+                  <option>Australia</option>
+                  <option>Argentina</option>
+                  <option>Etelä-Afrikka</option>
+                  <option>Uusi-Seelanti</option>
+                  <option>Itävalta</option>
+                  <option>Yhdysvallat</option>
+                  <option>Unkari</option>
+                </Form.Control>
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <Form.Label>alue</Form.Label>
               </td>
               <td>
@@ -88,41 +118,6 @@ const WineForm = ({ addWine, user }) => {
         </table>
         <Button variant="success" type="submit">lisää</Button>
       </Form>
-      {/*<form onSubmit={handleWineAdd}>
-          <div>
-            nimi
-            <input
-              type="text"
-              value={name}
-              onChange={({ target }) => setName(target.value)}
-            />
-          </div>
-          <div>
-            tyyppi
-            <input
-              type="text"
-              value={type}
-              onChange={({ target }) => setType(target.value)}
-            />
-          </div>
-          <div>
-            alue
-            <input
-              type="text"
-              value={region}
-              onChange={({ target }) => setRegion(target.value)}
-            />
-          </div>
-          <div>
-            rypäleet
-            <input
-              type="text"
-              value={grapes}
-              onChange={({ target }) => setGrapes(target.value)}
-            />
-          </div>
-          <button type="submit">lisää</button>
-      </form>*/}
     </div>
   )
 }

@@ -11,7 +11,8 @@ const reviewSchema = mongoose.Schema({
   },
   vintage: String,
   description: String,
-  points: Number
+  points: Number,
+  likes: Number
 })
 
 reviewSchema.set('toJSON', {

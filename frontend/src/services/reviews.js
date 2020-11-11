@@ -19,4 +19,9 @@ const getReviews = () => {
   return request.then(response => response.data)
 }
 
-export default { setToken, addReview, getReviews }
+const updateReview = (id, newObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newObject)
+  return request.then(response => response.data)
+}
+
+export default { setToken, addReview, getReviews, updateReview }

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { createReview } from '../reducers/reviewReducer'
 import { Table, Form, Button } from 'react-bootstrap'
 
-const SingleWine = ({ wines, user }) => {
+const SingleWine = ({ wines, user, addLike }) => {
   const dispatch = useDispatch()
   
   const [description, setDescription] = useState('')
@@ -13,6 +13,19 @@ const SingleWine = ({ wines, user }) => {
   
   const id = useParams().id
   const wineToShow = wines.find(wine => wine.id === id)
+
+  const handleLike = (props) => {
+    const likedReview = {
+      id: props.id,
+      wine: props.wine,
+      user: props.user.id,
+      vintage: props.vintage,
+      description: props.description,
+      points: props.points,
+      likes: (props.likes + 1)
+    }
+    addLike(likedReview)
+  }
 
   let average = null
 
@@ -59,6 +72,7 @@ const SingleWine = ({ wines, user }) => {
       <h2>{wineToShow.name}</h2>
       <p>
         tyyppi: {wineToShow.type}<br />
+        maa: {wineToShow.country}<br />
         alue: {wineToShow.region}<br />
         rypäleet: {wineToShow.grapes}<br />
       </p>
@@ -69,9 +83,11 @@ const SingleWine = ({ wines, user }) => {
           <thead>
             <tr>
               <th>arvostelija</th>
-              <th>arvosteltu vuosikirja</th>
+              <th>arvosteltu vuosikerta</th>
+              <th>tykkäykset</th>
               <th>pisteet</th>
               <th>kuvaus</th>
+              <th>tykkää</th>
             </tr>
           </thead>
           <tbody>
@@ -79,32 +95,16 @@ const SingleWine = ({ wines, user }) => {
               <tr key={r.id}>
                 <td>{r.user.username}</td>
                 <td>{r.vintage}</td>
+                <td>{r.likes}</td>
                 <td>{r.points}</td>
                 <td>{r.description}</td>
+                <td>
+                  <Button onClick={() => handleLike(r)}>tykkää</Button>
+                </td>
               </tr>
             )}
           </tbody>
         </Table>
-        {/*wineToShow.reviews.map(r =>
-          <div key={r.id}>
-            <p>
-              arvostelija:<br />
-              {r.user.username}
-            </p>
-            <p>
-              arvosteltu vuosikerta:<br />
-              {r.vintage}
-            </p>
-            <p>
-              kuvaus:<br />
-              {r.description}
-            </p>
-            <p>
-              pisteet:<br />
-              {r.points}
-            </p>
-          </div>
-        )*/}
       </div>
       {user ? <div>
         <h3>Lisää arvostelu:</h3>
@@ -161,33 +161,6 @@ const SingleWine = ({ wines, user }) => {
           </Table>
           <Button variant="success" type="submit">lisää arvostelu</Button>
         </Form>
-        {/*<form onSubmit={handleReviewAdd}>
-          <div>
-            arvosteltu vuosikerta
-            <input
-              type="text"
-              value={vintage}
-              onChange={({ target }) => setVintage(target.value)}
-            />
-          </div>
-          <div>
-            kuvaus
-            <input
-              type="text"
-              value={description}
-              onChange={({ target }) => setDescription(target.value)}
-            />
-          </div>
-          <div>
-            pisteet
-            <input
-              type="text"
-              value={points}
-             onChange={({ target }) => setPoints(target.value)}
-            />
-          </div>
-          <button type="submit">lisää</button>
-      </form>*/}
       </div> : null}
     </div>
   )

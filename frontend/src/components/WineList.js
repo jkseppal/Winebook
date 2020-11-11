@@ -4,16 +4,26 @@ import { Link } from 'react-router-dom'
 const WineList = ({ wines }) => {
   const [selectFilter, setSelectFilter] = useState('kaikki viinit')
   const [findFilter, setFindFilter] = useState('')
+  const [countryFilter, setCountryFilter] = useState('kaikki maat')
 
-  let winesToShow = wines.filter(w => w.type === selectFilter)
+  let winesByType = wines.filter(w => w.type === selectFilter)
   if (selectFilter === 'kaikki viinit') {
-    winesToShow = wines
+    winesByType = wines
   }
 
-  let winesToFind = winesToShow.filter(w => w.name.includes(findFilter))
+  let winesByCountry = winesByType.filter(w => w.country === countryFilter)
+  if (countryFilter === 'kaikki maat') {
+    winesByCountry = winesByType
+  }
+
+  let winesToShow = winesByCountry.filter(w => w.name.includes(findFilter))
 
   const handleSelectFilterChange = (event) => {
     setSelectFilter(event.target.value)
+  }
+
+  const handleCountryFilterChange = (event) => {
+    setCountryFilter(event.target.value)
   }
 
   const handleFindFilterChange = (event) => {
@@ -42,13 +52,34 @@ const WineList = ({ wines }) => {
           <option>jäkiruokaviini</option>
           <option>muu</option>
         </select>
+        Maa:
+        <select
+          value={countryFilter}
+          onChange={handleCountryFilterChange}
+        >
+          <option>kaikki maat</option>
+          <option>Ranska</option>
+          <option>Italia</option>
+          <option>Espanja</option>
+          <option>Saksa</option>
+          <option>Portugali</option>
+          <option>Chile</option>
+          <option>Australia</option>
+          <option>Argentina</option>
+          <option>Etelä-Afrikka</option>
+          <option>Uusi-Seelanti</option>
+          <option>Itävalta</option>
+          <option>Yhdysvallat</option>
+          <option>Unkari</option>
+          <option>muu</option>
+        </select>
       Hae viinin nimellä:
         <input
           placeholder="hae..."
           value={findFilter}
           onChange={handleFindFilterChange}
         />
-      {winesToFind.map(w =>
+      {winesToShow.map(w =>
         <div key={w.id}>
           <Link to={`/wines/${w.id}`}>{w.name}</Link>
         </div>

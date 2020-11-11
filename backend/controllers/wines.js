@@ -33,6 +33,7 @@ winesRouter.post('/', async (request, response) => {
     name: body.name,
     region: body.region,
     type: body.type,
+    country: body.country,
     grapes: body.grapes,
     user: user._id
   })
