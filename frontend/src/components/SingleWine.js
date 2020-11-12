@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { createReview } from '../reducers/reviewReducer'
 import { Table, Form, Button } from 'react-bootstrap'
 
-const SingleWine = ({ wines, user, addLike }) => {
+const SingleWine = ({ wines, user, reviews, addLike }) => {
   const dispatch = useDispatch()
   
   const [description, setDescription] = useState('')
@@ -13,11 +13,12 @@ const SingleWine = ({ wines, user, addLike }) => {
   
   const id = useParams().id
   const wineToShow = wines.find(wine => wine.id === id)
+  const reviewsToShow = reviews.filter(r => r.wine.id === id)
 
   const handleLike = (props) => {
     const likedReview = {
       id: props.id,
-      wine: props.wine,
+      wine: props.wine.id,
       user: props.user.id,
       vintage: props.vintage,
       description: props.description,
@@ -90,8 +91,22 @@ const SingleWine = ({ wines, user, addLike }) => {
               <th>tykkää</th>
             </tr>
           </thead>
-          <tbody>
+          {/*<tbody>
             {wineToShow.reviews.map(r =>
+              <tr key={r.id}>
+                <td>{r.user.username}</td>
+                <td>{r.vintage}</td>
+                <td>{r.likes}</td>
+                <td>{r.points}</td>
+                <td>{r.description}</td>
+                <td>
+                  <Button onClick={() => handleLike(r)}>tykkää</Button>
+                </td>
+              </tr>
+            )}
+            </tbody>*/}
+          <tbody>
+            {reviewsToShow.map(r =>
               <tr key={r.id}>
                 <td>{r.user.username}</td>
                 <td>{r.vintage}</td>

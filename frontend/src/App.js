@@ -15,7 +15,7 @@ import { initializeUsers, createUser } from './reducers/usersReducer'
 import { notificationChange } from './reducers/notificationReducer'
 import SingleUser from './components/SingleUser'
 import { Navbar, Nav, Button } from 'react-bootstrap'
-import { likeReview } from './reducers/reviewReducer'
+import { initializeReviews, likeReview } from './reducers/reviewReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -30,8 +30,13 @@ const App = () => {
     dispatch(initializeUsers())
   },[dispatch])
 
+  useEffect(() => {
+    dispatch(initializeReviews())
+  },[dispatch])
+
   let wines = useSelector(state => state.wines)
   let users = useSelector(state => state.users)
+  let reviews = useSelector(state => state.reviews)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -96,7 +101,7 @@ const App = () => {
         <Notification />
         <Switch>
           <Route path="/wines/:id">
-            <SingleWine wines={wines} user={user} addLike={addLike} />
+            <SingleWine wines={wines} user={user} reviews={reviews} addLike={addLike} />
           </Route>
           <Route path="/users/:id">
             <SingleUser users={users} />
