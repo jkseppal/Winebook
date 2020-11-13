@@ -12,6 +12,14 @@ const UserList = ({ users }) => {
     setFindFilter(event.target.value)
   }
 
+  const usersByUsername = (users) => {
+    users.sort((a, b) => {
+      if (a.username.toLowerCase() < b.username.toLowerCase()) { return -1 }
+      if (a.username.toLowerCase() > b.username.toLowerCase()) { return 1 }
+      return 0
+    })
+  }
+
   return (
     <div>
       <h2>rekisteröityneet käyttäjät:</h2>
@@ -21,6 +29,7 @@ const UserList = ({ users }) => {
           value={findFilter}
           onChange={handleFindFilterChange}
         />
+      {usersByUsername(usersToShow)}
       {usersToShow.map(u =>
         <div key={u.id}>
           <Link to={`/users/${u.id}`}>{u.username}</Link>

@@ -10,5 +10,6 @@
 10.11.2020: 2h, Käyttäjien näkymään lisätty suodatus, notificaatioita lisätty
 11.11.2020: 5h, Viineihin lisätty mahdollisuus lisätä maa. Lisätty mahdollisuss tykätä arvostelusta. Tykkäykseen liittyvä bugi korjaamatta
 12.11.2020: 4h, Refaktorointia, tykkäysnapin bugi korjattu
+13.11.2020: 1h, Viinien ja käyttäjien lista aakkosjärjestykseen, arvostelujen lista tykkäysten mukaiseen järjestykseen, lisätty mahdollisuus määrittää viinille laatuluokitus
 
-yhteensä: 42h
+yhteensä: 43h

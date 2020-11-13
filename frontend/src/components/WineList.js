@@ -29,6 +29,14 @@ const WineList = ({ wines }) => {
   const handleFindFilterChange = (event) => {
     setFindFilter(event.target.value)
   }
+
+  const winesByName = (wines) => {
+    wines.sort((a, b) => {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) { return -1 }
+      if (a.name.toLowerCase() > b.name.toLowerCase()) { return 1 }
+      return 0
+    })
+  }
   
   if (!wines) {
     return null
@@ -79,6 +87,7 @@ const WineList = ({ wines }) => {
           value={findFilter}
           onChange={handleFindFilterChange}
         />
+      {winesByName(winesToShow)}
       {winesToShow.map(w =>
         <div key={w.id}>
           <Link to={`/wines/${w.id}`}>{w.name}</Link>

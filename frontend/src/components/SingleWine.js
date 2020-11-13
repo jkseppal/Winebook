@@ -64,6 +64,12 @@ const SingleWine = ({ wines, user, reviews, addLike }) => {
     vintageOptions.push(i)
   }
 
+  const reviewsByLikes = (reviews) => {
+    reviews.sort((a, b) => {
+      return b.likes - a.likes
+    })
+  }
+
   if (!wineToShow) {
     return null
   }
@@ -75,6 +81,7 @@ const SingleWine = ({ wines, user, reviews, addLike }) => {
         tyyppi: {wineToShow.type}<br />
         maa: {wineToShow.country}<br />
         alue: {wineToShow.region}<br />
+        laatuluokitus: {wineToShow.appellation}<br />
         rypäleet: {wineToShow.grapes}<br />
       </p>
       {average ? <h3>arvostelujen keskiarvo: {average}</h3> : null}
@@ -106,6 +113,7 @@ const SingleWine = ({ wines, user, reviews, addLike }) => {
             )}
             </tbody>*/}
           <tbody>
+            {reviewsByLikes(reviewsToShow)}
             {reviewsToShow.map(r =>
               <tr key={r.id}>
                 <td>{r.user.username}</td>

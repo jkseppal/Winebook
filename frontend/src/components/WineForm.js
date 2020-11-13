@@ -7,6 +7,7 @@ const WineForm = ({ addWine, user }) => {
   const [type, setType] = useState('punaviini')
   const [region, setRegion] = useState('')
   const [grapes, setGrapes] = useState('')
+  const [appellation, setAppellation] = useState('')
 
   const handleWineAdd = (event) => {
     addWine({
@@ -15,11 +16,13 @@ const WineForm = ({ addWine, user }) => {
       type: type,
       country: country,
       region: region,
+      appellation: appellation,
       grapes: grapes
     })
     setName('')
-    setType('')
+    setType('punaviini')
     setCountry('muu')
+    setAppellation('')
     setRegion('')
     setGrapes('')
   }
@@ -99,6 +102,18 @@ const WineForm = ({ addWine, user }) => {
                   type="text"
                   value={region}
                   onChange={({ target }) => setRegion(target.value)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Form.Label>laatuluokitus</Form.Label>
+              </td>
+              <td>
+                <Form.Control
+                  type="text"
+                  value={appellation}
+                  onChange={({ target }) => setAppellation(target.value)}
                 />
               </td>
             </tr>
