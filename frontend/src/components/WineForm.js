@@ -40,6 +40,7 @@ const WineForm = ({ addWine, user }) => {
               <td>
                 <Form.Control
                   type="text"
+                  placeholder="esim. Torres Sangre de Toro"
                   value={name}
                   onChange={({ target }) => setName(target.value)}
                 />
@@ -90,6 +91,7 @@ const WineForm = ({ addWine, user }) => {
                   <option>Itävalta</option>
                   <option>Yhdysvallat</option>
                   <option>Unkari</option>
+                  <option>Kreikka</option>
                 </Form.Control>
               </td>
             </tr>
@@ -100,6 +102,7 @@ const WineForm = ({ addWine, user }) => {
               <td>
                 <Form.Control
                   type="text"
+                  placeholder="esim. Bordeaux"
                   value={region}
                   onChange={({ target }) => setRegion(target.value)}
                 />
@@ -112,6 +115,7 @@ const WineForm = ({ addWine, user }) => {
               <td>
                 <Form.Control
                   type="text"
+                  placeholder="esim. DOCG Barolo"
                   value={appellation}
                   onChange={({ target }) => setAppellation(target.value)}
                 />
@@ -124,6 +128,7 @@ const WineForm = ({ addWine, user }) => {
               <td>
                 <Form.Control
                   type="text"
+                  placeholder="esim. cabernet sauvignon, merlot"
                   value={grapes}
                   onChange={({ target }) => setGrapes(target.value)}
                 />

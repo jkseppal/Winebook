@@ -14,6 +14,7 @@ import WineForm from './components/WineForm'
 import { initializeUsers, createUser } from './reducers/usersReducer'
 import { notificationChange } from './reducers/notificationReducer'
 import SingleUser from './components/SingleUser'
+import Guide from './components/Guide'
 import { Navbar, Nav, Button } from 'react-bootstrap'
 import { initializeReviews, likeReview } from './reducers/reviewReducer'
 
@@ -89,6 +90,9 @@ const App = () => {
               {!user ? <Nav.Link href="#" as="span">
                 <Link to={'/registration'}>rekisteröidy käyttäjäksi</Link>
               </Nav.Link> : null}
+              <Nav.Link href="#" as="span">
+                <Link to={'/guide'}>ohjeita</Link>
+              </Nav.Link>
               {!user ? <Nav.Link href="#" as="span">
                 <Link to={'/login'}><Button type="button">kirjaudu sisään</Button></Link>
               </Nav.Link> : null}
@@ -117,6 +121,9 @@ const App = () => {
           </Route>
           <Route path="/users">
             <UserList users={users} />
+          </Route>
+          <Route path="/guide">
+            <Guide />
           </Route>
           <Route path="/">
             <WineList wines={wines} />
