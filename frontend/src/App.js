@@ -22,6 +22,7 @@ const App = () => {
   const dispatch = useDispatch()
   
   const [user, setUser] = useState(null)
+  const [userFromDB, setUserFromDB] = useState(null)
 
   useEffect(() => {
     dispatch(initializeWines())
@@ -48,6 +49,13 @@ const App = () => {
       reviewService.setToken(user.token)
     }
   }, [])
+
+  useEffect(() => {
+    if (user) {
+      const loggedUser = users.find(u => u.username === user.username)
+      setUserFromDB(loggedUser)
+    }
+  }, [user, users])
 
   const handleLogout = async (event) => {
     event.preventDefault()
@@ -93,6 +101,9 @@ const App = () => {
               <Nav.Link href="#" as="span">
                 <Link to={'/guide'}>ohjeita</Link>
               </Nav.Link>
+              {userFromDB ? <Nav.Link href="#" as="span">
+                <Link to={`/users/${userFromDB.id}`}>oma profiili</Link>
+              </Nav.Link> : null}
               {!user ? <Nav.Link href="#" as="span">
                 <Link to={'/login'}><Button type="button">kirjaudu sisään</Button></Link>
               </Nav.Link> : null}
