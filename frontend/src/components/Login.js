@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import wineService from '../services/wines'
 import reviewService from '../services/reviews'
 import loginService from '../services/login'
 import { Form, Button } from 'react-bootstrap'
+import { errorMessageChange } from '../reducers/errorReducer'
+import { notificationChange } from '../reducers/notificationReducer'
 
 const Login = () => {
+  const dispatch = useDispatch()
+  
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -34,8 +39,11 @@ const Login = () => {
       setUser(user)
       setUsername('')
       setPassword('')
-      window.location.reload()
+      //window.location.reload()
+      window.location.assign('http://localhost:3000/')
+      dispatch(notificationChange('Onnistunut sisäänkirjautuminen!', 3))
     } catch (exception) {
+      dispatch(errorMessageChange('Virheellinen käyttäjätunnus tai salasana', 5))
       console.log('invalid username or password')
     }
   }

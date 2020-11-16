@@ -24,10 +24,10 @@ export const initializeUsers = () => {
 
 export const createUser = content => {
   return async dispatch => {
-    const newUser = await userService.createUser(content)
+    //const newUser = await userService.createUser(content)
     dispatch ({
       type: 'ADD_USER',
-      data: newUser
+      data: content
     })
   }
 }

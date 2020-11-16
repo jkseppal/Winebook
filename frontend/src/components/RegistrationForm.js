@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
+import { errorMessageChange } from '../reducers/errorReducer'
+import { notificationChange } from '../reducers/notificationReducer'
 //import userService from '../services/users'
 
 const RegistrationForm = ({ addUser }) => {
+  const dispatch = useDispatch()
+
   const [newName, setNewName] = useState('')
   const [newUsername, setNewUsername] = useState('')
   const [newPassword, setNewPassword] = useState('')
@@ -10,11 +15,15 @@ const RegistrationForm = ({ addUser }) => {
 
   const handleUserAdd = (event) => {
     event.preventDefault()
+    try {
     addUser({
       name: newName,
       username: newUsername,
       password: newPassword
     })
+    } catch (exception) {
+      dispatch(errorMessageChange('rekisteröityminen epäonnistunut', 5))
+    }
     setNewName('')
     setNewUsername('')
     setNewPassword('')
@@ -22,7 +31,7 @@ const RegistrationForm = ({ addUser }) => {
   }
 
   let approved = false
-  if (newUsername.length > 4 && newName.length > 2 && newPassword.length > 4 && newPassword === retypePassword) {
+  if (newUsername.length > 2 && newName.length > 4 && newPassword.length > 4 && newPassword === retypePassword) {
     approved = true
   }
 

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import wineService from './services/wines'
 import reviewService from './services/reviews'
+import userService from './services/users'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import SingleWine from './components/SingleWine'
 import WineList from './components/WineList'
 import RegistrationForm from './components/RegistrationForm'
 import Login from './components/Login'
+import ErrorMessage from './components/ErrorMessage'
 import UserList from './components/UserList'
 import Notification from './components/Notification'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,8 +17,10 @@ import { initializeUsers, createUser } from './reducers/usersReducer'
 import { notificationChange } from './reducers/notificationReducer'
 import SingleUser from './components/SingleUser'
 import Guide from './components/Guide'
+import Profile from './components/Profile'
 import { Navbar, Nav, Button } from 'react-bootstrap'
 import { initializeReviews, likeReview } from './reducers/reviewReducer'
+import { errorMessageChange } from './reducers/errorReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -70,9 +74,14 @@ const App = () => {
     dispatch(notificationChange(`viini ${wineObject.name} lisätty`, 5))
   }
 
-  const addUser = (userObject) => {
-    dispatch(createUser(userObject))
-    dispatch(notificationChange('rekisteröityminen onnistunut', 5))
+  const addUser = async (userObject) => {
+    try {
+      const newUser = await userService.createUser(userObject)
+      dispatch(createUser(newUser))
+      dispatch(notificationChange('Rekisteröityminen onnistunut!', 5))
+    } catch (exception) {
+      dispatch(errorMessageChange('Rekisteröityminen epäonnistui!', 5))
+    }
   }
 
   const addLike = (reviewObject) => {
@@ -102,7 +111,7 @@ const App = () => {
                 <Link to={'/guide'}>ohjeita</Link>
               </Nav.Link>
               {userFromDB ? <Nav.Link href="#" as="span">
-                <Link to={`/users/${userFromDB.id}`}>oma profiili</Link>
+                <Link to={`/profile`}>oma profiili</Link>
               </Nav.Link> : null}
               {!user ? <Nav.Link href="#" as="span">
                 <Link to={'/login'}><Button type="button">kirjaudu sisään</Button></Link>
@@ -114,6 +123,7 @@ const App = () => {
         </Navbar>
         <div className="container">
         <Notification />
+        <ErrorMessage />
         <Switch>
           <Route path="/wines/:id">
             <SingleWine wines={wines} user={user} reviews={reviews} addLike={addLike} />
@@ -135,6 +145,9 @@ const App = () => {
           </Route>
           <Route path="/guide">
             <Guide />
+          </Route>
+          <Route path="/profile">
+            <Profile user={userFromDB} />
           </Route>
           <Route path="/">
             <WineList wines={wines} />
