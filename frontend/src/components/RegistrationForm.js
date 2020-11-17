@@ -1,29 +1,28 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
-import { errorMessageChange } from '../reducers/errorReducer'
-import { notificationChange } from '../reducers/notificationReducer'
+//import { useDispatch } from 'react-redux'
+//import { errorMessageChange } from '../reducers/errorReducer'
+//import { notificationChange } from '../reducers/notificationReducer'
 //import userService from '../services/users'
 
-const RegistrationForm = ({ addUser }) => {
-  const dispatch = useDispatch()
+const RegistrationForm = ({ addUser, users }) => {
+  //const dispatch = useDispatch()
 
   const [newName, setNewName] = useState('')
   const [newUsername, setNewUsername] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [retypePassword, setRetypePassword] = useState('')
+  //const [reservedUN, setReservedUN] = useState(null)
+
+  let reservedUser = users.find(u => u.username === newUsername)
 
   const handleUserAdd = (event) => {
     event.preventDefault()
-    try {
     addUser({
       name: newName,
       username: newUsername,
       password: newPassword
     })
-    } catch (exception) {
-      dispatch(errorMessageChange('rekisteröityminen epäonnistunut', 5))
-    }
     setNewName('')
     setNewUsername('')
     setNewPassword('')
@@ -31,7 +30,7 @@ const RegistrationForm = ({ addUser }) => {
   }
 
   let approved = false
-  if (newUsername.length > 2 && newName.length > 4 && newPassword.length > 4 && newPassword === retypePassword) {
+  if (newUsername.length > 2 && newName.length > 4 && newPassword.length > 4 && newPassword === retypePassword && !reservedUser) {
     approved = true
   }
 
@@ -43,6 +42,24 @@ const RegistrationForm = ({ addUser }) => {
     }
     return (
       <Button type="submit">rekisteröidy</Button>
+    )
+  }
+
+  const ReservedText = () => {
+    if (!reservedUser) {
+      return null
+    }
+    return (
+      <div style={{ color: "red" }}>käyttäjätunnus varattu</div>
+    )
+  }
+
+  const IncorrectPassword = () => {
+    if (newPassword === retypePassword) {
+      return null
+    }
+    return (
+      <div style={{ color: "red" }}>salasanat eivät täsmää</div>
     )
   }
 
@@ -79,6 +96,10 @@ const RegistrationForm = ({ addUser }) => {
               </td>
             </tr>
             <tr>
+              <td></td>
+              <td><ReservedText /></td>
+            </tr>
+            <tr>
               <td>
                 <Form.Label>salasana</Form.Label>
               </td>
@@ -103,6 +124,10 @@ const RegistrationForm = ({ addUser }) => {
                   onChange={({ target }) => setRetypePassword(target.value)}
                 />
               </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><IncorrectPassword /></td>
             </tr>
           </tbody>
         </table>

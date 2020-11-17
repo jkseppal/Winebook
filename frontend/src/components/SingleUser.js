@@ -10,6 +10,9 @@ const SingleUser = ({ users }) => {
     <div>
       <h3>käyttäjätunnus: {userToShow.username}</h3>
       <h3>nimi: {userToShow.name}</h3>
+      <p>
+        <i>{userToShow.description}</i>
+      </p>
       <h3>käyttäjän lisäämät viinit:</h3>
       {userToShow.wines.map(wine =>
         <div key={wine.id}>

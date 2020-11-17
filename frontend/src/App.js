@@ -13,7 +13,7 @@ import Notification from './components/Notification'
 import { useDispatch, useSelector } from 'react-redux'
 import { createWine, initializeWines } from './reducers/wineReducer'
 import WineForm from './components/WineForm'
-import { initializeUsers, createUser } from './reducers/usersReducer'
+import { initializeUsers, createUser, updateUser } from './reducers/usersReducer'
 import { notificationChange } from './reducers/notificationReducer'
 import SingleUser from './components/SingleUser'
 import Guide from './components/Guide'
@@ -65,7 +65,8 @@ const App = () => {
     event.preventDefault()
     setUser(null)
     window.localStorage.removeItem('loggedUser')
-    window.location.reload()
+    dispatch(notificationChange('Olet kirjautunut ulos sovelluksesta', 5))
+    window.location.assign('http://localhost:3000/')
     return false
   }
 
@@ -81,6 +82,16 @@ const App = () => {
       dispatch(notificationChange('Rekisteröityminen onnistunut!', 5))
     } catch (exception) {
       dispatch(errorMessageChange('Rekisteröityminen epäonnistui!', 5))
+    }
+  }
+
+  const addUserDescription = async (userObject) => {
+    try {
+      const updatedUser = await userService.updateUser(userFromDB.id, userObject)
+      dispatch(updateUser(updatedUser))
+      dispatch(notificationChange('kuvaus päivitetty', 3))
+    } catch (exception) {
+      dispatch(errorMessageChange('päivitys epäonnistui', 5))
     }
   }
 
@@ -132,10 +143,10 @@ const App = () => {
             <SingleUser users={users} />
           </Route>
           <Route path="/create">
-            <WineForm addWine={addWine} user={user} />
+            <WineForm addWine={addWine} user={user} wines={wines} />
           </Route>
           <Route path="/registration">
-            <RegistrationForm addUser={addUser} />
+            <RegistrationForm addUser={addUser} users={users} />
           </Route>
           <Route path="/login">
             <Login />
@@ -147,7 +158,7 @@ const App = () => {
             <Guide />
           </Route>
           <Route path="/profile">
-            <Profile user={userFromDB} />
+            <Profile user={userFromDB} addUserDescription={addUserDescription} users={users} />
           </Route>
           <Route path="/">
             <WineList wines={wines} />

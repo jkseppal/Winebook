@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
-const WineForm = ({ addWine, user }) => {
+const WineForm = ({ addWine, user, wines }) => {
   const [name, setName] = useState('')
   const [country, setCountry] = useState('muu')
   const [type, setType] = useState('punaviini')
   const [region, setRegion] = useState('')
   const [grapes, setGrapes] = useState('')
   const [appellation, setAppellation] = useState('')
+
+  let reservedWineName = wines.find(w => w.name === name)
 
   const handleWineAdd = (event) => {
     addWine({
@@ -25,6 +27,31 @@ const WineForm = ({ addWine, user }) => {
     setAppellation('')
     setRegion('')
     setGrapes('')
+  }
+
+  let approved = false
+  if (name && !reservedWineName) {
+    approved = true
+  }
+
+  const ReservedText = () => {
+    if (!reservedWineName) {
+      return null
+    }
+    return (
+      <div style={{ color: "red" }}>Tällä nimellä on jo lisätty viini sovellukseen</div>
+    )
+  }
+
+  const SubmitButton = () => {
+    if (approved === false) {
+      return (
+        <Button type="submit" variant="success" disabled>lisää</Button>
+      )
+    }
+    return (
+      <Button type="submit" variant="success">lisää</Button>
+    )
   }
 
   return (
@@ -45,6 +72,10 @@ const WineForm = ({ addWine, user }) => {
                   onChange={({ target }) => setName(target.value)}
                 />
               </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><ReservedText /></td>
             </tr>
             <tr>
               <td>
@@ -136,7 +167,8 @@ const WineForm = ({ addWine, user }) => {
             </tr>
           </tbody>
         </table>
-        <Button variant="success" type="submit">lisää</Button>
+        {/*<Button variant="success" type="submit">lisää</Button>*/}
+        <SubmitButton />
       </Form>
     </div>
   )

@@ -1,7 +1,11 @@
 const mongoose = require('mongoose')
 
 const wineSchema = mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true,
+    unique: true
+  },
   region: String,
   grapes: String,
   type: String,

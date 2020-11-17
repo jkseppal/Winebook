@@ -20,7 +20,7 @@ const Guide = () => {
       </p>
       <p>
         Kentästä <b>tyyppi</b> voit valita valikosta, minkä tyyppisestä viinistä on kyse.
-        Mikääli valikosta ei löydy sopivaa vastinetta kuvaamaan lisäämäsi viinin tyyppiä, valitse vaihtoehto <i>muu.</i>
+        Mikäli valikosta ei löydy sopivaa vastinetta kuvaamaan lisäämäsi viinin tyyppiä, valitse vaihtoehto <i>muu.</i>
       </p>
       <p>
         Kentästä <b>maa</b> voit valita valikosta, minkä maalainen viini on kyseessä. Valikosta löytyy vain osa viiniä tuottavista maista, joten jos et löydä sieltä
@@ -40,7 +40,7 @@ const Guide = () => {
       </p>
       <p>
         Kenttään <b>rypäleet</b> voit kirjoittaa pilkulla erotettuna rypäleet, joista kyseinen viini on valmistettu.
-        Jos rypäleet eivät ole tiedossa, voit jättää kentän tyhjäksi. Hyvä esimerkki syötteestä tähän kenttään on<i>cabernet sauvignon, merlot.</i>
+        Jos rypäleet eivät ole tiedossa, voit jättää kentän tyhjäksi. Hyvä esimerkki syötteestä tähän kenttään on <i>cabernet sauvignon, merlot.</i>
       </p>
       <h3>Arvostelun lisääminen</h3>
       <p>
@@ -50,7 +50,7 @@ const Guide = () => {
       </p>
       <p>
         Lomakkeen ensimmäisessä kentässä <b>arvosteltu vuosikerta</b> valitaan valikosta se kyseisen viinin vuosikerta, joka on arvosteltu.
-        Mikääli kyseessä on vuosikerraton viini (näitä on esimerkiksi suuri osa kuohuviineistä), jätetään kyseinen kenttä valitsematta (valinta --).
+        Mikäli kyseessä on vuosikerraton viini (näitä on esimerkiksi suuri osa kuohuviineistä), jätetään kyseinen kenttä valitsematta (valinta --).
       </p>
       <p>
         Toiseen kenttään <b>kuvaus</b> kirjoitetaan varsinainen sanallinen arvostelu viinistä.
