@@ -68,7 +68,7 @@ const RegistrationForm = ({ addUser, users }) => {
   return (
     <div>
       <h2>Rekisteröidy käyttäjäksi</h2>
-      <Form onSubmit={handleUserAdd}>
+      <Form style={{ bottom: 45 }} onSubmit={handleUserAdd}>
         <table>
           <tbody>
             <tr>
@@ -112,6 +112,12 @@ const RegistrationForm = ({ addUser, users }) => {
                   value={email}
                   onChange={({ target }) => setEmail(target.value)}
                 />
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td style={{ fontSize: 10 }}>
+                Sähkopostiosoitetta ei oletusarvoisesti näytetä muille käyttäjille.<br />Jos haluat vaihtaa sähköpostiosoitteen näkyväksi, onnistuu se myöhemmin omasta profiilistasi.
               </td>
             </tr>
             <tr>

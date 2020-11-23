@@ -4,7 +4,7 @@ import { Form, Button, FormCheck } from 'react-bootstrap'
 const Profile = ({ user, updateProfile }) => {
   const [description, setDescription] = useState(user.description)
   const [name, setName] = useState(user.name)
-  const [username, setUsername] = useState(user.username)
+  //const [username, setUsername] = useState(user.username)
   const [email, setEmail] = useState(user.email)
   const [showEmail, setShowEmail] = useState(user.showEmail)
   
@@ -24,13 +24,13 @@ const Profile = ({ user, updateProfile }) => {
     })
   }
 
-  const handleUsernameChange = (event) => {
+  /*const handleUsernameChange = (event) => {
     event.preventDefault()
     updateProfile({
       ...user,
       username: username
     })
-  }
+  }*/
 
   const handleEmailChange = (event) => {
     event.preventDefault()
@@ -52,7 +52,7 @@ const Profile = ({ user, updateProfile }) => {
   
   return (
     <div>
-      <h2>Oma profiili</h2>
+      <h2>Oma profiili: {user.username}</h2>
       <div>
         <Form onSubmit={handleNameChange}>
           <Form.Label>Nimi:</Form.Label>
@@ -64,7 +64,7 @@ const Profile = ({ user, updateProfile }) => {
           <Button type="submit">vaihda nimi</Button>
         </Form>
       </div>
-      <div>
+      {/*<div>
         <Form onSubmit={handleUsernameChange}>
           <Form.Label>Käyttäjätunnus:</Form.Label>
           <Form.Control
@@ -74,7 +74,7 @@ const Profile = ({ user, updateProfile }) => {
           />
           <Button type="submit">vaihda käyttäjätunnus</Button>
         </Form>
-      </div>
+      </div>*/}
       <div>
         <Form onSubmit={handleEmailChange}>
           <Form.Label>Sähköpostiosoite:</Form.Label>
