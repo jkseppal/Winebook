@@ -56,7 +56,7 @@ const App = () => {
 
   useEffect(() => {
     if (user) {
-      const loggedUser = users.find(u => u.username === user.username)
+      let loggedUser = users.find(u => u.username === user.username)
       setUserFromDB(loggedUser)
     }
   }, [user, users])
@@ -85,11 +85,22 @@ const App = () => {
     }
   }
 
-  const addUserDescription = async (userObject) => {
+  /*const addUserDescription = async (userObject) => {
     try {
       const updatedUser = await userService.updateUser(userFromDB.id, userObject)
       dispatch(updateUser(updatedUser))
       dispatch(notificationChange('kuvaus päivitetty', 3))
+    } catch (exception) {
+      dispatch(errorMessageChange('päivitys epäonnistui', 5))
+    }
+  }*/
+
+  const updateProfile = async (userObject) => {
+    try {
+      const updatedUser = await userService.updateUser(userFromDB.id, userObject)
+      setUserFromDB(updatedUser)
+      dispatch(updateUser(updatedUser))
+      dispatch(notificationChange('profiili päivitetty', 5))
     } catch (exception) {
       dispatch(errorMessageChange('päivitys epäonnistui', 5))
     }
@@ -158,7 +169,7 @@ const App = () => {
             <Guide />
           </Route>
           <Route path="/profile">
-            <Profile user={userFromDB} addUserDescription={addUserDescription} users={users} />
+            <Profile user={userFromDB} updateProfile={updateProfile} />
           </Route>
           <Route path="/">
             <WineList wines={wines} />

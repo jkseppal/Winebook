@@ -12,7 +12,7 @@ const RegistrationForm = ({ addUser, users }) => {
   const [newUsername, setNewUsername] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [retypePassword, setRetypePassword] = useState('')
-  //const [reservedUN, setReservedUN] = useState(null)
+  const [email, setEmail] = useState('')
 
   let reservedUser = users.find(u => u.username === newUsername)
 
@@ -21,10 +21,12 @@ const RegistrationForm = ({ addUser, users }) => {
     addUser({
       name: newName,
       username: newUsername,
+      email: email,
       password: newPassword
     })
     setNewName('')
     setNewUsername('')
+    setEmail('')
     setNewPassword('')
     setRetypePassword('')
   }
@@ -98,6 +100,19 @@ const RegistrationForm = ({ addUser, users }) => {
             <tr>
               <td></td>
               <td><ReservedText /></td>
+            </tr>
+            <tr>
+              <td>
+                <Form.Label>sähköpostiosoite</Form.Label>
+              </td>
+              <td>
+                <Form.Control
+                  type="text"
+                  placeholder="väh. 3 kirjainta"
+                  value={email}
+                  onChange={({ target }) => setEmail(target.value)}
+                />
+              </td>
             </tr>
             <tr>
               <td>

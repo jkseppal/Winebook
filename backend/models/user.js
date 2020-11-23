@@ -13,6 +13,12 @@ const userSchema = mongoose.Schema({
     minlength: 5,
     required: true
   },
+  email: {
+    type: String,
+  },
+  showEmail: {
+    type: Boolean,
+  },
   passwordHash: String,
   description: String,
   reviews: [

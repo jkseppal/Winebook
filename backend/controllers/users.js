@@ -26,6 +26,8 @@ usersRouter.post('/', async (request, response, next) => {
   const user = new User({
     username: body.username,
     name: body.name,
+    email: body.email,
+    showEmail: false,
     passwordHash,
   })
 
@@ -46,6 +48,8 @@ usersRouter.put('/:id', async (request, response, next) => {
     ...body,
     name: body.name,
     username: body.username,
+    email: body.email,
+    showEmail: body.showEmail,
     //wines: body.wines,
     wines: wines,
     reviews: reviews,

@@ -13,6 +13,13 @@ const SingleUser = ({ users }) => {
       <p>
         <i>{userToShow.description}</i>
       </p>
+      {(userToShow.showEmail === true)
+        ? <div>
+          <h3>Sähköpostiosoite:</h3>
+          {userToShow.email}
+        </div>
+        : null
+      }
       <h3>käyttäjän lisäämät viinit:</h3>
       {userToShow.wines.map(wine =>
         <div key={wine.id}>
