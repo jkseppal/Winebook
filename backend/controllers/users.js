@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
 
 usersRouter.get('/', async (request, response, next) => {
   const users = await User.find({})
@@ -38,6 +39,15 @@ usersRouter.post('/', async (request, response, next) => {
 
 usersRouter.put('/:id', async (request, response, next) => {
   const body = request.body
+  
+  if (request.token === undefined) {
+    return response.status(401).json({ error: 'token missing' })
+  }
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  if (!request.token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+  
   console.log('body: ', body)
   const wines = body.wines.map(w => w.id)
   const reviews = body.wines.map(r => r.id)

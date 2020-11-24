@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import wineService from './services/wines'
 import reviewService from './services/reviews'
 import userService from './services/users'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import SingleWine from './components/SingleWine'
 import WineList from './components/WineList'
 import RegistrationForm from './components/RegistrationForm'
@@ -51,6 +51,7 @@ const App = () => {
       setUser(user)
       wineService.setToken(user.token)
       reviewService.setToken(user.token)
+      userService.setToken(user.token)
     }
   }, [])
 
@@ -66,7 +67,7 @@ const App = () => {
     setUser(null)
     window.localStorage.removeItem('loggedUser')
     dispatch(notificationChange('Olet kirjautunut ulos sovelluksesta', 5))
-    window.location.assign('http://localhost:3000/')
+    window.location.assign('/')
     return false
   }
 

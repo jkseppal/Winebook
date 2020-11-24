@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import wineService from '../services/wines'
 import reviewService from '../services/reviews'
+import usersService from '../services/users'
 import loginService from '../services/login'
 import { Form, Button } from 'react-bootstrap'
 import { errorMessageChange } from '../reducers/errorReducer'
@@ -40,7 +41,7 @@ const Login = () => {
       setUsername('')
       setPassword('')
       //window.location.reload()
-      window.location.assign('http://localhost:3000/')
+      window.location.assign('/')
       dispatch(notificationChange('Onnistunut sisäänkirjautuminen!', 3))
     } catch (exception) {
       dispatch(errorMessageChange('Virheellinen käyttäjätunnus tai salasana', 5))

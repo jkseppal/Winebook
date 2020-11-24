@@ -1,5 +1,10 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/api/users'
+const baseUrl = '/api/users'
+
+let token = null
+const setToken = newToken => {
+  token = `bearer ${newToken}`
+}
 
 const createUser = async newObject => {
   const response = await axios.post(baseUrl, newObject)
@@ -12,8 +17,12 @@ const getUsers = () => {
 }
 
 const updateUser = (id, newObject) => {
-  const request = axios.put(`${baseUrl}/${id}`, newObject)
+  const config = {
+    headers: { Authorization: token }
+  }
+  
+  const request = axios.put(`${baseUrl}/${id}`, newObject, config)
   return request.then(response => response.data)
 }
 
-export default { createUser, getUsers, updateUser }
+export default { setToken, createUser, getUsers, updateUser }
