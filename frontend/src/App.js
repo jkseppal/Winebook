@@ -49,6 +49,7 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
+      console.log('logged user: ', user)
       wineService.setToken(user.token)
       reviewService.setToken(user.token)
       userService.setToken(user.token)
@@ -58,6 +59,7 @@ const App = () => {
   useEffect(() => {
     if (user) {
       let loggedUser = users.find(u => u.username === user.username)
+      console.log('user from db: ', loggedUser)
       setUserFromDB(loggedUser)
     }
   }, [user, users])
@@ -152,7 +154,7 @@ const App = () => {
             <SingleWine wines={wines} user={user} reviews={reviews} addLike={addLike} />
           </Route>
           <Route path="/users/:id">
-            <SingleUser users={users} />
+            <SingleUser users={users}/>
           </Route>
           <Route path="/create">
             <WineForm addWine={addWine} user={user} wines={wines} />

@@ -4,7 +4,19 @@ import { Link } from 'react-router-dom'
 
 const SingleUser = ({ users }) => {
   const id = useParams().id
+  /*const dispatch = useDispatch()
+  
+  useEffect(() => {
+    dispatch(initializeUsers())
+  },[dispatch])
+
+  let users = useSelector(state => state.users)*/
+  
   const userToShow = users.find(user => user.id === id)
+
+  if (!userToShow) {
+    return null
+  }
 
   return (
     <div>

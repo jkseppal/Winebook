@@ -25,4 +25,9 @@ const updateUser = (id, newObject) => {
   return request.then(response => response.data)
 }
 
-export default { setToken, createUser, getUsers, updateUser }
+export default {
+  setToken: setToken,
+  createUser: createUser,
+  getUsers: getUsers,
+  updateUser: updateUser
+}

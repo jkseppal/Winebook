@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Button, FormCheck } from 'react-bootstrap'
 
 const Profile = ({ user, updateProfile }) => {
-  const [description, setDescription] = useState(user.description)
-  const [name, setName] = useState(user.name)
+  
+  const [description, setDescription] = useState('')
+  const [name, setName] = useState('')
   //const [username, setUsername] = useState(user.username)
-  const [email, setEmail] = useState(user.email)
-  const [showEmail, setShowEmail] = useState(user.showEmail)
+  const [email, setEmail] = useState('')
+  const [showEmail, setShowEmail] = useState('')
+
+  useEffect(() => {
+    if (user) {
+      setDescription(user.description)
+      setName(user.name)
+      setEmail(user.email)
+      setShowEmail(user.showEmail)
+    }
+  }, [user])
   
   const handleDescriptionAdd = (event) => {
     event.preventDefault()
@@ -49,6 +59,10 @@ const Profile = ({ user, updateProfile }) => {
     })
     setShowEmail(event.target.value)
   }*/
+
+  if (!user) {
+    return null
+  }
   
   return (
     <div>

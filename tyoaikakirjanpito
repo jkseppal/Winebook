@@ -17,5 +17,6 @@
 17.11.2020: 4h, Käyttöliittymän kehitystä, mahdollisuus lisätä itselle kuvaus.
 23.11.2020: 2h, Lisätty käyttäjän ominaisuuksiin s-posti osoite ja mahdollisuus vaikuttaa sen näkyvyyteen.
 24.11.2020: 5h, Profiilitietojen päivitys lisätty vaatimaan tokenin, prototyyppiversio viety internetiin.
+30.11.2020: 2h, Yksittäisen käyttäjän sivun ja profiilisivun päivittämiseen liittyvä bugi korjattu.
 
-yhteensä: 62h
+yhteensä: 64h
