@@ -123,26 +123,26 @@ const App = () => {
               <Nav.Link href="#" as="span">
                 <Link to={'/'}>etusivu</Link>
               </Nav.Link>
-              {user ? <Nav.Link href="#" as="span">
+              {user && <Nav.Link href="#" as="span">
                 <Link to={'/create'}>lisää viini</Link>
-              </Nav.Link> : null}
-              {user ? <Nav.Link href="#" as="span">
+              </Nav.Link>}
+              {user && <Nav.Link href="#" as="span">
                 <Link to={'/users'}>käyttäjät</Link>
-              </Nav.Link> : null}
-              {!user ? <Nav.Link href="#" as="span">
+              </Nav.Link>}
+              {!user && <Nav.Link href="#" as="span">
                 <Link to={'/registration'}>rekisteröidy käyttäjäksi</Link>
-              </Nav.Link> : null}
+              </Nav.Link>}
               <Nav.Link href="#" as="span">
                 <Link to={'/guide'}>ohjeita</Link>
               </Nav.Link>
-              {userFromDB ? <Nav.Link href="#" as="span">
+              {userFromDB && <Nav.Link href="#" as="span">
                 <Link to={`/profile`}>oma profiili</Link>
-              </Nav.Link> : null}
-              {!user ? <Nav.Link href="#" as="span">
+              </Nav.Link>}
+              {!user && <Nav.Link href="#" as="span">
                 <Link to={'/login'}><Button type="button">kirjaudu sisään</Button></Link>
-              </Nav.Link> : null}
-              {user ? <Navbar.Brand>{user.username} kirjautunut sisään</Navbar.Brand> : null}
-              {user ? <Button variant="secondary" onClick={handleLogout}>kirjaudu ulos</Button> : null}
+              </Nav.Link>}
+              {user && <Navbar.Brand>{user.username} kirjautunut sisään</Navbar.Brand>}
+              {user && <Button variant="secondary" onClick={handleLogout}>kirjaudu ulos</Button>}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

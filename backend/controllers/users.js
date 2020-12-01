@@ -25,9 +25,7 @@ usersRouter.post('/', async (request, response, next) => {
   const passwordHash = await bcrypt.hash(body.password, saltRounds)
 
   const user = new User({
-    username: body.username,
-    name: body.name,
-    email: body.email,
+    ...body,
     showEmail: false,
     passwordHash,
   })
@@ -50,24 +48,13 @@ usersRouter.put('/:id', async (request, response, next) => {
   
   console.log('body: ', body)
   const wines = body.wines.map(w => w.id)
-  const reviews = body.wines.map(r => r.id)
-  //const saltRounds = 10
-  //const passwordHash = await bcrypt.hash(body.password, saltRounds)
+  const reviews = body.reviews.map(r => r.id)
 
   const user = {
     ...body,
-    name: body.name,
-    username: body.username,
-    email: body.email,
-    showEmail: body.showEmail,
-    //wines: body.wines,
     wines: wines,
     reviews: reviews,
-    //reviews: body.reviews,
-    description: body.description,
-    //passwordHash: body.passwordHash
   }
-  //console.log('user: ', user)
   const savedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true, useFindAndModify: false })
   response.json(savedUser.toJSON())
 })

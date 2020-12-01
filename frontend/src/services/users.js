@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios'
 const baseUrl = '/api/users'
 
@@ -11,18 +12,20 @@ const createUser = async newObject => {
   return response.data
 }
 
-const getUsers = () => {
+const getUsers = async () => {
   const request = axios.get(baseUrl)
-  return request.then(response => response.data)
+  const response = await request
+  return response.data
 }
 
-const updateUser = (id, newObject) => {
+const updateUser = async (id, newObject) => {
   const config = {
     headers: { Authorization: token }
   }
   
   const request = axios.put(`${baseUrl}/${id}`, newObject, config)
-  return request.then(response => response.data)
+  const response = await request
+  return response.data
 }
 
 export default {

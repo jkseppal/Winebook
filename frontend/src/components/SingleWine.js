@@ -8,7 +8,7 @@ const SingleWine = ({ wines, user, reviews, addLike }) => {
   const dispatch = useDispatch()
   
   const [description, setDescription] = useState('')
-  const [points, setPoints] = useState(0)
+  const [points, setPoints] = useState('')
   const [vintage, setVintage] = useState('--')
   
   const id = useParams().id
@@ -72,6 +72,17 @@ const SingleWine = ({ wines, user, reviews, addLike }) => {
 
   if (!wineToShow) {
     return null
+  }
+
+  const SubmitButton = () => {
+    if (points === '') {
+      return (
+        <Button variant="success" type="submit" disabled>lisää arvostelu</Button>
+      )
+    }
+    return (
+      <Button variant="success" type="submit">lisää arvostelu</Button>
+    )
   }
 
   return (
@@ -182,7 +193,8 @@ const SingleWine = ({ wines, user, reviews, addLike }) => {
               </tr>
             </tbody>
           </Table>
-          <Button variant="success" type="submit">lisää arvostelu</Button>
+          {/*<Button variant="success" type="submit">lisää arvostelu</Button>*/}
+          <SubmitButton />
         </Form>
       </div> : null}
     </div>

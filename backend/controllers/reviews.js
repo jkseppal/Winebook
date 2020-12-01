@@ -26,9 +26,10 @@ reviewRouter.post('/:id', async (request, response, next) => {
   const wine = await Wine.findById(request.params.id)
 
   const review = new Review({
-    description: body.description,
-    points: body.points,
-    vintage: body.vintage,
+    ...body,
+    //description: body.description,
+    //points: body.points,
+    //vintage: body.vintage,
     likes: 0,
     wine: wine._id,
     user: user._id
@@ -47,12 +48,13 @@ reviewRouter.put('/:id', async (request, response) => {
   const body = request.body
 
   const review = {
-    description: body.description,
+    ...body
+    /*description: body.description,
     points: body.points,
     vintage: body.vintage,
     likes: body.likes,
     wine: body.wine,
-    user: body.user
+    user: body.user*/
   }
 
   const savedReview = await Review.findByIdAndUpdate(request.params.id, review, { new: true, useFindAndModify: false })

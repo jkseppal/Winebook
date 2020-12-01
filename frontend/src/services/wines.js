@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios'
 const baseUrl = '/api/wines'
 
@@ -14,9 +15,10 @@ const addWine = async newObject => {
   return response.data
 }
 
-const getWines = () => {
+const getWines = async () => {
   const request = axios.get(baseUrl)
-  return request.then(response => response.data)
+  const response = await request
+  return response.data
 }
 
 export default { setToken, addWine, getWines }

@@ -16,7 +16,7 @@ const WineList = ({ wines }) => {
     winesByCountry = winesByType
   }
 
-  let winesToShow = winesByCountry.filter(w => w.name.includes(findFilter))
+  let winesToShow = winesByCountry.filter(w => w.name.toLowerCase().includes(findFilter.toLowerCase()))
 
   const handleSelectFilterChange = (event) => {
     setSelectFilter(event.target.value)

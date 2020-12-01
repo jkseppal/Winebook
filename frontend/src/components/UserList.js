@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const UserList = ({ users }) => {
   const [findFilter, setFindFilter] = useState('')
 
-  let usersToShow = users.filter(u => u.username.includes(findFilter))
+  let usersToShow = users.filter(u => u.username.toLowerCase().includes(findFilter.toLowerCase()))
 
   const handleFindFilterChange = (event) => {
     setFindFilter(event.target.value)

@@ -30,12 +30,13 @@ winesRouter.post('/', async (request, response) => {
   const user = await User.findById(decodedToken.id)
 
   const wine = new Wine({
-    name: body.name,
+    /*name: body.name,
     region: body.region,
     type: body.type,
     country: body.country,
     appellation: body.appellation,
-    grapes: body.grapes,
+    grapes: body.grapes,*/
+    ...body,
     user: user._id
   })
 

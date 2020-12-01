@@ -11,7 +11,11 @@ const Profile = ({ user, updateProfile }) => {
 
   useEffect(() => {
     if (user) {
-      setDescription(user.description)
+      if (user.description) {
+        setDescription(user.description)
+      } else {
+        setDescription('')
+      }
       setName(user.name)
       setEmail(user.email)
       setShowEmail(user.showEmail)
