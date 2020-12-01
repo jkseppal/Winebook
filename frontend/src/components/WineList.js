@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const WineList = ({ wines }) => {
@@ -81,18 +82,33 @@ const WineList = ({ wines }) => {
           <option>Unkari</option>
           <option>muu</option>
         </select>
-      Hae viinin nimellä:
+        Hae viinin nimellä:
         <input
           placeholder="hae..."
           value={findFilter}
           onChange={handleFindFilterChange}
         />
-      {winesByName(winesToShow)}
-      {winesToShow.map(w =>
-        <div key={w.id}>
-          <Link to={`/wines/${w.id}`}>{w.name}</Link>
-        </div>
-      )}
+        <Table striped>
+          <thead>
+            <tr>
+              <td>Viini</td>
+              <td>Arvostelut</td>
+            </tr>
+          </thead>
+          <tbody>
+            {winesByName(winesToShow)}
+            {winesToShow.map(w =>
+              <tr key={w.id}>
+                <td>
+                  <Link to={`/wines/${w.id}`}>{w.name}</Link>
+                </td>
+                <td>
+                  {w.reviews.length}
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
     </div>
   )
 }

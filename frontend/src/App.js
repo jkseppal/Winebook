@@ -154,7 +154,7 @@ const App = () => {
             <SingleWine wines={wines} user={user} reviews={reviews} addLike={addLike} />
           </Route>
           <Route path="/users/:id">
-            <SingleUser users={users}/>
+            <SingleUser user={user} users={users}/>
           </Route>
           <Route path="/create">
             <WineForm addWine={addWine} user={user} wines={wines} />
@@ -166,7 +166,7 @@ const App = () => {
             <Login />
           </Route>
           <Route path="/users">
-            <UserList users={users} />
+            <UserList user={user} users={users} />
           </Route>
           <Route path="/guide">
             <Guide />

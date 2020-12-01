@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-const SingleUser = ({ users }) => {
+const SingleUser = ({ users, user }) => {
   const id = useParams().id
   /*const dispatch = useDispatch()
   
@@ -14,7 +14,7 @@ const SingleUser = ({ users }) => {
   
   const userToShow = users.find(user => user.id === id)
 
-  if (!userToShow) {
+  if (!userToShow || !user) {
     return null
   }
 

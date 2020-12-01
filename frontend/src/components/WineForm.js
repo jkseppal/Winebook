@@ -54,6 +54,10 @@ const WineForm = ({ addWine, user, wines }) => {
     )
   }
 
+  if (!user) {
+    return null
+  }
+
   return (
     <div>
       <h2>Lisää uusi viini:</h2>

@@ -1,12 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-//import { useDispatch } from 'react-redux'
-//import { errorMessageChange } from '../reducers/errorReducer'
-//import { notificationChange } from '../reducers/notificationReducer'
-//import userService from '../services/users'
 
 const RegistrationForm = ({ addUser, users }) => {
-  //const dispatch = useDispatch()
 
   const [newName, setNewName] = useState('')
   const [newUsername, setNewUsername] = useState('')
@@ -15,6 +10,7 @@ const RegistrationForm = ({ addUser, users }) => {
   const [email, setEmail] = useState('')
 
   let reservedUser = users.find(u => u.username === newUsername)
+  let reservedEmail = users.find(u => u.email === email)
 
   const handleUserAdd = (event) => {
     event.preventDefault()
@@ -32,7 +28,7 @@ const RegistrationForm = ({ addUser, users }) => {
   }
 
   let approved = false
-  if (newUsername.length > 2 && newName.length > 4 && newPassword.length > 4 && newPassword === retypePassword && !reservedUser) {
+  if (newUsername.length > 2 && newName.length > 4 && newPassword.length > 4 && newPassword === retypePassword && !reservedUser && !reservedEmail && email.length > 2) {
     approved = true
   }
 
@@ -47,12 +43,21 @@ const RegistrationForm = ({ addUser, users }) => {
     )
   }
 
-  const ReservedText = () => {
+  const ReservedUserText = () => {
     if (!reservedUser) {
       return null
     }
     return (
       <div style={{ color: "red" }}>käyttäjätunnus varattu</div>
+    )
+  }
+
+  const ReservedEmailText = () => {
+    if (!reservedEmail) {
+      return null
+    }
+    return (
+      <div style={{ color: "red" }}>sähköpostiosoitteella on jo rekisteröidytty sovellukseen</div>
     )
   }
 
@@ -99,7 +104,7 @@ const RegistrationForm = ({ addUser, users }) => {
             </tr>
             <tr>
               <td></td>
-              <td><ReservedText /></td>
+              <td><ReservedUserText /></td>
             </tr>
             <tr>
               <td>
@@ -113,6 +118,10 @@ const RegistrationForm = ({ addUser, users }) => {
                   onChange={({ target }) => setEmail(target.value)}
                 />
               </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><ReservedEmailText /></td>
             </tr>
             <tr>
               <td></td>
@@ -152,7 +161,6 @@ const RegistrationForm = ({ addUser, users }) => {
             </tr>
           </tbody>
         </table>
-        {/*<Button type="submit">rekisteröidy</Button>*/}
         <SubmitButton />
       </Form>
     </div>

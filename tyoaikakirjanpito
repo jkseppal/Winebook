@@ -20,5 +20,6 @@
 30.11.2020: 2h, Yksittäisen käyttäjän sivun ja profiilisivun päivittämiseen liittyvä bugi korjattu.
 30.11.2020: 2h, Profiilin päivityksen yhteydessä käyttäjän sinuilta arvostelut kadottavan bugin selvitystä.
 01.12.2020: 2h, Profiilin päivityksen bugi paikannettu ja korjattu, koodin siistimistä.
+01.12.2020: 2h, Sähköpostiosoitteeseen lisätty vaatimus uniikkiudesta, osalle sivuista pääsy estetty ilman sisäänkirjautumista.
 
-yhteensä: 68h
+yhteensä: 70h

@@ -15,6 +15,8 @@ const userSchema = mongoose.Schema({
   },
   email: {
     type: String,
+    unique: true,
+    minlength: 3
   },
   showEmail: {
     type: Boolean,
