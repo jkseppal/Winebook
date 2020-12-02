@@ -46,9 +46,9 @@ const Profile = ({ user, updateProfile }) => {
     })
   }*/
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = async (event) => {
     event.preventDefault()
-    updateProfile({
+    await updateProfile({
       ...user,
       email: email,
       showEmail: showEmail

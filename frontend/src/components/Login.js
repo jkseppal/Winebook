@@ -57,7 +57,7 @@ const Login = () => {
     return (
       <div>
         <h2>Kirjaudu sisään:</h2>
-        <Form onSubmit={handleLogin}>
+        <Form id="login" onSubmit={handleLogin}>
           <table>
             <tbody>
               <tr>

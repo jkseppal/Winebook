@@ -8,7 +8,7 @@ const SingleWine = ({ wines, user, reviews, addLike }) => {
   const dispatch = useDispatch()
   
   const [description, setDescription] = useState('')
-  const [points, setPoints] = useState('')
+  const [points, setPoints] = useState('valitse')
   const [vintage, setVintage] = useState('--')
   
   const id = useParams().id
@@ -75,7 +75,7 @@ const SingleWine = ({ wines, user, reviews, addLike }) => {
   }
 
   const SubmitButton = () => {
-    if (points === '') {
+    if (points === 'valitse') {
       return (
         <Button variant="success" type="submit" disabled>lisää arvostelu</Button>
       )
@@ -185,6 +185,7 @@ const SingleWine = ({ wines, user, reviews, addLike }) => {
                     value={points}
                     onChange={({ target }) => setPoints(target.value)}
                   >
+                    <option>valitse</option>
                     {pointOptions.map(p => (
                       <option key={p}>{p}</option>
                     ))}

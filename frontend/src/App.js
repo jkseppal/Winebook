@@ -88,16 +88,6 @@ const App = () => {
     }
   }
 
-  /*const addUserDescription = async (userObject) => {
-    try {
-      const updatedUser = await userService.updateUser(userFromDB.id, userObject)
-      dispatch(updateUser(updatedUser))
-      dispatch(notificationChange('kuvaus päivitetty', 3))
-    } catch (exception) {
-      dispatch(errorMessageChange('päivitys epäonnistui', 5))
-    }
-  }*/
-
   const updateProfile = async (userObject) => {
     try {
       const updatedUser = await userService.updateUser(userFromDB.id, userObject)
@@ -113,6 +103,14 @@ const App = () => {
     dispatch(likeReview(reviewObject.id, reviewObject))
   }
 
+  const NavBarLink = (props) => {
+    return (
+      <Nav.Link href="#" as="span">
+        <Link to={props.path}>{props.text}</Link>
+      </Nav.Link>
+    )
+  }
+
   return (
     <Router>
       <div>
@@ -120,27 +118,13 @@ const App = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#" as="span">
-                <Link to={'/'}>etusivu</Link>
-              </Nav.Link>
-              {user && <Nav.Link href="#" as="span">
-                <Link to={'/create'}>lisää viini</Link>
-              </Nav.Link>}
-              {user && <Nav.Link href="#" as="span">
-                <Link to={'/users'}>käyttäjät</Link>
-              </Nav.Link>}
-              {!user && <Nav.Link href="#" as="span">
-                <Link to={'/registration'}>rekisteröidy käyttäjäksi</Link>
-              </Nav.Link>}
-              <Nav.Link href="#" as="span">
-                <Link to={'/guide'}>ohjeita</Link>
-              </Nav.Link>
-              {userFromDB && <Nav.Link href="#" as="span">
-                <Link to={`/profile`}>oma profiili</Link>
-              </Nav.Link>}
-              {!user && <Nav.Link href="#" as="span">
-                <Link to={'/login'}><Button type="button">kirjaudu sisään</Button></Link>
-              </Nav.Link>}
+              <NavBarLink path='/' text='etusivu' />
+              {user && <NavBarLink path='/create' text='lisää viini' />}
+              {user && <NavBarLink path='/users' text='käyttäjät' />}
+              {!user && <NavBarLink path='/registration' text='rekisteröidy käyttäjäksi' />} 
+              <NavBarLink path='/guide' text='ohjeita' />
+              {userFromDB && <NavBarLink path='/profile' text='oma profiili' />}
+              {!user && <NavBarLink path='/login' text={<Button type="button">kirjaudu sisään</Button>} />}
               {user && <Navbar.Brand>{user.username} kirjautunut sisään</Navbar.Brand>}
               {user && <Button variant="secondary" onClick={handleLogout}>kirjaudu ulos</Button>}
             </Nav>

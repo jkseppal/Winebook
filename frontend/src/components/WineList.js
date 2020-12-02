@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { Table } from 'react-bootstrap'
+import { Table, Form, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+//import reviews from '../services/reviews'
 
 const WineList = ({ wines }) => {
   const [selectFilter, setSelectFilter] = useState('kaikki viinit')
   const [findFilter, setFindFilter] = useState('')
   const [countryFilter, setCountryFilter] = useState('kaikki maat')
+  const [sort, setSort] = useState('name')
 
   let winesByType = wines.filter(w => w.type === selectFilter)
   if (selectFilter === 'kaikki viinit') {
@@ -31,11 +33,44 @@ const WineList = ({ wines }) => {
     setFindFilter(event.target.value)
   }
 
+  const average = (wine) => {
+    if (wine.reviews.length === 0) {
+      return null
+    }
+    let sum = 0
+    for (let i = 0; i < wine.reviews.length; i++) {
+      sum = sum + wine.reviews[i].points
+    }
+    return sum / wine.reviews.length
+  }
+
+  const sorter = (wines) => {
+    if (sort === 'name') {
+      winesByName(wines)
+    } else if (sort === 'reviews') {
+      winesByReviews(wines)
+    } else {
+      winesByAverage(wines)
+    }
+  }
+
   const winesByName = (wines) => {
     wines.sort((a, b) => {
       if (a.name.toLowerCase() < b.name.toLowerCase()) { return -1 }
       if (a.name.toLowerCase() > b.name.toLowerCase()) { return 1 }
       return 0
+    })
+  }
+
+  const winesByReviews = (wines) => {
+    wines.sort((a, b) => {
+      return b.reviews.length - a.reviews.length
+    })
+  }
+
+  const winesByAverage = (wines) => {
+    wines.sort((a, b) => {
+      return average(b) - average(a)
     })
   }
   
@@ -88,15 +123,46 @@ const WineList = ({ wines }) => {
           value={findFilter}
           onChange={handleFindFilterChange}
         />
+        <Form>
+          <Form.Group as={Row}>
+            <Form.Label as="legend" column sm={2} style={{ paddingTop: 20 }}>
+              Lajittele viinit
+            </Form.Label>
+            <Col sm={10} style={{ paddingTop: 20 }}>
+              <Form.Check
+                inline
+                type="radio"
+                name="sort"
+                label="nimen perusteella"
+                onChange={() => setSort("name")}
+              />
+              <Form.Check
+                inline
+                type="radio"
+                name="sort"
+                label="arvostelujen määrän perusteella"
+                onChange={() => setSort("reviews")}
+              />
+              <Form.Check
+                inline
+                type="radio"
+                name="sort"
+                label="pisteiden keskiarvon perusteella"
+                onChange={() => setSort("points")}
+              />
+            </Col>
+          </Form.Group>
+        </Form>
         <Table striped>
           <thead>
             <tr>
               <td>Viini</td>
               <td>Arvostelut</td>
+              <td>Pisteiden keskiarvo</td>
             </tr>
           </thead>
           <tbody>
-            {winesByName(winesToShow)}
+            {sorter(winesToShow)}
             {winesToShow.map(w =>
               <tr key={w.id}>
                 <td>
@@ -104,6 +170,9 @@ const WineList = ({ wines }) => {
                 </td>
                 <td>
                   {w.reviews.length}
+                </td>
+                <td>
+                  {average(w)}
                 </td>
               </tr>
             )}
