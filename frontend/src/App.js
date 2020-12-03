@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import wineService from './services/wines'
 import reviewService from './services/reviews'
 import userService from './services/users'
+import blogService from './services/blogs'
 import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import SingleWine from './components/SingleWine'
 import WineList from './components/WineList'
@@ -9,6 +10,7 @@ import RegistrationForm from './components/RegistrationForm'
 import Login from './components/Login'
 import ErrorMessage from './components/ErrorMessage'
 import UserList from './components/UserList'
+import BlogList from './components/BlogList'
 import Notification from './components/Notification'
 import { useDispatch, useSelector } from 'react-redux'
 import { createWine, initializeWines } from './reducers/wineReducer'
@@ -21,6 +23,7 @@ import Profile from './components/Profile'
 import { Navbar, Nav, Button } from 'react-bootstrap'
 import { initializeReviews, likeReview } from './reducers/reviewReducer'
 import { errorMessageChange } from './reducers/errorReducer'
+import { initializeBlogs } from './reducers/blogReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -40,9 +43,15 @@ const App = () => {
     dispatch(initializeReviews())
   },[dispatch])
 
+  /*useEffect(() => {
+    dispatch(initializeBlogs())
+  },[dispatch])*/
+
   let wines = useSelector(state => state.wines)
   let users = useSelector(state => state.users)
   let reviews = useSelector(state => state.reviews)
+  /*let blogs = useSelector(state => state.blogs)
+  console.log('blogs: ', blogs)*/
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -53,6 +62,7 @@ const App = () => {
       wineService.setToken(user.token)
       reviewService.setToken(user.token)
       userService.setToken(user.token)
+      blogService.setToken(user.token)
     }
   }, [])
 
@@ -123,6 +133,7 @@ const App = () => {
               {user && <NavBarLink path='/users' text='käyttäjät' />}
               {!user && <NavBarLink path='/registration' text='rekisteröidy käyttäjäksi' />} 
               <NavBarLink path='/guide' text='ohjeita' />
+              {user && <NavBarLink path='/blogs' text='blogit' />}
               {userFromDB && <NavBarLink path='/profile' text='oma profiili' />}
               {!user && <NavBarLink path='/login' text={<Button type="button">kirjaudu sisään</Button>} />}
               {user && <Navbar.Brand>{user.username} kirjautunut sisään</Navbar.Brand>}
@@ -157,6 +168,9 @@ const App = () => {
           </Route>
           <Route path="/profile">
             <Profile user={userFromDB} updateProfile={updateProfile} />
+          </Route>
+          <Route path="/blogs">
+            <BlogList />
           </Route>
           <Route path="/">
             <WineList wines={wines} />

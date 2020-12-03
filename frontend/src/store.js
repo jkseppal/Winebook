@@ -7,13 +7,15 @@ import wineReducer from './reducers/wineReducer'
 import reviewReducer from './reducers/reviewReducer'
 import notificationReducer from './reducers/notificationReducer'
 import errorReducer from './reducers/errorReducer'
+import blogReducer from './reducers/blogReducer'
 
 const reducer = combineReducers({
   users: usersReducer,
   wines: wineReducer,
   reviews: reviewReducer,
   notification: notificationReducer,
-  errorMessage: errorReducer
+  errorMessage: errorReducer,
+  blogs: blogReducer
 })
 
 const store = createStore(

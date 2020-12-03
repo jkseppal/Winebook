@@ -60,7 +60,7 @@ const UserList = ({ users, user }) => {
         <Form>
           <Form.Group as={Row}>
             <Form.Label as="legend" column sm={2} style={{ paddingTop: 20 }}>
-              Lajittele viinit
+              Lajittele käyttäjät
             </Form.Label>
             <Col sm={10} style={{ paddingTop: 20 }}>
               <Form.Check

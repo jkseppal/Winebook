@@ -2,8 +2,9 @@ const express = require('express')
 const winesRouter = express.Router()
 const Wine = require('../models/wine')
 const User = require('../models/user')
-const Review = require('../models/review')
+//const Review = require('../models/review')
 const jwt = require('jsonwebtoken')
+//const tokenVerifier = require('../utils/tokenVerifier')
 
 winesRouter.get('/', async (request, response, next) => {
   const wines = await Wine
@@ -27,6 +28,7 @@ winesRouter.post('/', async (request, response) => {
   if (!request.token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
+  //const decodedToken = tokenVerifier(request.token)
   const user = await User.findById(decodedToken.id)
 
   const wine = new Wine({

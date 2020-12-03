@@ -27,9 +27,6 @@ reviewRouter.post('/:id', async (request, response, next) => {
 
   const review = new Review({
     ...body,
-    //description: body.description,
-    //points: body.points,
-    //vintage: body.vintage,
     likes: 0,
     wine: wine._id,
     user: user._id
@@ -49,12 +46,6 @@ reviewRouter.put('/:id', async (request, response) => {
 
   const review = {
     ...body
-    /*description: body.description,
-    points: body.points,
-    vintage: body.vintage,
-    likes: body.likes,
-    wine: body.wine,
-    user: body.user*/
   }
 
   const savedReview = await Review.findByIdAndUpdate(request.params.id, review, { new: true, useFindAndModify: false })
