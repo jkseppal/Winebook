@@ -17,6 +17,9 @@ const blogSchema = mongoose.Schema({
       entryContent: {
         type: String,
       },
+      entryDate: {
+        type: String
+      },
       likes: {
         type: Number
       },

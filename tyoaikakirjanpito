@@ -23,5 +23,6 @@
 01.12.2020: 2h, Sähköpostiosoitteeseen lisätty vaatimus uniikkiudesta, osalle sivuista pääsy estetty ilman sisäänkirjautumista.
 02.12.2020: 1h, Lisätty viinien ja käyttäjien lajittelumahdollisuuksia.
 03.12.2020: 5h, Lisätty käyttäjille mahdollisuus luoda blogi.
+04.12.2020: 2h, Blogi-toimintoon liittyvä bugi korjattu, uuden blogimerkinnän luominen siirretty tapahtumaan modaali-ikkunan kautta.
 
-yhteensä: 76h
+yhteensä: 78h

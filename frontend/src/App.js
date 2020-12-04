@@ -11,6 +11,7 @@ import Login from './components/Login'
 import ErrorMessage from './components/ErrorMessage'
 import UserList from './components/UserList'
 import BlogList from './components/BlogList'
+import Blog from './components/Blog'
 import Notification from './components/Notification'
 import { useDispatch, useSelector } from 'react-redux'
 import { createWine, initializeWines } from './reducers/wineReducer'
@@ -23,7 +24,7 @@ import Profile from './components/Profile'
 import { Navbar, Nav, Button } from 'react-bootstrap'
 import { initializeReviews, likeReview } from './reducers/reviewReducer'
 import { errorMessageChange } from './reducers/errorReducer'
-import { initializeBlogs } from './reducers/blogReducer'
+import { initializeBlogs, addBlogEntry } from './reducers/blogReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -43,15 +44,15 @@ const App = () => {
     dispatch(initializeReviews())
   },[dispatch])
 
-  /*useEffect(() => {
+  useEffect(() => {
     dispatch(initializeBlogs())
-  },[dispatch])*/
+  },[dispatch])
 
   let wines = useSelector(state => state.wines)
   let users = useSelector(state => state.users)
   let reviews = useSelector(state => state.reviews)
-  /*let blogs = useSelector(state => state.blogs)
-  console.log('blogs: ', blogs)*/
+  let blogs = useSelector(state => state.blogs)
+  //console.log('blogs: ', blogs)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -113,6 +114,10 @@ const App = () => {
     dispatch(likeReview(reviewObject.id, reviewObject))
   }
 
+  const addEntry = (id, entryObject) => {
+    dispatch(addBlogEntry(id, entryObject))
+  }
+
   const NavBarLink = (props) => {
     return (
       <Nav.Link href="#" as="span">
@@ -169,8 +174,11 @@ const App = () => {
           <Route path="/profile">
             <Profile user={userFromDB} updateProfile={updateProfile} />
           </Route>
+          <Route path="/blogs/:id">
+            <Blog blogs={blogs} addEntry={addEntry} user={userFromDB} />
+          </Route>
           <Route path="/blogs">
-            <BlogList />
+            <BlogList blogs={blogs} />
           </Route>
           <Route path="/">
             <WineList wines={wines} />
