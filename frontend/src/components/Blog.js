@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Form, Button, Modal, Input } from 'react-bootstrap'
+import { Form, Button, Modal } from 'react-bootstrap'
 
-const Blog = ({ blogs, addEntry, user }) => {
+const Blog = ({ blogs, addEntry, user, commentEntry }) => {
   const [newEntryTitle, setNewEntryTitle] = useState('')
   const [newContent, setNewContent] = useState('')
   const [show, setShow] = useState(false)
+  const [comment, setComment] = useState('')
   
   const id = useParams().id
   //console.log('id: ', id)
@@ -28,16 +29,40 @@ const Blog = ({ blogs, addEntry, user }) => {
       entryDate: now.toDateString(),
       likes: 0
     }
+    const entries = blogToShow.blogEntries.concat(newEntry)
     const blogToUpdate = {
       title: blogToShow.title,
       user: blogToShow.user.id,
-      blogEntries: blogToShow.blogEntries.concat(newEntry)
+      blogEntries: entries
     }
     console.log('entry: ', blogToUpdate)
     addEntry(id, blogToUpdate)
     setNewEntryTitle('')
     setNewContent('')
     setShow(false)
+  }
+
+  //Entryt eivät ole omia dokumentteja, mieti parempi tapa!!!
+  //Nyt PUT-pyyntö ei korvaa entryä
+  const handleCommentAdd = (index) => {
+    const newComment = {
+      text: comment,
+      user: user.username,
+      commentDate: now.toDateString()
+    }
+
+    let entry = blogToShow.blogEntries[index]
+    entry.comments.push(newComment)
+
+    const blogToUpdate = {
+      ...blogToShow,
+      user: blogToShow.user.id,
+      /*blogEntries: [
+        ...blogToShow.blogEntries
+      ]*/
+    }
+    commentEntry(id, blogToUpdate, index)
+    setComment('')
   }
 
   const handleClose = () => setShow(false)
@@ -77,11 +102,29 @@ const Blog = ({ blogs, addEntry, user }) => {
     <div>
       <h2>{blogToShow.title}</h2>
       Kirjoittaja: {blogToShow.user.username}
-      {blogToShow.blogEntries.map(b =>
+      {blogToShow.blogEntries && blogToShow.blogEntries.map(b =>
         <div key={b._id}>
           <h3>{b.entryTitle}</h3>
           <i>{b.entryDate}</i><br />
           {b.entryContent}
+          {/*<Form onSubmit={handleCommentAdd(blogToShow.blogEntries.indexOf(b))}>*/}
+          <Form>
+            <Form.Label>Lisää kommentti</Form.Label>
+            <Form.Control
+              type="text"
+              value={comment}
+              onChange={({ target }) => setComment(target.value)}
+            />
+            {/*<Button type="submit">lisää</Button>*/}
+            <Button onClick={() => handleCommentAdd(blogToShow.blogEntries.indexOf(b))}>lisää kommentti</Button>
+          </Form>
+          {b.comments && b.comments.map(c =>
+            <div key={b.comments.indexOf(c)}>
+              <b>{c.user}</b><br />
+              <i>{c.commentDate}</i><br />
+              {c.text}
+            </div>
+          )}
         </div>
       )}
       {/*authorized && <div>

@@ -8,6 +8,15 @@ blogRouter.get('/', async (request, response, next) => {
   const blogs = await Blog
     .find({})
     .populate('user', { username: 1, name: 1 })
+    /*.populate({
+      path : 'blogEntries',
+      populate : {
+        path : 'comments',
+        populate: {
+          path: 'user'
+        }
+      }
+    })*/
   response.json(blogs.map(b => b.toJSON()))
 })
 

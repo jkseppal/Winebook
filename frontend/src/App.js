@@ -24,7 +24,7 @@ import Profile from './components/Profile'
 import { Navbar, Nav, Button } from 'react-bootstrap'
 import { initializeReviews, likeReview } from './reducers/reviewReducer'
 import { errorMessageChange } from './reducers/errorReducer'
-import { initializeBlogs, addBlogEntry } from './reducers/blogReducer'
+import { initializeBlogs, addBlogEntry, addComment } from './reducers/blogReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -118,6 +118,10 @@ const App = () => {
     dispatch(addBlogEntry(id, entryObject))
   }
 
+  const commentEntry = (id, commentObject, index) => {
+    dispatch(addComment(id, commentObject, index))
+  }
+
   const NavBarLink = (props) => {
     return (
       <Nav.Link href="#" as="span">
@@ -175,7 +179,7 @@ const App = () => {
             <Profile user={userFromDB} updateProfile={updateProfile} />
           </Route>
           <Route path="/blogs/:id">
-            <Blog blogs={blogs} addEntry={addEntry} user={userFromDB} />
+            <Blog blogs={blogs} addEntry={addEntry} user={userFromDB} commentEntry={commentEntry} />
           </Route>
           <Route path="/blogs">
             <BlogList blogs={blogs} />
