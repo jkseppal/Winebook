@@ -25,5 +25,9 @@
 03.12.2020: 5h, Lisätty käyttäjille mahdollisuus luoda blogi.
 04.12.2020: 2h, Blogi-toimintoon liittyvä bugi korjattu, uuden blogimerkinnän luominen siirretty tapahtumaan modaali-ikkunan kautta.
 08.12.2020: 6h, Luotu mahdollisuus kommentoida blogimerkintää. Ominaisuudessa vielä bugi
+17.12.2020: 4h, Selvitetty arvostelujen lisäämiseen liittyvää bugia.
+17.12.2020: 1h, Muutettu sovellus toteuttamaan sisäänkirjautuminen rekisteröitymisen yhteydessä.
+12.01.2021: 3h, Korjattu uuden blogin ja uuden arvostelun lisäämiseen liittynyt tilanhallinnan bugi.
+13.01.2021: 4h, Korjattu uuden blogimerkinnän lisäämiseen liittynyt bugi, selvitetty blogin kommentointiin liittyvää bugia.
 
-yhteensä: 84h
+yhteensä: 96h

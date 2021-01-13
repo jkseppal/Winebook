@@ -1,22 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Table, Form, Button } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
-import { createBlog } from '../reducers/blogReducer'
+import { useDispatch, useSelector } from 'react-redux'
+import { createBlog, initializeBlogs } from '../reducers/blogReducer'
 import { Link } from 'react-router-dom'
 
-const BlogList = ({ blogs }) => {
+const BlogList = (user) => {
   const dispatch = useDispatch()
   
   const [title, setTitle] = useState('')
 
-  /*useEffect(() => {
+  useEffect(() => {
     dispatch(initializeBlogs())
   },[dispatch])
 
-  let blogs = useSelector(state => state.blogs)*/
+  let blogs = useSelector(state => state.blogs)
 
   const addBlog = (blogObject) => {
     dispatch(createBlog(blogObject))
+    console.log('new blog: ', blogObject)
   }
 
   const handleBlogAdd = (event) => {

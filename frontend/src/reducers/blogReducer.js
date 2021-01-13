@@ -6,14 +6,24 @@ const blogReducer = (state = [], action) => {
     case 'INIT_BLOGS':
       return action.data
     case 'NEW_BLOG':
-      return [...state, action.data]
+      console.log('new blog action.data: ', action.data)
+      const newState = [
+        ...state,
+        action.data
+      ]
+      console.log('new blog state: ', newState)
+      //return [...state, action.data]
+      return newState
     case 'ADD_ENTRY': {
       const id = action.data.id
       const blogToAdd = state.find(b => b.id === id)
       const addedBlog = {
         ...blogToAdd,
-        blogEntries: blogToAdd.blogEntries.concat(action.data)
+        blogEntries: action.data.blogEntries
       }
+      const newState = state.map(b =>
+        b.id !== id ? b : addedBlog)
+      console.log('new state: ', newState)
       return state.map(b =>
         b.id !== id ? b : addedBlog)
       }
@@ -30,6 +40,9 @@ const blogReducer = (state = [], action) => {
         ...blog,
         blogEntries: blog.blogEntries.concat(commentedEntry)
       }
+      const newState = state.map(b =>
+        b.id !== id ? b : commentedBlog)
+      console.log('new state: ', newState)
       return state.map(b =>
         b.id !== id ? b : commentedBlog)
     }
@@ -51,6 +64,7 @@ export const initializeBlogs = () => {
 export const createBlog = (content) => {
   return async dispatch => {
     const newBlog = await blogService.addBlog(content)
+    console.log('new blog from reducer: ', newBlog)
     dispatch ({
       type: 'NEW_BLOG',
       data: newBlog
@@ -61,6 +75,7 @@ export const createBlog = (content) => {
 export const addBlogEntry = (id, content) => {
   return async dispatch => {
     const addedEntry = await blogService.updateBlog(id, content)
+    console.log('updated blog after updateBlog: ', addedEntry)
     dispatch({
       type: 'ADD_ENTRY',
       data: addedEntry

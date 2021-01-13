@@ -6,6 +6,8 @@ const reviewReducer = (state = [], action) => {
     case 'INIT_REVIEWS':
       return action.data
     case 'NEW_REVIEW':
+      const newState = [...state, action.data]
+      console.log('new rev state: ', newState)
       return [...state, action.data]
     case 'LIKE': {
       const id = action.data.id
@@ -14,6 +16,9 @@ const reviewReducer = (state = [], action) => {
         ...reviewToLike,
         likes: reviewToLike.likes + 1
       }
+      const newState = state.map(r =>
+        r.id !== id ? r : likedReview)
+      console.log('new state: ', newState)
       return state.map(rev =>
         rev.id !== id ? rev : likedReview)
     }

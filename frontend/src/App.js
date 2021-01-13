@@ -22,9 +22,11 @@ import SingleUser from './components/SingleUser'
 import Guide from './components/Guide'
 import Profile from './components/Profile'
 import { Navbar, Nav, Button } from 'react-bootstrap'
-import { initializeReviews, likeReview } from './reducers/reviewReducer'
+import { initializeReviews, likeReview, createReview } from './reducers/reviewReducer'
 import { errorMessageChange } from './reducers/errorReducer'
 import { initializeBlogs, addBlogEntry, addComment } from './reducers/blogReducer'
+import ReviewList from './components/ReviewList'
+import loginService from './services/login'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -94,6 +96,15 @@ const App = () => {
       const newUser = await userService.createUser(userObject)
       dispatch(createUser(newUser))
       dispatch(notificationChange('Rekisteröityminen onnistunut!', 5))
+      const credentials = {
+        username: userObject.username,
+        password: userObject.password
+      }
+      const registeredUser = await loginService.login(credentials)
+      window.localStorage.setItem(
+        'loggedUser', JSON.stringify(registeredUser)
+      )
+      window.location.assign('/')
     } catch (exception) {
       dispatch(errorMessageChange('Rekisteröityminen epäonnistui!', 5))
     }
@@ -110,12 +121,18 @@ const App = () => {
     }
   }
 
+  const addReview = (id, reviewObject) => {
+    dispatch(createReview(id, reviewObject))
+    dispatch(notificationChange('Arvostelu lisätty', 5))
+  }
+
   const addLike = (reviewObject) => {
     dispatch(likeReview(reviewObject.id, reviewObject))
   }
 
   const addEntry = (id, entryObject) => {
     dispatch(addBlogEntry(id, entryObject))
+    console.log('updated state of blogs: ', blogs)
   }
 
   const commentEntry = (id, commentObject, index) => {
@@ -144,6 +161,7 @@ const App = () => {
               <NavBarLink path='/guide' text='ohjeita' />
               {user && <NavBarLink path='/blogs' text='blogit' />}
               {userFromDB && <NavBarLink path='/profile' text='oma profiili' />}
+              <NavBarLink path='/reviews' text='arvostelut' />
               {!user && <NavBarLink path='/login' text={<Button type="button">kirjaudu sisään</Button>} />}
               {user && <Navbar.Brand>{user.username} kirjautunut sisään</Navbar.Brand>}
               {user && <Button variant="secondary" onClick={handleLogout}>kirjaudu ulos</Button>}
@@ -155,7 +173,7 @@ const App = () => {
         <ErrorMessage />
         <Switch>
           <Route path="/wines/:id">
-            <SingleWine wines={wines} user={user} reviews={reviews} addLike={addLike} />
+            <SingleWine wines={wines} user={user} reviews={reviews} addLike={addLike} addReview={addReview} />
           </Route>
           <Route path="/users/:id">
             <SingleUser user={user} users={users}/>
@@ -182,7 +200,10 @@ const App = () => {
             <Blog blogs={blogs} addEntry={addEntry} user={userFromDB} commentEntry={commentEntry} />
           </Route>
           <Route path="/blogs">
-            <BlogList blogs={blogs} />
+            <BlogList blogs={blogs} user={userFromDB} />
+          </Route>
+          <Route path="/reviews">
+            <ReviewList reviews={reviews} />
           </Route>
           <Route path="/">
             <WineList wines={wines} />

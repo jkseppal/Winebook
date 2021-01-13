@@ -28,8 +28,8 @@ reviewRouter.post('/:id', async (request, response, next) => {
   const review = new Review({
     ...body,
     likes: 0,
-    wine: wine._id,
-    user: user._id
+    wine: wine,
+    user: user
   })
 
   const savedReview = await review.save()

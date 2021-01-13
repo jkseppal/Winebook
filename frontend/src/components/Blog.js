@@ -35,15 +35,42 @@ const Blog = ({ blogs, addEntry, user, commentEntry }) => {
       user: blogToShow.user.id,
       blogEntries: entries
     }
-    console.log('entry: ', blogToUpdate)
+    console.log('updated blog before addEntry: ', blogToUpdate)
     addEntry(id, blogToUpdate)
+    //addEntry(id, newEntry)
     setNewEntryTitle('')
     setNewContent('')
     setShow(false)
+    console.log('updated blog at the last line of event handler: ', blogToShow)
   }
 
   //Entryt eivät ole omia dokumentteja, mieti parempi tapa!!!
   //Nyt PUT-pyyntö ei korvaa entryä
+  /*const handleCommentAdd = (index) => {
+    const newComment = {
+      text: comment,
+      user: user.username,
+      commentDate: now.toDateString()
+    }
+
+    let entry = blogToShow.blogEntries[index]
+    entry.comments.push(newComment)
+
+    const blogToUpdate = {
+      ...blogToShow,
+      user: blogToShow.user.id,
+    }
+    commentEntry(id, blogToUpdate, index)
+    setComment('')
+  }
+
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+
+  if (!blogToShow || !blogs || !user) {
+    return null
+  }*/
+
   const handleCommentAdd = (index) => {
     const newComment = {
       text: comment,
@@ -57,9 +84,6 @@ const Blog = ({ blogs, addEntry, user, commentEntry }) => {
     const blogToUpdate = {
       ...blogToShow,
       user: blogToShow.user.id,
-      /*blogEntries: [
-        ...blogToShow.blogEntries
-      ]*/
     }
     commentEntry(id, blogToUpdate, index)
     setComment('')
@@ -67,32 +91,6 @@ const Blog = ({ blogs, addEntry, user, commentEntry }) => {
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
-
-  /*const EntryForm = () => {
-    if (authorized === false) {
-      return null
-    }
-    return (
-      <div>
-        <h3>Lisää uusi blogimerkintä:</h3>
-        <Form onSubmit={handleEntryAdd}>
-          <Form.Label>Otsikko:</Form.Label>
-          <Form.Control
-            type="text"
-            value={newEntryTitle}
-            onChange={({ target }) => setNewEntryTitle(target.value)}
-          />
-          <Form.Label>Sisältö:</Form.Label>
-          <Form.Control
-            type="text"
-            value={newContent}
-            onChange={({ target }) => setNewContent(target.value)}
-          />
-          <Button type="submit">lisää</Button>
-        </Form>
-      </div>
-    )
-  }*/
 
   if (!blogToShow || !blogs || !user) {
     return null
@@ -105,6 +103,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry }) => {
       {blogToShow.blogEntries && blogToShow.blogEntries.map(b =>
         <div key={b._id}>
           <h3>{b.entryTitle}</h3>
+          <h3>id: {b._id}</h3>
           <i>{b.entryDate}</i><br />
           {b.entryContent}
           {/*<Form onSubmit={handleCommentAdd(blogToShow.blogEntries.indexOf(b))}>*/}
@@ -116,10 +115,12 @@ const Blog = ({ blogs, addEntry, user, commentEntry }) => {
               onChange={({ target }) => setComment(target.value)}
             />
             {/*<Button type="submit">lisää</Button>*/}
+            {/*<Button onClick={() => handleCommentAdd(blogToShow.blogEntries.indexOf(b))}>lisää kommentti</Button>*/}
             <Button onClick={() => handleCommentAdd(blogToShow.blogEntries.indexOf(b))}>lisää kommentti</Button>
           </Form>
           {b.comments && b.comments.map(c =>
             <div key={b.comments.indexOf(c)}>
+              {console.log('kommentti: ', c)}
               <b>{c.user}</b><br />
               <i>{c.commentDate}</i><br />
               {c.text}

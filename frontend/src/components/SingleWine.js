@@ -1,19 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { createReview } from '../reducers/reviewReducer'
 import { Table, Form, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { initializeReviews, createReview } from '../reducers/reviewReducer'
 
-const SingleWine = ({ wines, user, reviews, addLike }) => {
-  const dispatch = useDispatch()
+/**************
+ * Ilmeisesti tilanpäivittymisen yhteydessä päivittyy vain kyseinen tila,
+ * mutta ei siihen linkittyneet muut tilat.
+ * Esim. luotaessa uusi viini, päivittyy viinien lista,
+ * mutta ei käyttäjien viinit. Tätä täytyy tutkia lisää.
+ * Myös arvostelujen päivittämättömyys liittynee tähän.
+ * 
+ * Mahdollisesti tyyliin updateWine -metodi, jolla päivitetään
+ * myös arvosteltava viini samalla, kun lisätään arvostelu?
+ * 
+ * Uusi arvostelu päätyy tilaan reviews,
+ * mutta päivittynyt tila ei renderöidy komponentissa.
+ *************/
+
+const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
   
   const [description, setDescription] = useState('')
   const [points, setPoints] = useState('valitse')
   const [vintage, setVintage] = useState('--')
+
+  const dispatch = useDispatch()
+
+  /*useEffect(() => {
+    dispatch(initializeReviews())
+  },[dispatch])
+
+  let reviews = useSelector(state => state.reviews)*/
   
   const id = useParams().id
-  const wineToShow = wines.find(wine => wine.id === id)
-  const reviewsToShow = reviews.filter(r => r.wine.id === id)
+  let wineToShow = wines.find(wine => wine.id === id)
+  let reviewsToShow = reviews.filter(r => r.wine.id === id)
 
   const handleLike = (props) => {
     const likedReview = {
@@ -39,7 +60,7 @@ const SingleWine = ({ wines, user, reviews, addLike }) => {
   }
 
   const handleReviewAdd = (event) => {
-    addReview({
+    addReview(id, {
       user: user,
       wine: wineToShow,
       description: description,
@@ -48,11 +69,14 @@ const SingleWine = ({ wines, user, reviews, addLike }) => {
     })
     setDescription('')
     setPoints('')
+    //wineToShow = wines.find(wine => wine.id === id)
+    reviewsToShow = reviews.filter(r => r.wine.id === id)
+    
   }
 
-  const addReview = (reviewObject) => {
+  /*const addReview = (reviewObject) => {
     dispatch(createReview(wineToShow.id, reviewObject))
-  }
+  }*/
 
   let pointOptions = []
   for (let i = 0; i < 101; i++) {
