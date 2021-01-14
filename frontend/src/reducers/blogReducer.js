@@ -29,22 +29,33 @@ const blogReducer = (state = [], action) => {
       }
     case 'ADD_COMMENT': {
       const id = action.data.id
-      const index = action.index
+      /*const index = action.index
       const blog = state.find(b => b.id === id)
       const entry = blog.blogEntries[index]
-      const commentedEntry = {
+      console.log('action.data: ', action.data)*/
+      /****
+       * Täällä tapahtuu jotakin. lisäämisen yhteydessä syntyy uusi entry,
+       * jossa ylimääräinen määrittelemätön kommentti.
+       * konsolin lokista päätellen virhe tapahtuu täällä.
+       * addCommentista näyttää palautuvan data oikein.
+       */
+      /*const commentedEntry = {
         ...entry,
-        comments: entry.comments.concat(action.data.content)
+        comments: entry.comments.concat(action.data.comments)
       }
+      console.log('commented entry (reducer): ', commentedEntry)
       const commentedBlog = {
         ...blog,
         blogEntries: blog.blogEntries.concat(commentedEntry)
       }
+      console.log('commented blog (reducer): ', commentedBlog)
       const newState = state.map(b =>
         b.id !== id ? b : commentedBlog)
       console.log('new state: ', newState)
+      /*return state.map(b =>
+        b.id !== id ? b : commentedBlog)*/
       return state.map(b =>
-        b.id !== id ? b : commentedBlog)
+        b.id !== id ? b : action.data)
     }
     default:
       return state
@@ -86,6 +97,10 @@ export const addBlogEntry = (id, content) => {
 export const addComment = (id, content, index) => {
   return async dispatch => {
     const commentedBlog = await blogService.updateBlog(id, content)
+    /***
+     * Tässä kohtaa kaikki ok
+     */
+    console.log('commented blog after updateBlog: ', commentedBlog)
     dispatch({
       type: 'ADD_COMMENT',
       data: commentedBlog,

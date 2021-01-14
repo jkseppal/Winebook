@@ -29,5 +29,6 @@
 17.12.2020: 1h, Muutettu sovellus toteuttamaan sisäänkirjautuminen rekisteröitymisen yhteydessä.
 12.01.2021: 3h, Korjattu uuden blogin ja uuden arvostelun lisäämiseen liittynyt tilanhallinnan bugi.
 13.01.2021: 4h, Korjattu uuden blogimerkinnän lisäämiseen liittynyt bugi, selvitetty blogin kommentointiin liittyvää bugia.
+14.01.2021: 2h, Blogin kommentointiin liittyvä bugi korjattu.
 
-yhteensä: 96h
+yhteensä: 98h
