@@ -30,5 +30,7 @@
 12.01.2021: 3h, Korjattu uuden blogin ja uuden arvostelun lisäämiseen liittynyt tilanhallinnan bugi.
 13.01.2021: 4h, Korjattu uuden blogimerkinnän lisäämiseen liittynyt bugi, selvitetty blogin kommentointiin liittyvää bugia.
 14.01.2021: 2h, Blogin kommentointiin liittyvä bugi korjattu.
+15.01.2021: 3h, Kommentin lisääminen siirretty tapahtumaan modaali-ikkunasta.
+15.01.2021: 2h, Lisätty mahdollisuus tykätä blogimerkinnästä.
 
-yhteensä: 98h
+yhteensä: 101h

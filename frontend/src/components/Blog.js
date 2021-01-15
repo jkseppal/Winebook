@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Form, Button, Modal } from 'react-bootstrap'
+//import ModalHeader from 'react-bootstrap/esm/ModalHeader'
 
-const Blog = ({ blogs, addEntry, user, commentEntry }) => {
+const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
   const [newEntryTitle, setNewEntryTitle] = useState('')
   const [newContent, setNewContent] = useState('')
   const [show, setShow] = useState(false)
+  const [showComment, setShowComment] = useState(false)
   const [comment, setComment] = useState('')
+  const [index, setIndex] = useState(null)
   
   const id = useParams().id
-  //console.log('id: ', id)
 
   const now = new Date()
 
@@ -37,60 +39,65 @@ const Blog = ({ blogs, addEntry, user, commentEntry }) => {
     }
     console.log('updated blog before addEntry: ', blogToUpdate)
     addEntry(id, blogToUpdate)
-    //addEntry(id, newEntry)
     setNewEntryTitle('')
     setNewContent('')
     setShow(false)
     console.log('updated blog at the last line of event handler: ', blogToShow)
   }
 
-  //Entryt eivät ole omia dokumentteja, mieti parempi tapa!!!
-  //Nyt PUT-pyyntö ei korvaa entryä
-  /*const handleCommentAdd = (index) => {
+  const handleCommentAdd = (i) => {
     const newComment = {
       text: comment,
       user: user.username,
       commentDate: now.toDateString()
     }
 
-    let entry = blogToShow.blogEntries[index]
+    let entry = blogToShow.blogEntries[i]
     entry.comments.push(newComment)
 
     const blogToUpdate = {
       ...blogToShow,
       user: blogToShow.user.id,
     }
-    commentEntry(id, blogToUpdate, index)
+    console.log('index: ', i)
+    commentEntry(id, blogToUpdate, i)
     setComment('')
+    setShowComment(false)
   }
 
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
-
-  if (!blogToShow || !blogs || !user) {
-    return null
-  }*/
-
-  const handleCommentAdd = (index) => {
-    const newComment = {
-      text: comment,
-      user: user.username,
-      commentDate: now.toDateString()
+  const handleLike = (i, e) => {
+    e.preventDefault()
+    let entry = blogToShow.blogEntries[i]
+    entry = {
+      ...entry,
+      likes: entry.likes + 1
     }
-
-    let entry = blogToShow.blogEntries[index]
-    entry.comments.push(newComment)
+    let entries = [...blogToShow.blogEntries]
+    entries[i] = entry
+    console.log('entry after like: ', entry)
 
     const blogToUpdate = {
       ...blogToShow,
-      user: blogToShow.user.id,
+      blogEntries: entries,
+      user: blogToShow.user.id
     }
-    commentEntry(id, blogToUpdate, index)
-    setComment('')
+    console.log('blog after like: ', blogToUpdate)
+    likeEntry(id, blogToUpdate)
   }
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  const handleCloseComment = () => {
+    setShowComment(false)
+    setIndex(null)
+  }
+  const handleShowComment = (i, e) => {
+    e.preventDefault()
+    setIndex(i)
+    setShowComment(true)
+    console.log('modal opened, index: ', i)
+  }
 
   if (!blogToShow || !blogs || !user) {
     return null
@@ -103,21 +110,36 @@ const Blog = ({ blogs, addEntry, user, commentEntry }) => {
       {blogToShow.blogEntries && blogToShow.blogEntries.map(b =>
         <div key={b._id}>
           <h3>{b.entryTitle}</h3>
-          <h3>id: {b._id}</h3>
           <i>{b.entryDate}</i><br />
-          {b.entryContent}
-          {/*<Form onSubmit={handleCommentAdd(blogToShow.blogEntries.indexOf(b))}>*/}
-          <Form>
-            <Form.Label>Lisää kommentti</Form.Label>
-            <Form.Control
-              type="text"
-              value={comment}
-              onChange={({ target }) => setComment(target.value)}
-            />
-            {/*<Button type="submit">lisää</Button>*/}
-            {/*<Button onClick={() => handleCommentAdd(blogToShow.blogEntries.indexOf(b))}>lisää kommentti</Button>*/}
-            <Button onClick={() => handleCommentAdd(blogToShow.blogEntries.indexOf(b))}>lisää kommentti</Button>
-          </Form>
+          {b.entryContent}<br />
+          <i>Tykkäyksiä: {b.likes}</i><br />
+          <div className="wrapper">
+          <Button onClick={(e) => handleLike(blogToShow.blogEntries.indexOf(b), e)}>Tykkää</Button><br />
+          </div>
+          {console.log('entry: ', b, ', indeksi: ', blogToShow.blogEntries.indexOf(b))}
+          <div className="wrapper">
+          <Button variant="success" onClick={(e) => handleShowComment(blogToShow.blogEntries.indexOf(b), e)}>lisää kommentti</Button>
+          </div>
+          <Modal size="lg" show={showComment} onHide={handleCloseComment}>
+            <Modal.Header closeButton>
+              <Modal.Title>Lisää kommentti</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Form.Label>Kommentti</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={comment}
+                  onChange={({ target }) => setComment(target.value)}
+                />
+                {/*<Button onClick={() => handleCommentAdd(blogToShow.blogEntries.indexOf(b))}>lisää kommentti</Button>*/}
+                <Button onClick={() => handleCommentAdd(index)}>lisää kommentti</Button>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseComment}>peruuta</Button>
+            </Modal.Footer>
+          </Modal>
           {b.comments && b.comments.map(c =>
             <div key={b.comments.indexOf(c)}>
               {console.log('kommentti: ', c)}
@@ -128,24 +150,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry }) => {
           )}
         </div>
       )}
-      {/*authorized && <div>
-        <h3>Lisää uusi blogimerkintä:</h3>
-        <Form onSubmit={handleEntryAdd}>
-          <Form.Label>Otsikko:</Form.Label>
-          <Form.Control
-            type="text"
-            value={newEntryTitle}
-            onChange={({ target }) => setNewEntryTitle(target.value)}
-          />
-          <Form.Label>Sisältö:</Form.Label>
-          <Form.Control
-            type="text"
-            value={newContent}
-            onChange={({ target }) => setNewContent(target.value)}
-          />
-          <Button type="submit">lisää</Button>
-        </Form>
-      </div>*/}
+
       {authorized && <div>
         <Button onClick={handleShow}>lisää blogimerkintä</Button>
         <Modal size="lg" show={show} onHide={handleClose}>
@@ -169,18 +174,6 @@ const Blog = ({ blogs, addEntry, user, commentEntry }) => {
               />
               <Button type="submit">lisää</Button>
             </Form>
-            {/*<input
-              type="text"
-              label='otsikko:'
-              value={newEntryTitle}
-              onChange={({ target }) => setNewEntryTitle(target.value)}
-            />
-            <input
-              type="text"
-              label='sisältö:'
-              value={newContent}
-              onChange={({ target }) => setNewContent(target.value)}
-            />*/}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>peruuta</Button>
