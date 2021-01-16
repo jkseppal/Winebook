@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { Form, Button, Modal } from 'react-bootstrap'
+import Togglable from './Togglable'
 //import ModalHeader from 'react-bootstrap/esm/ModalHeader'
 
 const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
@@ -99,6 +100,8 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
     console.log('modal opened, index: ', i)
   }
 
+  const commentRef = useRef()
+
   if (!blogToShow || !blogs || !user) {
     return null
   }
@@ -109,16 +112,17 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
       Kirjoittaja: {blogToShow.user.username}
       {blogToShow.blogEntries && blogToShow.blogEntries.map(b =>
         <div key={b._id}>
+          <p className="entryWrapper">
           <h3>{b.entryTitle}</h3>
           <i>{b.entryDate}</i><br />
           {b.entryContent}<br />
           <i>Tykkäyksiä: {b.likes}</i><br />
-          <div className="wrapper">
-          <Button onClick={(e) => handleLike(blogToShow.blogEntries.indexOf(b), e)}>Tykkää</Button><br />
+          <div className="buttonWrapper">
+            <Button onClick={(e) => handleLike(blogToShow.blogEntries.indexOf(b), e)}>Tykkää</Button><br />
           </div>
           {console.log('entry: ', b, ', indeksi: ', blogToShow.blogEntries.indexOf(b))}
-          <div className="wrapper">
-          <Button variant="success" onClick={(e) => handleShowComment(blogToShow.blogEntries.indexOf(b), e)}>lisää kommentti</Button>
+          <div className="buttonWrapper">
+            <Button variant="success" onClick={(e) => handleShowComment(blogToShow.blogEntries.indexOf(b), e)}>lisää kommentti</Button>
           </div>
           <Modal size="lg" show={showComment} onHide={handleCloseComment}>
             <Modal.Header closeButton>
@@ -140,19 +144,26 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
               <Button variant="secondary" onClick={handleCloseComment}>peruuta</Button>
             </Modal.Footer>
           </Modal>
+          <Togglable buttonLabel='näytä kommentit' ref={commentRef}>
           {b.comments && b.comments.map(c =>
             <div key={b.comments.indexOf(c)}>
               {console.log('kommentti: ', c)}
+              <p className="commentWrapper">
               <b>{c.user}</b><br />
               <i>{c.commentDate}</i><br />
               {c.text}
+              </p>
             </div>
           )}
+          </Togglable>
+          </p>
         </div>
       )}
 
       {authorized && <div>
-        <Button onClick={handleShow}>lisää blogimerkintä</Button>
+        <div className="buttonWrapper">
+          <Button onClick={handleShow}>lisää blogimerkintä</Button>
+        </div>
         <Modal size="lg" show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Lisää uusi blogimerkintä</Modal.Title>

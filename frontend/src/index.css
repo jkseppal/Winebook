@@ -12,7 +12,23 @@ code {
     monospace;
 }
 
-.wrapper {
-  padding-top: 10px;
-  padding-bottom: 10px;
+.buttonWrapper {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 5px;
+}
+
+.commentWrapper {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: lightgray;
+  border-radius: 10px;
+}
+
+.entryWrapper {
+  border-style: solid;
+  border-radius: 10px;
+  border-color: gray;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
