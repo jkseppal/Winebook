@@ -25,7 +25,6 @@ import { Navbar, Nav, Button } from 'react-bootstrap'
 import { initializeReviews, likeReview, createReview } from './reducers/reviewReducer'
 import { errorMessageChange } from './reducers/errorReducer'
 import { initializeBlogs, addBlogEntry, addComment, addEntryLike } from './reducers/blogReducer'
-import ReviewList from './components/ReviewList'
 import loginService from './services/login'
 
 const App = () => {
@@ -165,7 +164,6 @@ const App = () => {
               <NavBarLink path='/guide' text='ohjeita' />
               {user && <NavBarLink path='/blogs' text='blogit' />}
               {userFromDB && <NavBarLink path='/profile' text='oma profiili' />}
-              <NavBarLink path='/reviews' text='arvostelut' />
               {!user && <NavBarLink path='/login' text={<Button type="button">kirjaudu sisään</Button>} />}
               {user && <Navbar.Brand>{user.username} kirjautunut sisään</Navbar.Brand>}
               {user && <Button variant="secondary" onClick={handleLogout}>kirjaudu ulos</Button>}
@@ -205,9 +203,6 @@ const App = () => {
           </Route>
           <Route path="/blogs">
             <BlogList blogs={blogs} user={userFromDB} />
-          </Route>
-          <Route path="/reviews">
-            <ReviewList reviews={reviews} />
           </Route>
           <Route path="/">
             <WineList wines={wines} />

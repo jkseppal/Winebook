@@ -2,9 +2,11 @@ import React, { useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { Form, Button, Modal } from 'react-bootstrap'
 import Togglable from './Togglable'
+import dompurify from 'dompurify'
+import { Editor } from '@tinymce/tinymce-react'
 //import ModalHeader from 'react-bootstrap/esm/ModalHeader'
 
-const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
+const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent }) => {
   const [newEntryTitle, setNewEntryTitle] = useState('')
   const [newContent, setNewContent] = useState('')
   const [show, setShow] = useState(false)
@@ -13,6 +15,13 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
   const [index, setIndex] = useState(null)
   
   const id = useParams().id
+
+  const sanitizer = dompurify.sanitize
+
+  const handleEditorChange = (content, editor) => {
+    setNewContent(content)
+    console.log('content:', content)
+  }
 
   const now = new Date()
 
@@ -112,10 +121,10 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
       Kirjoittaja: {blogToShow.user.username}
       {blogToShow.blogEntries && blogToShow.blogEntries.map(b =>
         <div key={b._id}>
-          <p className="entryWrapper">
+          <div className="entryWrapper">
           <h3>{b.entryTitle}</h3>
           <i>{b.entryDate}</i><br />
-          {b.entryContent}<br />
+          <div dangerouslySetInnerHTML={{__html: sanitizer(b.entryContent)}} /><br />
           <i>Tykkäyksiä: {b.likes}</i><br />
           <div className="buttonWrapper">
             <Button onClick={(e) => handleLike(blogToShow.blogEntries.indexOf(b), e)}>Tykkää</Button><br />
@@ -156,7 +165,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
             </div>
           )}
           </Togglable>
-          </p>
+          </div>
         </div>
       )}
 
@@ -177,11 +186,29 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
                 onChange={({ target }) => setNewEntryTitle(target.value)}
               />
               <Form.Label>Sisältö:</Form.Label>
-              <Form.Control
+              {/*<Form.Control
                 as="textarea"
                 rows={8}
                 value={newContent}
                 onChange={({ target }) => setNewContent(target.value)}
+              />*/}
+              <Editor
+                apiKey='of54cb492304vkn5fjxyqvan6ekih5gvviu2q05or7c7plw8'
+                initialValue="<p>This is the initial content of the editor</p>"
+                init={{
+                  height: 500,
+                  menubar: false,
+                  plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                  ],
+                  toolbar:
+                    'undo redo | formatselect | bold italic backcolor | \
+                    alignleft aligncenter alignright alignjustify | \
+                    bullist numlist outdent indent | removeformat | help',
+                }}
+                onEditorChange={handleEditorChange}
               />
               <Button type="submit">lisää</Button>
             </Form>
