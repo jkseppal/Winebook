@@ -79,7 +79,7 @@ const WineList = ({ wines }) => {
   }
 
   return (
-    <div>
+    <div className='wineList'>
       <h2>Sovellukseen lisätyt viinit:</h2>
       Näytä:
         <select
@@ -153,7 +153,7 @@ const WineList = ({ wines }) => {
             </Col>
           </Form.Group>
         </Form>
-        <Table striped>
+        <Table striped className='tableWrapper'>
           <thead>
             <tr>
               <td>Viini</td>

@@ -32,3 +32,27 @@ code {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+
+.blockWrapper {
+  padding-bottom: 5px;
+}
+
+.guide {
+  padding-right: 300px;
+  padding-left: 50px;
+  padding-top: 20px;
+}
+
+.wineList {
+  padding-right: 200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.tableWrapper {
+  border-style: solid;
+  border-radius: 10px;
+  border-color: rgb(50, 145, 253);
+  padding-top: 5px;
+  padding-bottom: 5px
+}

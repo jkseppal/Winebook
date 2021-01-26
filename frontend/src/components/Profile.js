@@ -69,7 +69,7 @@ const Profile = ({ user, updateProfile }) => {
   }
   
   return (
-    <div>
+    <div className='guide'>
       <h2>Oma profiili: {user.username}</h2>
       <div>
         <Form onSubmit={handleNameChange}>
@@ -79,7 +79,9 @@ const Profile = ({ user, updateProfile }) => {
             value={name}
             onChange={({ target }) => setName(target.value)}
           />
-          <Button type="submit">vaihda nimi</Button>
+          <div className='buttonWrapper'>
+            <Button type="submit">vaihda nimi</Button>
+          </div>
         </Form>
       </div>
       {/*<div>
@@ -114,7 +116,9 @@ const Profile = ({ user, updateProfile }) => {
               Näytä sähköpostiosoite muille käyttäjille
             </FormCheck.Label>
           </FormCheck>
-          <Button type="submit">päivitä sähköpostiosoite tai sen näkyvyys</Button>
+          <div className='buttonWrapper'>
+            <Button type="submit">päivitä sähköpostiosoite tai sen näkyvyys</Button>
+          </div>
         </Form>
       </div>
       <div>
@@ -126,7 +130,9 @@ const Profile = ({ user, updateProfile }) => {
             value={description}
             onChange={({ target }) => setDescription(target.value)}
           />
-          <Button type="submit">päivitä kuvaus</Button>
+          <div className='buttonWrapper'>
+            <Button type="submit">päivitä kuvaus</Button>
+          </div>
         </Form>
       </div>
     </div>

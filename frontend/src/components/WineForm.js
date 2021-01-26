@@ -59,7 +59,7 @@ const WineForm = ({ addWine, user, wines }) => {
   }
 
   return (
-    <div>
+    <div className='wineList'>
       <h2>Lisää uusi viini:</h2>
       <Form onSubmit={handleWineAdd}>
         <table>

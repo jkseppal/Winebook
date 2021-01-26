@@ -111,20 +111,24 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
 
   const commentRef = useRef()
 
+  const entryRef = useRef()
+
   if (!blogToShow || !blogs || !user) {
     return null
   }
 
   return (
-    <div>
+    <div className='guide'>
       <h2>{blogToShow.title}</h2>
       Kirjoittaja: {blogToShow.user.username}
       {blogToShow.blogEntries && blogToShow.blogEntries.map(b =>
-        <div key={b._id}>
-          <div className="entryWrapper">
+        <div key={b._id} className="blockWrapper">
+          <div className="tableWrapper">
           <h3>{b.entryTitle}</h3>
           <i>{b.entryDate}</i><br />
-          <div dangerouslySetInnerHTML={{__html: sanitizer(b.entryContent)}} /><br />
+          <Togglable buttonLabel='Näytä sisältö' ref={entryRef}>
+            <div dangerouslySetInnerHTML={{__html: sanitizer(b.entryContent)}} /><br />
+          
           <i>Tykkäyksiä: {b.likes}</i><br />
           <div className="buttonWrapper">
             <Button onClick={(e) => handleLike(blogToShow.blogEntries.indexOf(b), e)}>Tykkää</Button><br />
@@ -165,6 +169,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
             </div>
           )}
           </Togglable>
+          </Togglable>
           </div>
         </div>
       )}
@@ -194,7 +199,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
               />*/}
               <Editor
                 apiKey='of54cb492304vkn5fjxyqvan6ekih5gvviu2q05or7c7plw8'
-                initialValue="<p>This is the initial content of the editor</p>"
+                initialValue=""
                 init={{
                   height: 500,
                   menubar: false,
@@ -204,7 +209,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
                     'insertdatetime media table paste code help wordcount'
                   ],
                   toolbar:
-                    'undo redo | formatselect | bold italic backcolor | \
+                    'undo redo | fontselect fontsizeselect | bold italic underline forecolor backcolor | \
                     alignleft aligncenter alignright alignjustify | \
                     bullist numlist outdent indent | removeformat | help',
                 }}

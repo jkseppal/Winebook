@@ -2,7 +2,7 @@ import React from 'react'
 
 const Guide = () => {
   return (
-    <div>
+    <div className='guide'>
       <h2>Ohjeita sovelluksen käyttöön</h2>
       <h3>Uuden viinin lisääminen</h3>
       <p>
@@ -80,6 +80,15 @@ const Guide = () => {
         Yksittäisten viinien arvostelujen vierestä löytyy tykkää-nappi, jota painamalla voi antaa kyseiselle arvostelulle tykkäyksen.
         Huomiotavaa on, että tykkäys ei liity arvosteltuun viiniin, vaan sitä koskevaan arvosteluun.
         Näin ollen arvostelusta voi hyvin tykätä, vaikka kyseisestä viinistä ei pitäisikään.
+      </p>
+      <h3>Blogit</h3>
+      <p>
+        Rekisteröityneiden käyttäjien on mahdollista ylläpitää sovelluksessa omaa blogeja.
+        Blogien määrää ei ole rajoitettu, joten sama käyttäjä voi pitää myös useampaa blogia, jos esimerkiksi haluaa niiden käsittelevän eri aiheita.
+        Blogien aiheita ei myöskään ole mitenkään rajattu koskemaan viinejä, vaan ominaisuuden tarkoitus on toimia yleisesti helppona vaihtoehtona blogialustaksi käyttäjille.
+      </p>
+      <p>
+        Käyttäjien blogimerkinnöistä voi myös tykätä sekä niitä voi kommentoida.
       </p>
     </div>
   )

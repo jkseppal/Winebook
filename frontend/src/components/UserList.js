@@ -49,7 +49,7 @@ const UserList = ({ users, user }) => {
   }
 
   return (
-    <div>
+    <div className='wineList'>
       <h2>rekisteröityneet käyttäjät:</h2>
       Hae käyttäjätunnuksella:
         <input
@@ -88,7 +88,7 @@ const UserList = ({ users, user }) => {
           </Form.Group>
         </Form>
       {sorter(usersToShow)}
-      <Table striped>
+      <Table striped className='tableWrapper'>
         <thead>
           <tr>
             <td>Käyttäjänimi</td>

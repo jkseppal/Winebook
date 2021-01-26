@@ -32,9 +32,9 @@ const BlogList = (user) => {
     return null
   }
   return (
-    <div>
+    <div className='guide'>
       <h2>Käyttäjien blogit</h2>
-      <Table striped>
+      <Table striped className='tableWrapper'>
         <thead>
           <tr>
             <td>blogi</td>
