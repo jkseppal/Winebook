@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 usersRouter.get('/', async (request, response, next) => {
   const users = await User.find({})
   .populate('wines', { name: 1, region: 1 })
+  .populate('blogs', { title: 1 })
   .populate({
     path : 'reviews',
     populate : {

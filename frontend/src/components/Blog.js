@@ -56,10 +56,19 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
   }
 
   const handleCommentAdd = (i) => {
-    const newComment = {
-      text: comment,
-      user: user.username,
-      commentDate: now.toDateString()
+    let newComment = null
+    if (!user) {
+      newComment = {
+        text: comment,
+        user: 'vierailija',
+        commentDate: now.toDateString()
+      }
+    } else {
+      newComment = {
+        text: comment,
+        user: user.username,
+        commentDate: now.toDateString()
+      }
     }
 
     let entry = blogToShow.blogEntries[i]
@@ -113,7 +122,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
 
   const entryRef = useRef()
 
-  if (!blogToShow || !blogs || !user) {
+  if (!blogToShow || !blogs) {
     return null
   }
 

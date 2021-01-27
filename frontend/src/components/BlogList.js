@@ -6,8 +6,14 @@ import { Link } from 'react-router-dom'
 
 const BlogList = (user) => {
   const dispatch = useDispatch()
+  console.log('user in bloglist: ', user)
   
   const [title, setTitle] = useState('')
+
+  let authorized = false
+  if (user.user) {
+    authorized = true
+  }
 
   useEffect(() => {
     dispatch(initializeBlogs())
@@ -49,16 +55,18 @@ const BlogList = (user) => {
           </tr>)}
         </tbody>
       </Table>
-      <h2>Lisää blogi:</h2>
-      <Form onSubmit={handleBlogAdd}>
-        <Form.Label>Otsikko:</Form.Label>
-        <Form.Control
-          type="text"
-          value={title}
-          onChange={({ target }) => setTitle(target.value)}
-        />
-        <Button type="submit">lisää</Button>
-      </Form>
+      {authorized && <div>
+        <h2>Lisää blogi:</h2>
+        <Form onSubmit={handleBlogAdd}>
+          <Form.Label>Otsikko:</Form.Label>
+          <Form.Control
+            type="text"
+            value={title}
+            onChange={({ target }) => setTitle(target.value)}
+          />
+          <Button type="submit">lisää</Button>
+        </Form>
+      </div>}
     </div>
   )
 }

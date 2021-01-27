@@ -162,7 +162,7 @@ const App = () => {
               {user && <NavBarLink path='/users' text='käyttäjät' />}
               {!user && <NavBarLink path='/registration' text='rekisteröidy käyttäjäksi' />} 
               <NavBarLink path='/guide' text='ohjeita' />
-              {user && <NavBarLink path='/blogs' text='blogit' />}
+              <NavBarLink path='/blogs' text='blogit' />
               {userFromDB && <NavBarLink path='/profile' text='oma profiili' />}
               {!user && <NavBarLink path='/login' text={<Button type="button">kirjaudu sisään</Button>} />}
               {user && <Navbar.Brand>{user.username} kirjautunut sisään</Navbar.Brand>}

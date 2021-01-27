@@ -44,6 +44,12 @@ const SingleUser = ({ users, user }) => {
           <Link to={`/wines/${r.wine.id}`}>{r.wine.name}</Link>
         </div>
       )}
+      <h3>Käyttäjän blogit:</h3>
+      {userToShow.blogs.map(b =>
+        <div key={b.id}>
+          <Link to={`/blogs/${b.id}`}>{b.title}</Link>
+        </div>
+      )}
     </div>
   )
 }
