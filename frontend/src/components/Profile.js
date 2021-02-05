@@ -5,9 +5,14 @@ const Profile = ({ user, updateProfile }) => {
   
   const [description, setDescription] = useState('')
   const [name, setName] = useState('')
-  //const [username, setUsername] = useState(user.username)
   const [email, setEmail] = useState('')
   const [showEmail, setShowEmail] = useState('')
+  const [facebook, setFacebook] = useState('')
+  const [showFacebook, setShowFacebook] = useState('')
+  const [instagram, setInstagram] = useState('')
+  const [showInstagram, setShowInstagram] = useState('')
+  const [twitter, setTwitter] = useState('')
+  const [showTwitter, setShowTwitter] = useState('')
 
   useEffect(() => {
     if (user) {
@@ -16,9 +21,21 @@ const Profile = ({ user, updateProfile }) => {
       } else {
         setDescription('')
       }
+      if (user.facebook) {
+        setFacebook(user.facebook)
+      }
+      if (user.instagram) {
+        setInstagram(user.instagram)
+      }
+      if (user.twitter) {
+        setTwitter(user.twitter)
+      }
       setName(user.name)
       setEmail(user.email)
       setShowEmail(user.showEmail)
+      setShowFacebook(user.showFacebook)
+      setShowInstagram(user.showInstagram)
+      setShowTwitter(user.showTwitter)
     }
   }, [user])
   
@@ -38,31 +55,41 @@ const Profile = ({ user, updateProfile }) => {
     })
   }
 
-  /*const handleUsernameChange = (event) => {
+  const handleEmailChange = (event) => {
     event.preventDefault()
     updateProfile({
-      ...user,
-      username: username
-    })
-  }*/
-
-  const handleEmailChange = async (event) => {
-    event.preventDefault()
-    await updateProfile({
       ...user,
       email: email,
       showEmail: showEmail
     })
   }
 
-  /*const handleEmailShowChange = (event) => {
-    //event.preventDefault()
-    updateProfile({
+  const handleFacebookChange = async (event) => {
+    event.preventDefault()
+    await updateProfile({
       ...user,
-      showEmail: showEmail
+      facebook: facebook,
+      showFacebook: showFacebook
     })
-    setShowEmail(event.target.value)
-  }*/
+  }
+
+  const handleInstagramChange = async (event) => {
+    event.preventDefault()
+    await updateProfile({
+      ...user,
+      instagram: instagram,
+      showInstagram: showInstagram
+    })
+  }
+
+  const handleTwitterChange = async (event) => {
+    event.preventDefault()
+    await updateProfile({
+      ...user,
+      twitter: twitter,
+      showTwitter: showTwitter
+    })
+  }
 
   if (!user) {
     return null
@@ -84,17 +111,6 @@ const Profile = ({ user, updateProfile }) => {
           </div>
         </Form>
       </div>
-      {/*<div>
-        <Form onSubmit={handleUsernameChange}>
-          <Form.Label>Käyttäjätunnus:</Form.Label>
-          <Form.Control
-            type="text"
-            value={username}
-            onChange={({ target }) => setUsername(target.value)}
-          />
-          <Button type="submit">vaihda käyttäjätunnus</Button>
-        </Form>
-      </div>*/}
       <div>
         <Form onSubmit={handleEmailChange}>
           <Form.Label>Sähköpostiosoite:</Form.Label>
@@ -103,13 +119,6 @@ const Profile = ({ user, updateProfile }) => {
             value={email}
             onChange={({ target }) => setEmail(target.value)}
           />
-          {/*<Form.Check
-            type="switch"
-            id="email-showing-switch"
-            label="näytä sähköpostiosoite muille käyttäjille"
-            checked={showEmail}
-            onClick={() => setShowEmail(!showEmail)}
-          />*/}
           <FormCheck custom type="switch">
             <FormCheck.Input checked={showEmail} onChange={() => setShowEmail(!showEmail)} />
             <FormCheck.Label onClick={() => setShowEmail(!showEmail)}>
@@ -118,6 +127,63 @@ const Profile = ({ user, updateProfile }) => {
           </FormCheck>
           <div className='buttonWrapper'>
             <Button type="submit">päivitä sähköpostiosoite tai sen näkyvyys</Button>
+          </div>
+        </Form>
+      </div>
+      <div>
+        <Form onSubmit={handleFacebookChange}>
+          <Form.Label>Facebook:</Form.Label>
+          <Form.Control
+            type="text"
+            value={facebook}
+            onChange={({ target }) => setFacebook(target.value)}
+          />
+          <FormCheck custom type="switch">
+            <FormCheck.Input checked={showFacebook} onChange={() => setShowFacebook(!showFacebook)} />
+            <FormCheck.Label onClick={() => setShowFacebook(!showFacebook)}>
+              Näytä facebook muille käyttäjille
+            </FormCheck.Label>
+          </FormCheck>
+          <div className='buttonWrapper'>
+            <Button type="submit">päivitä facebook tai sen näkyvyys</Button>
+          </div>
+        </Form>
+      </div>
+      <div>
+        <Form onSubmit={handleInstagramChange}>
+          <Form.Label>Instagram:</Form.Label>
+          <Form.Control
+            type="text"
+            value={instagram}
+            onChange={({ target }) => setInstagram(target.value)}
+          />
+          <FormCheck custom type="switch">
+            <FormCheck.Input checked={showInstagram} onChange={() => setShowInstagram(!showInstagram)} />
+            <FormCheck.Label onClick={() => setShowInstagram(!showInstagram)}>
+              Näytä instagram muille käyttäjille
+            </FormCheck.Label>
+          </FormCheck>
+          <div className='buttonWrapper'>
+            <Button type="submit">päivitä instagram tai sen näkyvyys</Button>
+          </div>
+        </Form>
+      </div>
+      <div>
+        <Form onSubmit={handleTwitterChange}>
+          <Form.Label>Twitter:</Form.Label>
+          <Form.Control
+            type="text"
+            value={twitter}
+            onChange={({ target }) => setTwitter(target.value)}
+          />
+          <FormCheck custom type="switch">
+            <FormCheck.Input checked={showTwitter} onChange={() => setShowTwitter(!showTwitter)} />
+            <FormCheck.Label onClick={() => setShowTwitter(!showTwitter)}>
+              Näytä twitter muille käyttäjille
+            </FormCheck.Label>
+          </FormCheck>
+          <div className='buttonWrapper'>
+            <Button type="submit">päivitä twitter tai sen näkyvyys</Button>
           </div>
         </Form>
       </div>

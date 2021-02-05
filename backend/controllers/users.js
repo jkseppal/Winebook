@@ -28,6 +28,9 @@ usersRouter.post('/', async (request, response, next) => {
   const user = new User({
     ...body,
     showEmail: false,
+    showFacebook: false,
+    showInstagram: false,
+    showTwitter: false,
     passwordHash,
   })
 
@@ -50,10 +53,12 @@ usersRouter.put('/:id', async (request, response, next) => {
   console.log('body: ', body)
   const wines = body.wines.map(w => w.id)
   const reviews = body.reviews.map(r => r.id)
+  const blogs = body.blogs.map(b => b.id)
 
   const user = {
     ...body,
     wines: wines,
+    blogs: blogs,
     reviews: reviews,
   }
   const savedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true, useFindAndModify: false })

@@ -23,6 +23,12 @@ const userSchema = mongoose.Schema({
   },
   passwordHash: String,
   description: String,
+  facebook: String,
+  showFacebook: Boolean,
+  instagram: String,
+  showInstagram: Boolean,
+  twitter: String,
+  showTwitter: Boolean,
   reviews: [
     {
       type: mongoose.Schema.Types.ObjectId,
