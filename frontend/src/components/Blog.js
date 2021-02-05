@@ -122,6 +122,18 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
 
   const entryRef = useRef()
 
+  const stripper = (html) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html')
+    console.log('doc: ', doc)
+    let part = doc.body.textContent || ''
+    console.log('part: ', part)
+    if (part.length > 200) {
+      part = part.substr(0,200)
+      part += '...'
+    }
+    return part
+  }
+
   if (!blogToShow || !blogs) {
     return null
   }
@@ -135,7 +147,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
           <div className="tableWrapper">
           <h3>{b.entryTitle}</h3>
           <i>{b.entryDate}</i><br />
-          <Togglable buttonLabel='Näytä sisältö' ref={entryRef}>
+          <Togglable shortString={stripper(b.entryContent)} buttonLabel='Näytä kokonaan' ref={entryRef}>
             <div dangerouslySetInnerHTML={{__html: sanitizer(b.entryContent)}} /><br />
           
           <i>Tykkäyksiä: {b.likes}</i><br />

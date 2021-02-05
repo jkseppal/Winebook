@@ -22,6 +22,7 @@ const Togglable = React.forwardRef((props, ref) => {
     <div>
       <div style={hideWhenVisible}>
         <div className="buttonWrapper">
+          {props.shortString ?? <div>{props.shortString}</div>}
           <Button variant="primary" onClick={toggleVisibility}>{props.buttonLabel}</Button>
         </div>
       </div>
