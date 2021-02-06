@@ -158,7 +158,7 @@ const App = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
               <NavBarLink path='/' text='etusivu' />
-              {user && <NavBarLink path='/create' text='lisää viini' />}
+              {user && <NavBarLink path='/create' text='lisää viini' id="nav-add-wine" />}
               {user && <NavBarLink path='/users' text='käyttäjät' />}
               {!user && <NavBarLink path='/registration' text='rekisteröidy käyttäjäksi' />} 
               <NavBarLink path='/guide' text='ohjeita' />

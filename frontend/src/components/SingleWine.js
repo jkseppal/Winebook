@@ -105,7 +105,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
       )
     }
     return (
-      <Button variant="success" type="submit">lisää arvostelu</Button>
+      <Button variant="success" type="submit" id="add-review">lisää arvostelu</Button>
     )
   }
 
@@ -176,6 +176,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
                 <td>
                   <Form.Control
                     as="select"
+                    id="vintage"
                     value={vintage}
                     onChange={({ target }) => setVintage(target.value)}
                   >
@@ -193,6 +194,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
                 <td>
                   <Form.Control
                     as="textarea"
+                    id="description"
                     rows={4}
                     value={description}
                     onChange={({ target }) => setDescription(target.value)}
@@ -206,6 +208,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
                 <td>
                   <Form.Control
                     as="select"
+                    id="points"
                     value={points}
                     onChange={({ target }) => setPoints(target.value)}
                   >

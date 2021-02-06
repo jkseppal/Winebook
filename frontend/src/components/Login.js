@@ -67,6 +67,7 @@ const Login = () => {
                 <td>
                   <Form.Control
                     type="text"
+                    id="username"
                     value={username}
                     onChange={({ target }) => setUsername(target.value)}
                   />
@@ -79,6 +80,7 @@ const Login = () => {
                 <td>
                   <Form.Control
                     type="password"
+                    id="password"
                     value={password}
                     onChange={({ target }) => setPassword(target.value)}
                   />
@@ -86,7 +88,7 @@ const Login = () => {
               </tr>
             </tbody>
           </table>
-          <Button type="submit">kirjaudu</Button>
+          <Button type="submit" id="login-button">kirjaudu</Button>
         </Form>
       </div>
     )

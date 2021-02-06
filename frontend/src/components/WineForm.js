@@ -50,7 +50,7 @@ const WineForm = ({ addWine, user, wines }) => {
       )
     }
     return (
-      <Button type="submit" variant="success">lisää</Button>
+      <Button type="submit" variant="success" id="add-wine">lisää</Button>
     )
   }
 
@@ -71,6 +71,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Control
                   type="text"
+                  id="name"
                   placeholder="esim. Torres Sangre de Toro"
                   value={name}
                   onChange={({ target }) => setName(target.value)}
@@ -88,6 +89,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Control
                   as="select"
+                  id="type"
                   value={type}
                   onChange={({ target }) => setType(target.value)}
                 >
@@ -109,6 +111,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Control
                   as="select"
+                  id="country"
                   value={country}
                   onChange={({ target }) => setCountry(target.value)}
                 >
@@ -137,6 +140,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Control
                   type="text"
+                  id="region"
                   placeholder="esim. Bordeaux"
                   value={region}
                   onChange={({ target }) => setRegion(target.value)}
@@ -150,6 +154,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Control
                   type="text"
+                  id="appellation"
                   placeholder="esim. DOCG Barolo"
                   value={appellation}
                   onChange={({ target }) => setAppellation(target.value)}
@@ -163,6 +168,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Control
                   type="text"
+                  id="grapes"
                   placeholder="esim. cabernet sauvignon, merlot"
                   value={grapes}
                   onChange={({ target }) => setGrapes(target.value)}

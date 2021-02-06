@@ -39,7 +39,12 @@ const RegistrationForm = ({ addUser, users }) => {
       )
     }
     return (
-      <Button type="submit">rekisteröidy</Button>
+      <Button
+        type="submit"
+        id="registration"
+      >
+        rekisteröidy
+      </Button>
     )
   }
 
@@ -83,6 +88,7 @@ const RegistrationForm = ({ addUser, users }) => {
               <td>
                 <Form.Control
                   type="text"
+                  id="name"
                   placeholder="väh. 5 kirjainta"
                   value={newName}
                   onChange={({ target }) => setNewName(target.value)}
@@ -96,6 +102,7 @@ const RegistrationForm = ({ addUser, users }) => {
               <td>
                 <Form.Control
                   type="text"
+                  id="username"
                   placeholder="väh. 3 kirjainta"
                   value={newUsername}
                   onChange={({ target }) => setNewUsername(target.value)}
@@ -113,6 +120,7 @@ const RegistrationForm = ({ addUser, users }) => {
               <td>
                 <Form.Control
                   type="text"
+                  id="email"
                   placeholder="väh. 3 kirjainta"
                   value={email}
                   onChange={({ target }) => setEmail(target.value)}
@@ -136,6 +144,7 @@ const RegistrationForm = ({ addUser, users }) => {
               <td>
                 <Form.Control
                   type="password"
+                  id="password"
                   placeholder="väh. 5 merkkiä"
                   value={newPassword}
                   onChange={({ target }) => setNewPassword(target.value)}
@@ -149,6 +158,7 @@ const RegistrationForm = ({ addUser, users }) => {
               <td>
                 <Form.Control
                   type="password"
+                  id="retype-password"
                   placeholder="väh. 5 merkkiä"
                   value={retypePassword}
                   onChange={({ target }) => setRetypePassword(target.value)}
