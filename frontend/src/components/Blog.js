@@ -147,16 +147,16 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
           <div className="tableWrapper">
           <h3>{b.entryTitle}</h3>
           <i>{b.entryDate}</i><br />
-          <Togglable shortString={stripper(b.entryContent)} buttonLabel='Näytä kokonaan' ref={entryRef}>
+          <Togglable id="full-view" shortString={stripper(b.entryContent)} buttonLabel='Näytä kokonaan' ref={entryRef}>
             <div dangerouslySetInnerHTML={{__html: sanitizer(b.entryContent)}} /><br />
           
-          <i>Tykkäyksiä: {b.likes}</i><br />
+          <i id="likes">Tykkäyksiä: {b.likes}</i><br />
           <div className="buttonWrapper">
-            <Button onClick={(e) => handleLike(blogToShow.blogEntries.indexOf(b), e)}>Tykkää</Button><br />
+            <Button id="like-button" onClick={(e) => handleLike(blogToShow.blogEntries.indexOf(b), e)}>Tykkää</Button><br />
           </div>
           {console.log('entry: ', b, ', indeksi: ', blogToShow.blogEntries.indexOf(b))}
           <div className="buttonWrapper">
-            <Button variant="success" onClick={(e) => handleShowComment(blogToShow.blogEntries.indexOf(b), e)}>lisää kommentti</Button>
+            <Button id="comment-form" variant="success" onClick={(e) => handleShowComment(blogToShow.blogEntries.indexOf(b), e)}>lisää kommentti</Button>
           </div>
           <Modal size="lg" show={showComment} onHide={handleCloseComment}>
             <Modal.Header closeButton>
@@ -167,18 +167,19 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
                 <Form.Label>Kommentti</Form.Label>
                 <Form.Control
                   type="text"
+                  id="comment-field"
                   value={comment}
                   onChange={({ target }) => setComment(target.value)}
                 />
                 {/*<Button onClick={() => handleCommentAdd(blogToShow.blogEntries.indexOf(b))}>lisää kommentti</Button>*/}
-                <Button onClick={() => handleCommentAdd(index)}>lisää kommentti</Button>
+                <Button id="add-comment" onClick={() => handleCommentAdd(index)}>lisää kommentti</Button>
               </Form>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleCloseComment}>peruuta</Button>
             </Modal.Footer>
           </Modal>
-          <Togglable buttonLabel='näytä kommentit' ref={commentRef}>
+          <Togglable id="show-comments" buttonLabel='näytä kommentit' ref={commentRef}>
           {b.comments && b.comments.map(c =>
             <div key={b.comments.indexOf(c)}>
               {console.log('kommentti: ', c)}
@@ -197,7 +198,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
 
       {authorized && <div>
         <div className="buttonWrapper">
-          <Button onClick={handleShow}>lisää blogimerkintä</Button>
+          <Button id="add-entry-form" onClick={handleShow}>lisää blogimerkintä</Button>
         </div>
         <Modal size="lg" show={show} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -208,6 +209,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
               <Form.Label>Otsikko:</Form.Label>
               <Form.Control
                 type="text"
+                id="entry-header"
                 value={newEntryTitle}
                 onChange={({ target }) => setNewEntryTitle(target.value)}
               />
@@ -236,7 +238,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
                 }}
                 onEditorChange={handleEditorChange}
               />
-              <Button type="submit">lisää</Button>
+              <Button type="submit" id="add-entry">lisää</Button>
             </Form>
           </Modal.Body>
           <Modal.Footer>

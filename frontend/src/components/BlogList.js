@@ -61,10 +61,11 @@ const BlogList = (user) => {
           <Form.Label>Otsikko:</Form.Label>
           <Form.Control
             type="text"
+            id="blog-field"
             value={title}
             onChange={({ target }) => setTitle(target.value)}
           />
-          <Button type="submit">lisää</Button>
+          <Button type="submit" id="add-blog">lisää</Button>
         </Form>
       </div>}
     </div>

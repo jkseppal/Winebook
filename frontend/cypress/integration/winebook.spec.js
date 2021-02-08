@@ -17,6 +17,12 @@ describe('Winebook', function() {
 
   describe('While logged in', function() {
 
+    it('user can log out', function() {
+      cy.wait(5000)
+      cy.contains('kirjaudu ulos').click()
+      cy.contains('kirjaudu sisään')
+    })
+    
     it('user can add wine', function() {
       cy.get('a[href*="create"]').click({force: true})
       cy.get('#name').type('testiviini')
@@ -36,6 +42,75 @@ describe('Winebook', function() {
       cy.get('#points').select('50')
       cy.get('#add-review').click()
       cy.contains('testiviinin kuvaus')
+    })
+
+    it('review can be liked', function() {
+      cy.get('a[href*="create"]').click({force: true})
+      cy.get('#name').type('testiviini')
+      cy.get('#add-wine').click()
+      cy.visit('http://localhost:3000')
+      cy.contains('testiviini').click()
+      cy.get('#vintage').select('1990')
+      cy.get('#description').type('testiviinin kuvaus')
+      cy.get('#points').select('50')
+      cy.get('#add-review').click()
+      cy.get('#like-button').click()
+      cy.get('#like-button').click()
+      cy.contains('2')
+    })
+
+    it('blog can be created', function() {
+      cy.wait(3000)
+      cy.get('a[href*="blogs"]').click()
+      cy.get('#blog-field').type('testiblogi')
+      cy.get('#add-blog').click()
+      cy.contains('testiblogi')
+    })
+
+    it('blog entry can be created', function() {
+      cy.wait(3000)
+      cy.get('a[href*="blogs"]').click()
+      cy.get('#blog-field').type('testiblogi')
+      cy.get('#add-blog').click()
+      cy.contains('testiblogi').click()
+      cy.get('#add-entry-form').click()
+      cy.wait(3000)
+      cy.get('#entry-header').type('testimerkinnän otsikko')
+      cy.get('#add-entry').click()
+      cy.contains('testimerkinnän otsikko')
+    })
+
+    it('blog entry can be liked', function() {
+      cy.wait(3000)
+      cy.get('a[href*="blogs"]').click()
+      cy.get('#blog-field').type('testiblogi')
+      cy.get('#add-blog').click()
+      cy.contains('testiblogi').click()
+      cy.get('#add-entry-form').click()
+      cy.wait(3000)
+      cy.get('#entry-header').type('testimerkinnän otsikko')
+      cy.get('#add-entry').click()
+      cy.get('#full-view').click()
+      cy.get('#like-button').click()
+      cy.get('#likes').contains('1')
+    })
+
+    it('blog entry can be commented', function() {
+      cy.wait(3000)
+      cy.get('a[href*="blogs"]').click()
+      cy.get('#blog-field').type('testiblogi')
+      cy.get('#add-blog').click()
+      cy.contains('testiblogi').click()
+      cy.get('#add-entry-form').click()
+      cy.wait(3000)
+      cy.get('#entry-header').type('testimerkinnän otsikko')
+      cy.get('#add-entry').click()
+      cy.get('#full-view').click()
+      cy.get('#comment-form').click()
+      cy.get('#comment-field').type('testimerkinnän kommentti')
+      cy.get('#add-comment').click()
+      cy.get('#show-comments').click()
+      cy.contains('testimerkinnän kommentti')
     })
   })
 })

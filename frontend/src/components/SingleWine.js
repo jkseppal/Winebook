@@ -157,7 +157,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
                 <td>{r.points}</td>
                 <td>{r.description}</td>
                 <td>
-                  <Button onClick={() => handleLike(r)}>tykkää</Button>
+                  <Button id="like-button" onClick={() => handleLike(r)}>tykkää</Button>
                 </td>
               </tr>
             )}
