@@ -18,7 +18,7 @@ describe('Winebook', function() {
   describe('While logged in', function() {
 
     it('user can log out', function() {
-      cy.wait(5000)
+      cy.wait(3000)
       cy.contains('kirjaudu ulos').click()
       cy.contains('kirjaudu sisään')
     })
@@ -111,6 +111,64 @@ describe('Winebook', function() {
       cy.get('#add-comment').click()
       cy.get('#show-comments').click()
       cy.contains('testimerkinnän kommentti')
+    })
+
+    it('user can add description', function() {
+      cy.contains('oma profiili').click({ force: true })
+      cy.get('#description').type('testikuvaus')
+      cy.get('#add-description').click()
+      cy.contains('käyttäjät').click({ force: true })
+      cy.get('#username').click()
+      cy.contains('testikuvaus')
+    })
+
+    it('user can change name', function() {
+      cy.contains('oma profiili').click({ force: true })
+      cy.get('#name').type('uusi nimi')
+      cy.get('#change-name').click()
+      cy.contains('käyttäjät').click({ force: true })
+      cy.get('#username').click()
+      cy.contains('uusi nimi')
+    })
+
+    it('user can change email and set it visible', function() {
+      cy.contains('oma profiili').click({ force: true })
+      cy.get('#email').clear().type('uusi@email.com')
+      cy.get('#email-switch').check({ force:true })
+      cy.get('#update-email').click()
+      cy.contains('käyttäjät').click({ force: true })
+      cy.get('#username').click()
+      cy.contains('uusi@email.com')
+    })
+
+    it('user can add link to facebook and set it visible', function() {
+      cy.contains('oma profiili').click({ force: true })
+      cy.get('#facebook').type('http://facebook.com/testaaja')
+      cy.get('#facebook-switch').check({ force: true })
+      cy.get('#update-facebook').click()
+      cy.contains('käyttäjät').click({ force: true })
+      cy.get('#username').click()
+      cy.get('a[href*="facebook.com/testaaja"]')
+    })
+
+    it('user can add link to instagram and set it visible', function() {
+      cy.contains('oma profiili').click({ force: true })
+      cy.get('#instagram').type('http://instagram.com/testaaja')
+      cy.get('#instagram-switch').check({ force: true })
+      cy.get('#update-instagram').click()
+      cy.contains('käyttäjät').click({ force: true })
+      cy.get('#username').click()
+      cy.get('a[href*="instagram.com/testaaja"]')
+    })
+    
+    it('user can add link to twitter and set it visible', function() {
+      cy.contains('oma profiili').click({ force: true })
+      cy.get('#twitter').type('http://twitter.com/testaaja')
+      cy.get('#twitter-switch').check({ force: true })
+      cy.get('#update-twitter').click()
+      cy.contains('käyttäjät').click({ force: true })
+      cy.get('#username').click()
+      cy.get('a[href*="twitter.com/testaaja"]')
     })
   })
 })

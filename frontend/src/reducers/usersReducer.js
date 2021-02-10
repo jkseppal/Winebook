@@ -14,7 +14,15 @@ const usersReducer = (state = [], action) => {
         ...userToUpdate,
         name: action.data.name,
         username: action.data.username,
-        description: action.data.description
+        description: action.data.description,
+        email: action.data.email,
+        showEmail: action.data.showEmail,
+        facebook: action.data.facebook,
+        showFacebook: action.data.showFacebook,
+        instagram: action.data.instagram,
+        showInstagram: action.data.showInstagram,
+        twitter: action.data.twitter,
+        showTwitter: action.data.showTwitter
       }
       return state.map(u =>
         u.id !== id ? u : updatedUser)
@@ -43,12 +51,14 @@ export const createUser = content => {
   }
 }
 
-export const updateUser = content => {
+export const updateUser = (id, content) => {
   return async dispatch => {
     //const updatedUser = await userService.addDescription(id, content)
+    const updatedUser = await userService.updateUser(id, content)
+    console.log('new profile from reducer: ', updatedUser)
     dispatch({
       type: 'UPDATE_USER',
-      data: content
+      data: updatedUser
     })
   }
 }

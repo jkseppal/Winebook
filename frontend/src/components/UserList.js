@@ -100,7 +100,7 @@ const UserList = ({ users, user }) => {
           {usersToShow.map(u =>
             <tr key={u.id}>
               <td>
-                <Link to={`/users/${u.id}`}>{u.username}</Link>
+                <Link id="username" to={`/users/${u.id}`}>{u.username}</Link>
               </td>
               <td>
                 {u.wines.length}

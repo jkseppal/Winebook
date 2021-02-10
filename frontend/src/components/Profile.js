@@ -57,11 +57,13 @@ const Profile = ({ user, updateProfile }) => {
 
   const handleEmailChange = (event) => {
     event.preventDefault()
-    updateProfile({
+    const newProfile = ({
       ...user,
       email: email,
       showEmail: showEmail
     })
+    console.log('new profile from handler: ', newProfile)
+    updateProfile(newProfile)
   }
 
   const handleFacebookChange = async (event) => {
@@ -91,6 +93,11 @@ const Profile = ({ user, updateProfile }) => {
     })
   }
 
+  const emailChanger = async () => {
+    await setShowEmail(!showEmail)
+    console.log('show email status: ', showEmail)
+  }
+
   if (!user) {
     return null
   }
@@ -103,11 +110,12 @@ const Profile = ({ user, updateProfile }) => {
           <Form.Label>Nimi:</Form.Label>
           <Form.Control
             type="text"
+            id="name"
             value={name}
             onChange={({ target }) => setName(target.value)}
           />
           <div className='buttonWrapper'>
-            <Button type="submit">vaihda nimi</Button>
+            <Button id="change-name" type="submit">vaihda nimi</Button>
           </div>
         </Form>
       </div>
@@ -116,17 +124,13 @@ const Profile = ({ user, updateProfile }) => {
           <Form.Label>Sähköpostiosoite:</Form.Label>
           <Form.Control
             type="text"
+            id="email"
             value={email}
             onChange={({ target }) => setEmail(target.value)}
           />
-          <FormCheck custom type="switch">
-            <FormCheck.Input checked={showEmail} onChange={() => setShowEmail(!showEmail)} />
-            <FormCheck.Label onClick={() => setShowEmail(!showEmail)}>
-              Näytä sähköpostiosoite muille käyttäjille
-            </FormCheck.Label>
-          </FormCheck>
+          <Form.Check id="email-switch" type="switch" checked={showEmail} onChange={emailChanger} label='näytä sähköpostiosoite muille käyttäjille' />
           <div className='buttonWrapper'>
-            <Button type="submit">päivitä sähköpostiosoite tai sen näkyvyys</Button>
+            <Button id="update-email" type="submit">päivitä sähköpostiosoite tai sen näkyvyys</Button>
           </div>
         </Form>
       </div>
@@ -135,17 +139,18 @@ const Profile = ({ user, updateProfile }) => {
           <Form.Label>Facebook:</Form.Label>
           <Form.Control
             type="text"
+            id="facebook"
             value={facebook}
             onChange={({ target }) => setFacebook(target.value)}
           />
-          <FormCheck custom type="switch">
+          <FormCheck id="facebook-switch" custom type="switch">
             <FormCheck.Input checked={showFacebook} onChange={() => setShowFacebook(!showFacebook)} />
             <FormCheck.Label onClick={() => setShowFacebook(!showFacebook)}>
               Näytä facebook muille käyttäjille
             </FormCheck.Label>
           </FormCheck>
           <div className='buttonWrapper'>
-            <Button type="submit">päivitä facebook tai sen näkyvyys</Button>
+            <Button id="update-facebook" type="submit">päivitä facebook tai sen näkyvyys</Button>
           </div>
         </Form>
       </div>
@@ -154,17 +159,18 @@ const Profile = ({ user, updateProfile }) => {
           <Form.Label>Instagram:</Form.Label>
           <Form.Control
             type="text"
+            id="instagram"
             value={instagram}
             onChange={({ target }) => setInstagram(target.value)}
           />
-          <FormCheck custom type="switch">
+          <FormCheck id="instagram-switch" custom type="switch">
             <FormCheck.Input checked={showInstagram} onChange={() => setShowInstagram(!showInstagram)} />
             <FormCheck.Label onClick={() => setShowInstagram(!showInstagram)}>
               Näytä instagram muille käyttäjille
             </FormCheck.Label>
           </FormCheck>
           <div className='buttonWrapper'>
-            <Button type="submit">päivitä instagram tai sen näkyvyys</Button>
+            <Button id="update-instagram" type="submit">päivitä instagram tai sen näkyvyys</Button>
           </div>
         </Form>
       </div>
@@ -173,17 +179,18 @@ const Profile = ({ user, updateProfile }) => {
           <Form.Label>Twitter:</Form.Label>
           <Form.Control
             type="text"
+            id="twitter"
             value={twitter}
             onChange={({ target }) => setTwitter(target.value)}
           />
-          <FormCheck custom type="switch">
+          <FormCheck id="twitter-switch" custom type="switch">
             <FormCheck.Input checked={showTwitter} onChange={() => setShowTwitter(!showTwitter)} />
             <FormCheck.Label onClick={() => setShowTwitter(!showTwitter)}>
               Näytä twitter muille käyttäjille
             </FormCheck.Label>
           </FormCheck>
           <div className='buttonWrapper'>
-            <Button type="submit">päivitä twitter tai sen näkyvyys</Button>
+            <Button id="update-twitter" type="submit">päivitä twitter tai sen näkyvyys</Button>
           </div>
         </Form>
       </div>
@@ -192,12 +199,13 @@ const Profile = ({ user, updateProfile }) => {
           <Form.Label>Kuvaus:</Form.Label>
           <Form.Control
             as="textarea"
+            id="description"
             rows={4}
             value={description}
             onChange={({ target }) => setDescription(target.value)}
           />
           <div className='buttonWrapper'>
-            <Button type="submit">päivitä kuvaus</Button>
+            <Button id="add-description" type="submit">päivitä kuvaus</Button>
           </div>
         </Form>
       </div>

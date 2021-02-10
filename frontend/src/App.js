@@ -111,9 +111,10 @@ const App = () => {
 
   const updateProfile = async (userObject) => {
     try {
-      const updatedUser = await userService.updateUser(userFromDB.id, userObject)
-      setUserFromDB(updatedUser)
-      dispatch(updateUser(updatedUser))
+      //const updatedUser = await userService.updateUser(userFromDB.id, userObject)
+      //setUserFromDB(updatedUser)
+      dispatch(updateUser(userFromDB.id, userObject))
+      //setUserFromDB(userObject)
       dispatch(notificationChange('profiili päivitetty', 5))
     } catch (exception) {
       dispatch(errorMessageChange('päivitys epäonnistui', 5))
