@@ -6,8 +6,6 @@ const reviewReducer = (state = [], action) => {
     case 'INIT_REVIEWS':
       return action.data
     case 'NEW_REVIEW':
-      const newState = [...state, action.data]
-      console.log('new rev state: ', newState)
       return [...state, action.data]
     case 'LIKE': {
       const id = action.data.id

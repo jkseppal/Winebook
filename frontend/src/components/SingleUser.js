@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const SingleUser = ({ users, user }) => {
   const id = useParams().id
   
-  const userToShow = users.find(user => user.id === id)
+  const userToShow = users.find(u => u.id === id)
 
   if (!userToShow || !user) {
     return null
@@ -46,19 +46,19 @@ const SingleUser = ({ users, user }) => {
       </div>}
       <h3>käyttäjän lisäämät viinit:</h3>
       {userToShow.wines.map(wine =>
-        <div key={wine.id}>
+        <div key={wine.id} id="added-wines">
           <Link to={`/wines/${wine.id}`}>{wine.name}</Link>
         </div>
       )}
       <h3>Käyttäjän arvioimat viinit:</h3>
       {userToShow.reviews.map(r =>
-        <div key={r.id}>
+        <div key={r.id} id="reviewed-wines">
           <Link to={`/wines/${r.wine.id}`}>{r.wine.name}</Link>
         </div>
       )}
       <h3>Käyttäjän blogit:</h3>
       {userToShow.blogs.map(b =>
-        <div key={b.id}>
+        <div key={b.id} id="blogs">
           <Link to={`/blogs/${b.id}`}>{b.title}</Link>
         </div>
       )}

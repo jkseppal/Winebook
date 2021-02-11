@@ -18,7 +18,7 @@ import { initializeReviews, createReview } from '../reducers/reviewReducer'
  * mutta päivittynyt tila ei renderöidy komponentissa.
  *************/
 
-const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
+const SingleWine = ({ wines, user, reviews, addLike, addReview, updateProfile }) => {
   
   const [description, setDescription] = useState('')
   const [points, setPoints] = useState('valitse')
@@ -60,13 +60,28 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
   }
 
   const handleReviewAdd = (event) => {
-    addReview(id, {
+    const reviewObject = {
       user: user,
       wine: wineToShow,
       description: description,
       points: points,
       vintage: vintage,
-    })
+    }
+    /*addReview(id, {
+      user: user,
+      wine: wineToShow,
+      description: description,
+      points: points,
+      vintage: vintage,
+    })*/
+    addReview(id, reviewObject)
+    /*updateProfile({
+      ...user,
+      reviews: [
+        ...user.reviews,
+        reviewObject
+      ]
+    })*/
     setDescription('')
     setPoints('')
     //wineToShow = wines.find(wine => wine.id === id)

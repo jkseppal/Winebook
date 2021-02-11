@@ -85,9 +85,12 @@ const App = () => {
     return false
   }
 
-  const addWine = (wineObject) => {
-    dispatch(createWine(wineObject))
+  const addWine = async (wineObject) => {
+    await dispatch(createWine(wineObject))
+    await dispatch(initializeUsers())
     dispatch(notificationChange(`viini ${wineObject.name} lisätty`, 5))
+    console.log('wines after dispatch: ', wines)
+    console.log('users after dispatch: ', users)
   }
 
   const addUser = async (userObject) => {
@@ -111,19 +114,18 @@ const App = () => {
 
   const updateProfile = async (userObject) => {
     try {
-      //const updatedUser = await userService.updateUser(userFromDB.id, userObject)
-      //setUserFromDB(updatedUser)
       dispatch(updateUser(userFromDB.id, userObject))
-      //setUserFromDB(userObject)
       dispatch(notificationChange('profiili päivitetty', 5))
     } catch (exception) {
       dispatch(errorMessageChange('päivitys epäonnistui', 5))
     }
   }
 
-  const addReview = (id, reviewObject) => {
-    dispatch(createReview(id, reviewObject))
+  const addReview = async (id, reviewObject) => {
+    await dispatch(createReview(id, reviewObject))
+    await dispatch(initializeUsers())
     dispatch(notificationChange('Arvostelu lisätty', 5))
+    //dispatch(initializeReviews())
   }
 
   const addLike = (reviewObject) => {
@@ -176,10 +178,10 @@ const App = () => {
         <ErrorMessage />
         <Switch>
           <Route path="/wines/:id">
-            <SingleWine wines={wines} user={user} reviews={reviews} addLike={addLike} addReview={addReview} />
+            <SingleWine wines={wines} user={userFromDB} reviews={reviews} addLike={addLike} addReview={addReview} updateProfile={updateProfile} />
           </Route>
           <Route path="/users/:id">
-            <SingleUser user={user} users={users}/>
+            <SingleUser user={user} users={users} reviews={reviews} blogs={blogs} />
           </Route>
           <Route path="/create">
             <WineForm addWine={addWine} user={user} wines={wines} />
@@ -203,7 +205,7 @@ const App = () => {
             <Blog blogs={blogs} addEntry={addEntry} user={userFromDB} commentEntry={commentEntry} likeEntry={likeEntry} />
           </Route>
           <Route path="/blogs">
-            <BlogList blogs={blogs} user={userFromDB} />
+            <BlogList blogs={blogs} user={userFromDB} updateProfile={updateProfile} />
           </Route>
           <Route path="/">
             <WineList wines={wines} />

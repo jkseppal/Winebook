@@ -22,7 +22,9 @@ const usersReducer = (state = [], action) => {
         instagram: action.data.instagram,
         showInstagram: action.data.showInstagram,
         twitter: action.data.twitter,
-        showTwitter: action.data.showTwitter
+        showTwitter: action.data.showTwitter,
+        reviews: action.data.reviews,
+        blogs: action.data.blogs
       }
       return state.map(u =>
         u.id !== id ? u : updatedUser)
@@ -38,6 +40,8 @@ export const initializeUsers = () => {
       type: 'INIT_USERS',
       data: users
     })
+    console.log('users initialized')
+    console.log('users after init: ', users)
   }
 }
 

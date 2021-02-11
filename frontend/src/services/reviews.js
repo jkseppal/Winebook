@@ -6,12 +6,12 @@ const setToken = newToken => {
   token = `bearer ${newToken}`
 }
 
-const addReview = (id, newObject) => {
+const addReview = async (id, newObject) => {
   const config = {
     headers: { Authorization: token }
   }
-  const request = axios.post(`${baseUrl}/${id}`, newObject, config)
-  return request.then(response => response.data)
+  const response = await axios.post(`${baseUrl}/${id}`, newObject, config)
+  return response.data
 }
 
 const getReviews = () => {

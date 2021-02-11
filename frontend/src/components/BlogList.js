@@ -3,8 +3,9 @@ import { Table, Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { createBlog, initializeBlogs } from '../reducers/blogReducer'
 import { Link } from 'react-router-dom'
+import { initializeUsers } from '../reducers/usersReducer'
 
-const BlogList = (user) => {
+const BlogList = (user, updateProfile) => {
   const dispatch = useDispatch()
   console.log('user in bloglist: ', user)
   
@@ -21,16 +22,27 @@ const BlogList = (user) => {
 
   let blogs = useSelector(state => state.blogs)
 
-  const addBlog = (blogObject) => {
-    dispatch(createBlog(blogObject))
+  const addBlog = async (blogObject) => {
+    await dispatch(createBlog(blogObject))
+    dispatch(initializeUsers())
     console.log('new blog: ', blogObject)
   }
 
   const handleBlogAdd = (event) => {
     event.preventDefault()
-    addBlog({
+    const newBlog = {
       title: title
-    })
+    }
+    /*const userObject = {
+      ...user,
+      blogs: [
+        ...user.blogs,
+        newBlog
+      ]
+    }*/
+    //console.log('new userObject: ', userObject)
+    addBlog(newBlog)
+    //updateProfile(userObject)
     setTitle('')
   }
   

@@ -29,6 +29,10 @@ describe('Winebook', function() {
       cy.get('#add-wine').click()
       cy.visit('http://localhost:3000')
       cy.contains('testiviini')
+      cy.contains('käyttäjät').click({ force: true })
+      cy.get('#username').click()
+      cy.wait(3000)
+      cy.get('#added-wines').contains('testiviini')
     })
     
     it('wine can be revieved', function() {
@@ -42,6 +46,10 @@ describe('Winebook', function() {
       cy.get('#points').select('50')
       cy.get('#add-review').click()
       cy.contains('testiviinin kuvaus')
+      cy.contains('käyttäjät').click({ force: true })
+      cy.get('#username').click()
+      cy.wait(3000)
+      cy.get('#reviewed-wines').contains('testiviini')
     })
 
     it('review can be liked', function() {
@@ -65,6 +73,10 @@ describe('Winebook', function() {
       cy.get('#blog-field').type('testiblogi')
       cy.get('#add-blog').click()
       cy.contains('testiblogi')
+      cy.contains('käyttäjät').click({ force: true })
+      cy.get('#username').click()
+      cy.wait(3000)
+      cy.get('#blogs').contains('testiblogi')
     })
 
     it('blog entry can be created', function() {
