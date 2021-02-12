@@ -14,8 +14,14 @@ const Profile = ({ user, updateProfile }) => {
   const [twitter, setTwitter] = useState('')
   const [showTwitter, setShowTwitter] = useState('')
 
+  /************
+   * Tällä hetkellä arvostelujen id katoaa profiilipäivityksen yhteydessä
+   * selvitetään
+   */
+  
   useEffect(() => {
     if (user) {
+      console.log('user in profilepage: ', user)
       if (user.description) {
         setDescription(user.description)
       } else {
@@ -41,18 +47,22 @@ const Profile = ({ user, updateProfile }) => {
   
   const handleDescriptionAdd = (event) => {
     event.preventDefault()
-    updateProfile({
+    const newUser = {
       ...user,
       description: description
-    })
+    }
+    console.log('new user: ', newUser)
+    updateProfile(newUser)
   }
 
   const handleNameChange = (event) => {
     event.preventDefault()
-    updateProfile({
+    const newUser = {
       ...user,
       name: name
-    })
+    }
+    console.log('new user: ', newUser)
+    updateProfile(newUser)
   }
 
   const handleEmailChange = (event) => {
@@ -68,34 +78,53 @@ const Profile = ({ user, updateProfile }) => {
 
   const handleFacebookChange = async (event) => {
     event.preventDefault()
-    await updateProfile({
+    //console.log('user in event handler: ', user)
+    const newUser = {
       ...user,
       facebook: facebook,
       showFacebook: showFacebook
-    })
+    }
+    console.log('new user: ', newUser)
+    await updateProfile(newUser)
   }
 
   const handleInstagramChange = async (event) => {
     event.preventDefault()
-    await updateProfile({
+    const newUser = {
       ...user,
       instagram: instagram,
       showInstagram: showInstagram
-    })
+    }
+    console.log('new user: ', newUser)
+    await updateProfile(newUser)
   }
 
   const handleTwitterChange = async (event) => {
     event.preventDefault()
-    await updateProfile({
+    const newUser = {
       ...user,
       twitter: twitter,
       showTwitter: showTwitter
-    })
+    }
+    console.log('new user: ', newUser)
+    await updateProfile(newUser)
   }
 
   const emailChanger = async () => {
     await setShowEmail(!showEmail)
     console.log('show email status: ', showEmail)
+  }
+
+  const facebookChanger = async () => {
+    await setShowFacebook(!showFacebook)
+  }
+
+  const instagramChanger = async () => {
+    await setShowInstagram(!showInstagram)
+  }
+
+  const twitterChanger = async () => {
+    await setShowTwitter(!showTwitter)
   }
 
   if (!user) {
@@ -143,12 +172,13 @@ const Profile = ({ user, updateProfile }) => {
             value={facebook}
             onChange={({ target }) => setFacebook(target.value)}
           />
-          <FormCheck id="facebook-switch" custom type="switch">
+          {/*<FormCheck id="facebook-switch" custom type="switch">
             <FormCheck.Input checked={showFacebook} onChange={() => setShowFacebook(!showFacebook)} />
             <FormCheck.Label onClick={() => setShowFacebook(!showFacebook)}>
               Näytä facebook muille käyttäjille
             </FormCheck.Label>
-          </FormCheck>
+  </FormCheck>*/}
+          <Form.Check id="facebook-switch" type="switch" checked={showFacebook} onChange={facebookChanger} label='näytä facebook muille käyttäjille' />
           <div className='buttonWrapper'>
             <Button id="update-facebook" type="submit">päivitä facebook tai sen näkyvyys</Button>
           </div>
@@ -163,12 +193,13 @@ const Profile = ({ user, updateProfile }) => {
             value={instagram}
             onChange={({ target }) => setInstagram(target.value)}
           />
-          <FormCheck id="instagram-switch" custom type="switch">
+          {/*<FormCheck id="instagram-switch" custom type="switch">
             <FormCheck.Input checked={showInstagram} onChange={() => setShowInstagram(!showInstagram)} />
             <FormCheck.Label onClick={() => setShowInstagram(!showInstagram)}>
               Näytä instagram muille käyttäjille
             </FormCheck.Label>
-          </FormCheck>
+</FormCheck>*/}
+          <Form.Check id="instagram-switch" type="switch" checked={showInstagram} onChange={instagramChanger} label='näytä instagram muille käyttäjille' />
           <div className='buttonWrapper'>
             <Button id="update-instagram" type="submit">päivitä instagram tai sen näkyvyys</Button>
           </div>
@@ -183,12 +214,13 @@ const Profile = ({ user, updateProfile }) => {
             value={twitter}
             onChange={({ target }) => setTwitter(target.value)}
           />
-          <FormCheck id="twitter-switch" custom type="switch">
+          {/*<FormCheck id="twitter-switch" custom type="switch">
             <FormCheck.Input checked={showTwitter} onChange={() => setShowTwitter(!showTwitter)} />
             <FormCheck.Label onClick={() => setShowTwitter(!showTwitter)}>
               Näytä twitter muille käyttäjille
             </FormCheck.Label>
-          </FormCheck>
+</FormCheck>*/}
+          <Form.Check id="twitter-switch" type="switch" checked={showTwitter} onChange={twitterChanger} label='näytä twitter muille käyttäjille' />
           <div className='buttonWrapper'>
             <Button id="update-twitter" type="submit">päivitä twitter tai sen näkyvyys</Button>
           </div>

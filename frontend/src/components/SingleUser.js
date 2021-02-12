@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 const SingleUser = ({ users, user }) => {
+  //const [userToShow, setUserToShow] = useState(null)
   const id = useParams().id
   
   const userToShow = users.find(u => u.id === id)
+  console.log('all users on userpage: ', users)
+  console.log('userToShow on userpage: ', userToShow)
+  /*useEffect(() => {
+    const user = users.find(u => u.id === id)
+    setUserToShow(user)
+    console.log('user to show: ', userToShow)
+  },[])*/
+
 
   if (!userToShow || !user) {
     return null
