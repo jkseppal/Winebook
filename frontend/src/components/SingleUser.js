@@ -1,41 +1,45 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 const SingleUser = ({ users, user }) => {
-  //const [userToShow, setUserToShow] = useState(null)
   const id = useParams().id
   
   const userToShow = users.find(u => u.id === id)
   console.log('all users on userpage: ', users)
   console.log('userToShow on userpage: ', userToShow)
-  /*useEffect(() => {
-    const user = users.find(u => u.id === id)
-    setUserToShow(user)
-    console.log('user to show: ', userToShow)
-  },[])*/
-
 
   if (!userToShow || !user) {
     return null
   }
 
   return (
-    <div>
-      <h3>käyttäjätunnus: {userToShow.username}</h3>
-      <h3>nimi: {userToShow.name}</h3>
-      <p>
+    <div className="guide">
+      <div className="divWrapper">
+        <h3>Käyttäjätunnus:</h3>
+        <i>{userToShow.username}</i>
+      </div>
+      <div className="divWrapper">
+        <h3>Nimi:</h3>
+        <i>{userToShow.name}</i>
+      </div>
+      {userToShow.description && <div className="divWrapper">
+        <h3>Kuvaus:</h3>
         <i>{userToShow.description}</i>
-      </p>
-      {(userToShow.showEmail === true)
-        ? <div>
+      </div>}
+      {/*(userToShow.showEmail === true)
+        ? <div className="divWrapper">
           <h3>Sähköpostiosoite:</h3>
           {userToShow.email}
         </div>
         : null
-      }
+      */}
+      {userToShow.showEmail && <div className="divWrapper">
+        <h3>Sähköpostiosoite:</h3>
+        {userToShow.email}
+      </div>}
       {(userToShow.showFacebook || userToShow.showInstagram || userToShow.showTwitter) &&
-      <div>
+      <div className="divWrapper">
         <h3>Sosiaalinen media:</h3>
         {userToShow.showFacebook && <a id="fb-link" className='iconWrapper' href={userToShow.facebook}>
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-facebook" viewBox="0 0 16 16">
@@ -53,24 +57,30 @@ const SingleUser = ({ users, user }) => {
           </svg>
         </a>}
       </div>}
-      <h3>käyttäjän lisäämät viinit:</h3>
-      {userToShow.wines.map(wine =>
-        <div key={wine.id} id="added-wines">
-          <Link to={`/wines/${wine.id}`}>{wine.name}</Link>
-        </div>
-      )}
-      <h3>Käyttäjän arvioimat viinit:</h3>
-      {userToShow.reviews.map(r =>
-        <div key={r.id} id="reviewed-wines">
-          <Link to={`/wines/${r.wine.id}`}>{r.wine.name}</Link>
-        </div>
-      )}
-      <h3>Käyttäjän blogit:</h3>
-      {userToShow.blogs.map(b =>
-        <div key={b.id} id="blogs">
-          <Link to={`/blogs/${b.id}`}>{b.title}</Link>
-        </div>
-      )}
+      <div className="divWrapper">
+        <h3>Käyttäjän lisäämät viinit:</h3>
+        {userToShow.wines.map(wine =>
+          <div key={wine.id} id="added-wines">
+            <Link to={`/wines/${wine.id}`}>{wine.name}</Link>
+          </div>
+        )}
+      </div>
+      <div className="divWrapper">
+        <h3>Käyttäjän arvioimat viinit:</h3>
+        {userToShow.reviews.map(r =>
+          <div key={r.id} id="reviewed-wines">
+            <Link to={`/wines/${r.wine.id}`}>{r.wine.name}</Link>
+          </div>
+        )}
+      </div>
+      <div className="divWrapper">
+        <h3>Käyttäjän blogit:</h3>
+        {userToShow.blogs.map(b =>
+          <div key={b.id} id="blogs">
+            <Link to={`/blogs/${b.id}`}>{b.title}</Link>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

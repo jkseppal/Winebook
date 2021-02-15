@@ -3,7 +3,7 @@ import React from 'react'
 const Guide = () => {
   return (
     <div className='guide'>
-      <h2>Ohjeita sovelluksen käyttöön</h2>
+      <h2><i>Ohjeita sovelluksen käyttöön</i></h2>
       <h3>Uuden viinin lisääminen</h3>
       <p>
         <b>Ennen uuden viinin lisäämistä:</b>
@@ -89,6 +89,11 @@ const Guide = () => {
       </p>
       <p>
         Käyttäjien blogimerkinnöistä voi myös tykätä sekä niitä voi kommentoida.
+      </p>
+      <h3>Oma profiili</h3>
+      <p>
+        Oma profiili -sivulla rekisteröitynyt käyttäjä voi määrittää, mitä tietoja itsestään hän haluaa näyttää muille käyttäjille.
+        Sivulla pystyy mm. vaihtamaan sähköpostiosoitteen sekä sen näkyvyyden, asettamaan lyhyen kuvauksen itsestään, sekä asettamaan linkkejä omille some-profiilisivuille.
       </p>
     </div>
   )

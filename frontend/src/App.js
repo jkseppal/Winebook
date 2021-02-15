@@ -86,13 +86,15 @@ const App = () => {
   }
 
   const addWine = async (wineObject) => {
-    await dispatch(createWine(wineObject))
-    await dispatch(initializeUsers())
-    const updatedUser = await users.find(u => u.id === userFromDB.id)
-    setUserFromDB(updatedUser)
-    dispatch(notificationChange(`viini ${wineObject.name} lisätty`, 5))
-    console.log('wines after dispatch: ', wines)
-    console.log('users after dispatch: ', users)
+    try {
+      await dispatch(createWine(wineObject))
+      await dispatch(initializeUsers())
+      const updatedUser = await users.find(u => u.id === userFromDB.id)
+      setUserFromDB(updatedUser)
+      dispatch(notificationChange(`viini ${wineObject.name} lisätty`, 5))
+    } catch (exception) {
+      dispatch(errorMessageChange('viinin lisääminen epäonnistui', 5))
+    }
   }
 
   const addUser = async (userObject) => {
@@ -124,13 +126,16 @@ const App = () => {
   }
 
   const addReview = async (id, reviewObject) => {
-    await dispatch(createReview(id, reviewObject))
-    await dispatch(initializeUsers())
-    await dispatch(initializeWines())
-    const updatedUser = await users.find(u => u.id === userFromDB.id)
-    setUserFromDB(updatedUser)
-    dispatch(notificationChange('Arvostelu lisätty', 5))
-    //dispatch(initializeReviews())
+    try {
+      await dispatch(createReview(id, reviewObject))
+      await dispatch(initializeUsers())
+      await dispatch(initializeWines())
+      const updatedUser = await users.find(u => u.id === userFromDB.id)
+      setUserFromDB(updatedUser)
+      dispatch(notificationChange('Arvostelu lisätty', 5))
+    } catch (exception) {
+      dispatch(errorMessageChange('arvostelun lisääminen epäonnistui', 5))
+    }
   }
 
   const addLike = (reviewObject) => {

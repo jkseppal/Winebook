@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import wineService from '../services/wines'
 import reviewService from '../services/reviews'
-//import usersService from '../services/users'
 import loginService from '../services/login'
 import { Form, Button } from 'react-bootstrap'
 import { errorMessageChange } from '../reducers/errorReducer'
@@ -20,6 +19,7 @@ const Login = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
+      //blogeihin tulee ottaa token käyttöön!
       wineService.setToken(user.token)
       reviewService.setToken(user.token)
     }
@@ -40,7 +40,6 @@ const Login = () => {
       setUser(user)
       setUsername('')
       setPassword('')
-      //window.location.reload()
       window.location.assign('/')
       dispatch(notificationChange('Onnistunut sisäänkirjautuminen!', 3))
     } catch (exception) {

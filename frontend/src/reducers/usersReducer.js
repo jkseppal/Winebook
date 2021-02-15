@@ -23,8 +23,6 @@ const usersReducer = (state = [], action) => {
         showInstagram: action.data.showInstagram,
         twitter: action.data.twitter,
         showTwitter: action.data.showTwitter,
-        //reviews: action.data.reviews,
-        //blogs: action.data.blogs
       }
       return state.map(u =>
         u.id !== id ? u : updatedUser)
@@ -47,7 +45,6 @@ export const initializeUsers = () => {
 
 export const createUser = content => {
   return async dispatch => {
-    //const newUser = await userService.createUser(content)
     dispatch ({
       type: 'ADD_USER',
       data: content
@@ -57,7 +54,6 @@ export const createUser = content => {
 
 export const updateUser = (id, content) => {
   return async dispatch => {
-    //const updatedUser = await userService.addDescription(id, content)
     const updatedUser = await userService.updateUser(id, content)
     console.log('new profile from reducer: ', updatedUser)
     dispatch({

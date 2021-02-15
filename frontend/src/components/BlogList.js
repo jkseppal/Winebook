@@ -5,13 +5,14 @@ import { createBlog, initializeBlogs } from '../reducers/blogReducer'
 import { Link } from 'react-router-dom'
 import { initializeUsers } from '../reducers/usersReducer'
 
-const BlogList = (user, updateProfile) => {
+const BlogList = (user) => {
   const dispatch = useDispatch()
   console.log('user in bloglist: ', user)
   
   const [title, setTitle] = useState('')
 
   let authorized = false
+  //prop user tulee jostain syystä virheellisesti, toiminto korjattu käyttämällä arvoa user.user
   if (user.user) {
     authorized = true
   }
@@ -33,16 +34,7 @@ const BlogList = (user, updateProfile) => {
     const newBlog = {
       title: title
     }
-    /*const userObject = {
-      ...user,
-      blogs: [
-        ...user.blogs,
-        newBlog
-      ]
-    }*/
-    //console.log('new userObject: ', userObject)
     addBlog(newBlog)
-    //updateProfile(userObject)
     setTitle('')
   }
   
@@ -64,7 +56,8 @@ const BlogList = (user, updateProfile) => {
             <tr key={b.id}>
               <td><Link to={`blogs/${b.id}`}>{b.title}</Link></td>
               <td>{b.user.username}</td>
-          </tr>)}
+            </tr>
+          )}
         </tbody>
       </Table>
       {authorized && <div>

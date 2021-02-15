@@ -1,36 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Table, Form, Button } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { initializeReviews, createReview } from '../reducers/reviewReducer'
 
-/**************
- * Ilmeisesti tilanpäivittymisen yhteydessä päivittyy vain kyseinen tila,
- * mutta ei siihen linkittyneet muut tilat.
- * Esim. luotaessa uusi viini, päivittyy viinien lista,
- * mutta ei käyttäjien viinit. Tätä täytyy tutkia lisää.
- * Myös arvostelujen päivittämättömyys liittynee tähän.
- * 
- * Mahdollisesti tyyliin updateWine -metodi, jolla päivitetään
- * myös arvosteltava viini samalla, kun lisätään arvostelu?
- * 
- * Uusi arvostelu päätyy tilaan reviews,
- * mutta päivittynyt tila ei renderöidy komponentissa.
- *************/
-
-const SingleWine = ({ wines, user, reviews, addLike, addReview, updateProfile }) => {
+const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
   
   const [description, setDescription] = useState('')
   const [points, setPoints] = useState('valitse')
   const [vintage, setVintage] = useState('--')
-
-  const dispatch = useDispatch()
-
-  /*useEffect(() => {
-    dispatch(initializeReviews())
-  },[dispatch])
-
-  let reviews = useSelector(state => state.reviews)*/
   
   const id = useParams().id
   let wineToShow = wines.find(wine => wine.id === id)
@@ -60,6 +36,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview, updateProfile })
   }
 
   const handleReviewAdd = (event) => {
+    event.preventDefault()
     const reviewObject = {
       user: user,
       wine: wineToShow,
@@ -67,31 +44,13 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview, updateProfile })
       points: points,
       vintage: vintage,
     }
-    /*addReview(id, {
-      user: user,
-      wine: wineToShow,
-      description: description,
-      points: points,
-      vintage: vintage,
-    })*/
+    
     addReview(id, reviewObject)
-    /*updateProfile({
-      ...user,
-      reviews: [
-        ...user.reviews,
-        reviewObject
-      ]
-    })*/
     setDescription('')
     setPoints('')
-    //wineToShow = wines.find(wine => wine.id === id)
     reviewsToShow = reviews.filter(r => r.wine.id === id)
     
   }
-
-  /*const addReview = (reviewObject) => {
-    dispatch(createReview(wineToShow.id, reviewObject))
-  }*/
 
   let pointOptions = []
   for (let i = 0; i < 101; i++) {
@@ -148,20 +107,6 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview, updateProfile })
               <th>tykkää</th>
             </tr>
           </thead>
-          {/*<tbody>
-            {wineToShow.reviews.map(r =>
-              <tr key={r.id}>
-                <td>{r.user.username}</td>
-                <td>{r.vintage}</td>
-                <td>{r.likes}</td>
-                <td>{r.points}</td>
-                <td>{r.description}</td>
-                <td>
-                  <Button onClick={() => handleLike(r)}>tykkää</Button>
-                </td>
-              </tr>
-            )}
-            </tbody>*/}
           <tbody>
             {reviewsByLikes(reviewsToShow)}
             {reviewsToShow.map(r =>
@@ -179,7 +124,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview, updateProfile })
           </tbody>
         </Table>
       </div>
-      {user ? <div>
+      {user && <div>
         <h3>Lisää arvostelu:</h3>
         <Form onSubmit={handleReviewAdd}>
           <Table>
@@ -236,10 +181,9 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview, updateProfile })
               </tr>
             </tbody>
           </Table>
-          {/*<Button variant="success" type="submit">lisää arvostelu</Button>*/}
           <SubmitButton />
         </Form>
-      </div> : null}
+      </div>}
     </div>
   )
 }

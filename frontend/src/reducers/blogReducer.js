@@ -12,7 +12,6 @@ const blogReducer = (state = [], action) => {
         action.data
       ]
       console.log('new blog state: ', newState)
-      //return [...state, action.data]
       return newState
     case 'ADD_ENTRY': {
       const id = action.data.id

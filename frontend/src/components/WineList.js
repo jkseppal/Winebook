@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Table, Form, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-//import reviews from '../services/reviews'
 
 const WineList = ({ wines }) => {
   const [selectFilter, setSelectFilter] = useState('kaikki viinit')

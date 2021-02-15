@@ -177,7 +177,6 @@ const WineForm = ({ addWine, user, wines }) => {
             </tr>
           </tbody>
         </table>
-        {/*<Button variant="success" type="submit">lisää</Button>*/}
         <SubmitButton />
       </Form>
     </div>

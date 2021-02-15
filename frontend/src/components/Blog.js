@@ -4,7 +4,6 @@ import { Form, Button, Modal } from 'react-bootstrap'
 import Togglable from './Togglable'
 import dompurify from 'dompurify'
 import { Editor } from '@tinymce/tinymce-react'
-//import ModalHeader from 'react-bootstrap/esm/ModalHeader'
 
 const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent }) => {
   const [newEntryTitle, setNewEntryTitle] = useState('')
@@ -26,8 +25,6 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
   const now = new Date()
 
   const blogToShow = blogs.find(b => b.id === id)
-  //console.log('entries: ', blogToShow.blogEntries)
-  //console.log('entry title: ', blogToShow.blogEntries[0].entryTitle)
 
   let authorized = false
   if (blogToShow && user && blogToShow.user.id === user.id) {
@@ -35,6 +32,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
   }
 
   const handleEntryAdd = (event) => {
+    event.preventDefault()
     const newEntry = {
       entryTitle: newEntryTitle,
       entryContent: newContent,
@@ -78,6 +76,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
       ...blogToShow,
       user: blogToShow.user.id,
     }
+
     console.log('index: ', i)
     commentEntry(id, blogToUpdate, i)
     setComment('')
@@ -145,53 +144,49 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
       {blogToShow.blogEntries && blogToShow.blogEntries.map(b =>
         <div key={b._id} className="blockWrapper">
           <div className="tableWrapper">
-          <h3>{b.entryTitle}</h3>
-          <i>{b.entryDate}</i><br />
-          <Togglable id="full-view" shortString={stripper(b.entryContent)} buttonLabel='Näytä kokonaan' ref={entryRef}>
-            <div dangerouslySetInnerHTML={{__html: sanitizer(b.entryContent)}} /><br />
-          
-          <i id="likes">Tykkäyksiä: {b.likes}</i><br />
-          <div className="buttonWrapper">
-            <Button id="like-button" onClick={(e) => handleLike(blogToShow.blogEntries.indexOf(b), e)}>Tykkää</Button><br />
-          </div>
-          {console.log('entry: ', b, ', indeksi: ', blogToShow.blogEntries.indexOf(b))}
-          <div className="buttonWrapper">
-            <Button id="comment-form" variant="success" onClick={(e) => handleShowComment(blogToShow.blogEntries.indexOf(b), e)}>lisää kommentti</Button>
-          </div>
-          <Modal size="lg" show={showComment} onHide={handleCloseComment}>
-            <Modal.Header closeButton>
-              <Modal.Title>Lisää kommentti</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Form.Label>Kommentti</Form.Label>
-                <Form.Control
-                  type="text"
-                  id="comment-field"
-                  value={comment}
-                  onChange={({ target }) => setComment(target.value)}
-                />
-                {/*<Button onClick={() => handleCommentAdd(blogToShow.blogEntries.indexOf(b))}>lisää kommentti</Button>*/}
-                <Button id="add-comment" onClick={() => handleCommentAdd(index)}>lisää kommentti</Button>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseComment}>peruuta</Button>
-            </Modal.Footer>
-          </Modal>
-          <Togglable id="show-comments" buttonLabel='näytä kommentit' ref={commentRef}>
-          {b.comments && b.comments.map(c =>
-            <div key={b.comments.indexOf(c)}>
-              {console.log('kommentti: ', c)}
-              <p className="commentWrapper">
-              <b>{c.user}</b><br />
-              <i>{c.commentDate}</i><br />
-              {c.text}
-              </p>
-            </div>
-          )}
-          </Togglable>
-          </Togglable>
+            <h3>{b.entryTitle}</h3>
+            <i>{b.entryDate}</i><br />
+            <Togglable id="full-view" shortString={stripper(b.entryContent)} buttonLabel='Näytä kokonaan' ref={entryRef}>
+              <div dangerouslySetInnerHTML={{__html: sanitizer(b.entryContent)}} /><br />
+              <i id="likes">Tykkäyksiä: {b.likes}</i><br />
+              <div className="buttonWrapper">
+                <Button id="like-button" onClick={(e) => handleLike(blogToShow.blogEntries.indexOf(b), e)}>Tykkää</Button><br />
+              </div>
+              <div className="buttonWrapper">
+                <Button id="comment-form" variant="success" onClick={(e) => handleShowComment(blogToShow.blogEntries.indexOf(b), e)}>lisää kommentti</Button>
+              </div>
+              <Modal size="lg" show={showComment} onHide={handleCloseComment}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Lisää kommentti</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form>
+                    <Form.Label>Kommentti</Form.Label>
+                    <Form.Control
+                      type="text"
+                      id="comment-field"
+                      value={comment}
+                      onChange={({ target }) => setComment(target.value)}
+                    />
+                    <Button id="add-comment" onClick={() => handleCommentAdd(index)}>lisää kommentti</Button>
+                  </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleCloseComment}>peruuta</Button>
+                </Modal.Footer>
+              </Modal>
+              <Togglable id="show-comments" buttonLabel='näytä kommentit' ref={commentRef}>
+                {b.comments && b.comments.map(c =>
+                  <div key={b.comments.indexOf(c)}>
+                    <p className="commentWrapper">
+                      <b>{c.user}</b><br />
+                      <i>{c.commentDate}</i><br />
+                      {c.text}
+                    </p>
+                  </div>
+                )}
+              </Togglable>
+            </Togglable>
           </div>
         </div>
       )}
@@ -214,12 +209,6 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
                 onChange={({ target }) => setNewEntryTitle(target.value)}
               />
               <Form.Label>Sisältö:</Form.Label>
-              {/*<Form.Control
-                as="textarea"
-                rows={8}
-                value={newContent}
-                onChange={({ target }) => setNewContent(target.value)}
-              />*/}
               <Editor
                 apiKey='of54cb492304vkn5fjxyqvan6ekih5gvviu2q05or7c7plw8'
                 initialValue=""
@@ -245,21 +234,6 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
             <Button variant="secondary" onClick={handleClose}>peruuta</Button>
           </Modal.Footer>
         </Modal>
-        {/*<Form onSubmit={handleEntryAdd}>
-          <Form.Label>Otsikko:</Form.Label>
-          <Form.Control
-            type="text"
-            value={newEntryTitle}
-            onChange={({ target }) => setNewEntryTitle(target.value)}
-          />
-          <Form.Label>Sisältö:</Form.Label>
-          <Form.Control
-            type="text"
-            value={newContent}
-            onChange={({ target }) => setNewContent(target.value)}
-          />
-          <Button type="submit">lisää</Button>
-          </Form>*/}
       </div>}
     </div>
   )
