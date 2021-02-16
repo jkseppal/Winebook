@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import wineService from '../services/wines'
 import reviewService from '../services/reviews'
 import loginService from '../services/login'
+import blogService from '../services/blogs'
 import { Form, Button } from 'react-bootstrap'
 import { errorMessageChange } from '../reducers/errorReducer'
 import { notificationChange } from '../reducers/notificationReducer'
@@ -19,7 +20,7 @@ const Login = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
-      //blogeihin tulee ottaa token käyttöön!
+      blogService.setToken(user.token)
       wineService.setToken(user.token)
       reviewService.setToken(user.token)
     }

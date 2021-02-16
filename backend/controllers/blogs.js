@@ -8,15 +8,6 @@ blogRouter.get('/', async (request, response, next) => {
   const blogs = await Blog
     .find({})
     .populate('user', { username: 1, name: 1 })
-    /*.populate({
-      path : 'blogEntries',
-      populate : {
-        path : 'comments',
-        populate: {
-          path: 'user'
-        }
-      }
-    })*/
   response.json(blogs.map(b => b.toJSON()))
 })
 
@@ -46,15 +37,6 @@ blogRouter.post('/', async (request, response, next) => {
 
 blogRouter.put('/:id', async (request, response, next) => {
   const body = request.body
-  
-  /*if (request.token === undefined) {
-    return response.status(401).json({ error: 'token missing' })
-  }
-  const decodedToken = jwt.verify(request.token, process.env.SECRET)
-  if (!request.token || !decodedToken.id) {
-    return response.status(401).json({ error: 'token missing or invalid' })
-  }*/
-  //const user = await User.findById(decodedToken.id)
 
   const blog = {
     ...body

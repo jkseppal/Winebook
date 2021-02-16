@@ -177,7 +177,7 @@ const App = () => {
               <NavBarLink path='/guide' text='ohjeita' />
               <NavBarLink path='/blogs' text='blogit' />
               {userFromDB && <NavBarLink path='/profile' text='oma profiili' />}
-              {!user && <NavBarLink path='/login' text={<Button type="button">kirjaudu sisään</Button>} />}
+              {!user && <NavBarLink path='/login' text={<Button variant="primary" type="button">kirjaudu sisään</Button>} />}
               {user && <Navbar.Brand>{user.username} kirjautunut sisään</Navbar.Brand>}
               {user && <Button variant="secondary" onClick={handleLogout}>kirjaudu ulos</Button>}
             </Nav>
