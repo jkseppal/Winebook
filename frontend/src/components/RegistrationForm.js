@@ -53,7 +53,7 @@ const RegistrationForm = ({ addUser, users }) => {
       return null
     }
     return (
-      <div style={{ color: "red" }}>käyttäjätunnus varattu</div>
+      <div style={{ color: 'red' }}>käyttäjätunnus varattu</div>
     )
   }
 
@@ -62,7 +62,7 @@ const RegistrationForm = ({ addUser, users }) => {
       return null
     }
     return (
-      <div style={{ color: "red" }}>sähköpostiosoitteella on jo rekisteröidytty sovellukseen</div>
+      <div style={{ color: 'red' }}>sähköpostiosoitteella on jo rekisteröidytty sovellukseen</div>
     )
   }
 
@@ -71,7 +71,7 @@ const RegistrationForm = ({ addUser, users }) => {
       return null
     }
     return (
-      <div style={{ color: "red" }}>salasanat eivät täsmää</div>
+      <div style={{ color: 'red' }}>salasanat eivät täsmää</div>
     )
   }
 

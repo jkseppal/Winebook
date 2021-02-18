@@ -3,41 +3,36 @@ import blogService from '../services/blogs'
 const blogReducer = (state = [], action) => {
 
   switch (action.type) {
-    case 'INIT_BLOGS':
-      return action.data
-    case 'NEW_BLOG':
-      console.log('new blog action.data: ', action.data)
-      const newState = [
-        ...state,
-        action.data
-      ]
-      console.log('new blog state: ', newState)
-      return newState
-    case 'ADD_ENTRY': {
-      const id = action.data.id
-      const blogToAdd = state.find(b => b.id === id)
-      const addedBlog = {
-        ...blogToAdd,
-        blogEntries: action.data.blogEntries
-      }
-      const newState = state.map(b =>
-        b.id !== id ? b : addedBlog)
-      console.log('new state: ', newState)
-      return state.map(b =>
-        b.id !== id ? b : addedBlog)
-      }
-    case 'ADD_COMMENT': {
-      const id = action.data.id
-      return state.map(b =>
-        b.id !== id ? b : action.data)
+  case 'INIT_BLOGS':
+    return action.data
+  case 'NEW_BLOG':
+    console.log('new blog action.data: ', action.data)
+    return [...state, action.data]
+  case 'ADD_ENTRY': {
+    const id = action.data.id
+    const blogToAdd = state.find(b => b.id === id)
+    const addedBlog = {
+      ...blogToAdd,
+      blogEntries: action.data.blogEntries
     }
-    case 'ADD_LIKE': {
-      const id = action.data.id
-      return state.map(b => 
-        b.id !== id ? b : action.data)
-    }
-    default:
-      return state
+    const newState = state.map(b =>
+      b.id !== id ? b : addedBlog)
+    console.log('new state: ', newState)
+    return state.map(b =>
+      b.id !== id ? b : addedBlog)
+  }
+  case 'ADD_COMMENT': {
+    const id = action.data.id
+    return state.map(b =>
+      b.id !== id ? b : action.data)
+  }
+  case 'ADD_LIKE': {
+    const id = action.data.id
+    return state.map(b =>
+      b.id !== id ? b : action.data)
+  }
+  default:
+    return state
   }
 }
 

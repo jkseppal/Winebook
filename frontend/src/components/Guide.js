@@ -55,16 +55,16 @@ const Guide = () => {
       <p>
         Toiseen kenttään <b>kuvaus</b> kirjoitetaan varsinainen sanallinen arvostelu viinistä.
         Moni kokee viinin sanallisen arvioinnin aluksi jopa hieman pelottavana, mutta tämä on turhaa.
-        Viinien arvostelussa ei ole keskeistä käyttää "oikeita" termejä viinin kuvaamiseen, vaan tärkeintä on kuvata sitä niillä adjektiiveilla, jotka omasta mielestä kuvastavat viiniä parhaiten.
+        Viinien arvostelussa ei ole keskeistä käyttää ns. oikeita termejä viinin kuvaamiseen, vaan tärkeintä on kuvata sitä niillä adjektiiveilla, jotka omasta mielestä kuvastavat viiniä parhaiten.
         Jos viinin tuoksusta tulee itselle vaikka ensimmäisenä mieleen vastaleikattu nurmikko tai kissanpissa, on ne täysin oikeita adjektiiveja arvosteluun kuvaamaan kyseistä viiniä.
         Arvostelussa hyviä asioita huomioida on esimerkiksi viinin väri, tuoksu, suutuntuma ja maku. Ja vielä tässä järjestyksessä, missä kyseiset asiat viinistä tyypillisesti havaitsee.
-        On kuitenkin hyvä muistaa, että arvostelut ovat subjektiivisia, joten väärää arvostelua ei ole olemassa. Jos jostain viinistä haluaa kirjoittaa vaikka ainoastaan: "pahaa", on se täysin hyväksyttävää.
+        On kuitenkin hyvä muistaa, että arvostelut ovat subjektiivisia, joten väärää arvostelua ei ole olemassa. Jos jostain viinistä haluaa kirjoittaa vaikka ainoastaan: pahaa, on se täysin hyväksyttävää.
       </p>
       <p>
         arvostelulomakkeen viimeisessä kentässä <b>pisteet</b> annetaan pisteet arvioidulle viinille 100 pisteen asteikolla.
         Arvioita luettaessa ja annettaessa on syytä pitää mielessä että niin pisteet kuin arvostelu ylipäätään on arvioijan subjektiivinen mielipide viinistä.
         Hyvänä ohjenuorana pisteiden antoon voi pitää seuraavaa:
-      </p>  
+      </p>
       <ul>
         <li>96-100: poikkeuksellisen hyvä viini, joka edustaa kaikkia tyylinsä toivottuja ominaisuuksia</li>
         <li>90-95: erinomainen monipuolinen ja luonteikas viini</li>
@@ -74,7 +74,7 @@ const Guide = () => {
         <li>50-59: kelvoton</li>
       </ul>
       <p>Toisin sanoen viini voi saada jo 50 pistettä ihan vain siitä hyvästä, että se on viiniä :)</p>
-      
+
       <h3>Arvostelujen lukeminen</h3>
       <p>
         Yksittäisten viinien arvostelujen vierestä löytyy tykkää-nappi, jota painamalla voi antaa kyseiselle arvostelulle tykkäyksen.

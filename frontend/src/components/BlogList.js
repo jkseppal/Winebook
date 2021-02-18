@@ -8,7 +8,7 @@ import { initializeUsers } from '../reducers/usersReducer'
 const BlogList = (user) => {
   const dispatch = useDispatch()
   console.log('user in bloglist: ', user)
-  
+
   const [title, setTitle] = useState('')
   const [nameFilter, setNameFilter] = useState('')
   const [blogFilter, setBlogFilter] = useState('')
@@ -35,7 +35,7 @@ const BlogList = (user) => {
   const handleNameFilterChange = (event) => {
     setNameFilter(event.target.value)
   }
-  
+
   const addBlog = async (blogObject) => {
     await dispatch(createBlog(blogObject))
     dispatch(initializeUsers())
@@ -66,7 +66,7 @@ const BlogList = (user) => {
     }
     return user.username
   }
-  
+
   if (!blogs) {
     return null
   }
@@ -80,7 +80,7 @@ const BlogList = (user) => {
           value={blogFilter}
           onChange={handleBlogFilterChange}
         />
-      
+
       Hae kirjoittajan perusteella:
         <input
           placeholder="hae..."

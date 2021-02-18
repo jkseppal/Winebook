@@ -12,6 +12,7 @@ const WineForm = ({ addWine, user, wines }) => {
   let reservedWineName = wines.find(w => w.name === name)
 
   const handleWineAdd = (event) => {
+    event.preventDefault()
     addWine({
       user: user,
       name: name,
@@ -39,7 +40,7 @@ const WineForm = ({ addWine, user, wines }) => {
       return null
     }
     return (
-      <div style={{ color: "red" }}>Tällä nimellä on jo lisätty viini sovellukseen</div>
+      <div style={{ color: 'red' }}>Tällä nimellä on jo lisätty viini sovellukseen</div>
     )
   }
 

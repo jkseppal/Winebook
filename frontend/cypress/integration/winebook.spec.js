@@ -22,9 +22,9 @@ describe('Winebook', function() {
       cy.contains('kirjaudu ulos').click()
       cy.contains('kirjaudu sisään')
     })
-    
+
     it('user can add wine', function() {
-      cy.get('a[href*="create"]').click({force: true})
+      cy.get('a[href*="create"]').click({ force: true })
       cy.get('#name').type('testiviini')
       cy.get('#add-wine').click()
       cy.visit('http://localhost:3000')
@@ -34,9 +34,9 @@ describe('Winebook', function() {
       cy.wait(3000)
       cy.get('#added-wines').contains('testiviini')
     })
-    
+
     it('wine can be revieved', function() {
-      cy.get('a[href*="create"]').click({force: true})
+      cy.get('a[href*="create"]').click({ force: true })
       cy.get('#name').type('testiviini')
       cy.get('#add-wine').click()
       cy.visit('http://localhost:3000')
@@ -53,7 +53,7 @@ describe('Winebook', function() {
     })
 
     it('review can be liked', function() {
-      cy.get('a[href*="create"]').click({force: true})
+      cy.get('a[href*="create"]').click({ force: true })
       cy.get('#name').type('testiviini')
       cy.get('#add-wine').click()
       cy.visit('http://localhost:3000')
@@ -172,7 +172,7 @@ describe('Winebook', function() {
       cy.get('#username').click()
       cy.get('a[href*="instagram.com/testaaja"]')
     })
-    
+
     it('user can add link to twitter and set it visible', function() {
       cy.contains('oma profiili').click({ force: true })
       cy.get('#twitter').type('http://twitter.com/testaaja')
@@ -194,7 +194,7 @@ describe('Winebook', function() {
     })
 
     it('user cannot review wine', function() {
-      cy.get('a[href*="create"]').click({force: true})
+      cy.get('a[href*="create"]').click({ force: true })
       cy.get('#name').type('testiviini')
       cy.get('#add-wine').click()
       cy.wait(3000)

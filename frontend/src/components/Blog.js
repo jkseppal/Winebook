@@ -5,6 +5,7 @@ import Togglable from './Togglable'
 import dompurify from 'dompurify'
 import { Editor } from '@tinymce/tinymce-react'
 
+// eslint-disable-next-line no-unused-vars
 const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent }) => {
   const [newEntryTitle, setNewEntryTitle] = useState('')
   const [newContent, setNewContent] = useState('')
@@ -12,11 +13,12 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
   const [showComment, setShowComment] = useState(false)
   const [comment, setComment] = useState('')
   const [index, setIndex] = useState(null)
-  
+
   const id = useParams().id
 
   const sanitizer = dompurify.sanitize
 
+  // eslint-disable-next-line no-unused-vars
   const handleEditorChange = (content, editor) => {
     setNewContent(content)
     console.log('content:', content)
@@ -147,7 +149,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
             <h3>{b.entryTitle}</h3>
             <i>{b.entryDate}</i><br />
             <Togglable id="full-view" shortString={stripper(b.entryContent)} buttonLabel='Näytä kokonaan' ref={entryRef}>
-              <div dangerouslySetInnerHTML={{__html: sanitizer(b.entryContent)}} /><br />
+              <div dangerouslySetInnerHTML={ { __html: sanitizer(b.entryContent) } } /><br />
               <i id="likes">Tykkäyksiä: {b.likes}</i><br />
               <div className="buttonWrapper">
                 <Button id="like-button" onClick={(e) => handleLike(blogToShow.blogEntries.indexOf(b), e)}>Tykkää</Button><br />

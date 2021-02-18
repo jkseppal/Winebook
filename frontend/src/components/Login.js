@@ -10,7 +10,7 @@ import { notificationChange } from '../reducers/notificationReducer'
 
 const Login = () => {
   const dispatch = useDispatch()
-  
+
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -25,7 +25,7 @@ const Login = () => {
       reviewService.setToken(user.token)
     }
   }, [])
-  
+
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -93,7 +93,7 @@ const Login = () => {
       </div>
     )
   }
-  
+
 }
 
 export default Login

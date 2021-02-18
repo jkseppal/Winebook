@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const SingleUser = ({ users, user }) => {
   const id = useParams().id
-  
+
   const userToShow = users.find(u => u.id === id)
   console.log('all users on userpage: ', users)
   console.log('userToShow on userpage: ', userToShow)

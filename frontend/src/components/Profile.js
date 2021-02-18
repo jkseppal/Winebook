@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
 const Profile = ({ user, updateProfile }) => {
-  
+
   const [description, setDescription] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -13,7 +13,7 @@ const Profile = ({ user, updateProfile }) => {
   const [showInstagram, setShowInstagram] = useState('')
   const [twitter, setTwitter] = useState('')
   const [showTwitter, setShowTwitter] = useState('')
-  
+
   useEffect(() => {
     if (user) {
       console.log('user in profilepage: ', user)
@@ -39,7 +39,7 @@ const Profile = ({ user, updateProfile }) => {
       setShowTwitter(user.showTwitter)
     }
   }, [user])
-  
+
   const handleDescriptionAdd = (event) => {
     event.preventDefault()
     const newUser = {
@@ -124,7 +124,7 @@ const Profile = ({ user, updateProfile }) => {
   if (!user) {
     return null
   }
-  
+
   return (
     <div className='guide'>
       <h2>Oma profiili: {user.username}</h2>

@@ -4,7 +4,7 @@ import { Alert } from 'react-bootstrap'
 
 const ErrorMessage = () => {
   const errorMessage = useSelector(state => state.errorMessage)
-  
+
   if (errorMessage === '') {
     return null
   }

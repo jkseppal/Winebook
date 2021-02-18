@@ -52,41 +52,41 @@ const UserList = ({ users, user }) => {
     <div className='wineList'>
       <h2>rekisteröityneet käyttäjät:</h2>
       Hae käyttäjätunnuksella:
-        <input
-          placeholder="hae..."
-          value={findFilter}
-          onChange={handleFindFilterChange}
-        />
-        <Form>
-          <Form.Group as={Row}>
-            <Form.Label as="legend" column sm={2} style={{ paddingTop: 20 }}>
+      <input
+        placeholder="hae..."
+        value={findFilter}
+        onChange={handleFindFilterChange}
+      />
+      <Form>
+        <Form.Group as={Row}>
+          <Form.Label as="legend" column sm={2} style={{ paddingTop: 20 }}>
               Lajittele käyttäjät
-            </Form.Label>
-            <Col sm={10} style={{ paddingTop: 20 }}>
-              <Form.Check
-                inline
-                type="radio"
-                name="userSort"
-                label="nimen perusteella"
-                onChange={() => setSort("name")}
-              />
-              <Form.Check
-                inline
-                type="radio"
-                name="userSort"
-                label="lisättyjen viinien määrän perusteella"
-                onChange={() => setSort("wines")}
-              />
-              <Form.Check
-                inline
-                type="radio"
-                name="userSort"
-                label="arvostelujen määrän perusteella"
-                onChange={() => setSort("reviews")}
-              />
-            </Col>
-          </Form.Group>
-        </Form>
+          </Form.Label>
+          <Col sm={10} style={{ paddingTop: 20 }}>
+            <Form.Check
+              inline
+              type="radio"
+              name="userSort"
+              label="nimen perusteella"
+              onChange={() => setSort('name')}
+            />
+            <Form.Check
+              inline
+              type="radio"
+              name="userSort"
+              label="lisättyjen viinien määrän perusteella"
+              onChange={() => setSort('wines')}
+            />
+            <Form.Check
+              inline
+              type="radio"
+              name="userSort"
+              label="arvostelujen määrän perusteella"
+              onChange={() => setSort('reviews')}
+            />
+          </Col>
+        </Form.Group>
+      </Form>
       {sorter(usersToShow)}
       <Table striped className='tableWrapper'>
         <thead>

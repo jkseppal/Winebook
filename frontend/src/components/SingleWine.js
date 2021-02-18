@@ -3,11 +3,11 @@ import { useParams, Link } from 'react-router-dom'
 import { Table, Form, Button } from 'react-bootstrap'
 
 const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
-  
+
   const [description, setDescription] = useState('')
   const [points, setPoints] = useState('valitse')
   const [vintage, setVintage] = useState('--')
-  
+
   const id = useParams().id
   let wineToShow = wines.find(wine => wine.id === id)
   let reviewsToShow = reviews.filter(r => r.wine.id === id)
@@ -44,12 +44,12 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
       points: points,
       vintage: vintage,
     }
-    
+
     addReview(id, reviewObject)
     setDescription('')
     setPoints('')
     reviewsToShow = reviews.filter(r => r.wine.id === id)
-    
+
   }
 
   let pointOptions = []

@@ -29,7 +29,7 @@ import loginService from './services/login'
 
 const App = () => {
   const dispatch = useDispatch()
-  
+
   const [user, setUser] = useState(null)
   const [userFromDB, setUserFromDB] = useState(null)
 
@@ -173,7 +173,7 @@ const App = () => {
               <NavBarLink path='/' text='etusivu' />
               {user && <NavBarLink path='/create' text='lisää viini' id="nav-add-wine" />}
               {user && <NavBarLink path='/users' text='käyttäjät' />}
-              {!user && <NavBarLink path='/registration' text='rekisteröidy käyttäjäksi' />} 
+              {!user && <NavBarLink path='/registration' text='rekisteröidy käyttäjäksi' />}
               <NavBarLink path='/guide' text='ohjeita' />
               <NavBarLink path='/blogs' text='blogit' />
               {userFromDB && <NavBarLink path='/profile' text='oma profiili' />}
@@ -184,47 +184,47 @@ const App = () => {
           </Navbar.Collapse>
         </Navbar>
         <div className="container">
-        <Notification />
-        <ErrorMessage />
-        <Switch>
-          <Route path="/wines/:id">
-            <SingleWine wines={wines} user={userFromDB} reviews={reviews} addLike={addLike} addReview={addReview} updateProfile={updateProfile} />
-          </Route>
-          <Route path="/users/:id">
-            <SingleUser user={user} users={users} reviews={reviews} blogs={blogs} />
-          </Route>
-          <Route path="/create">
-            <WineForm addWine={addWine} user={user} wines={wines} />
-          </Route>
-          <Route path="/registration">
-            <RegistrationForm addUser={addUser} users={users} />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/users">
-            <UserList user={user} users={users} />
-          </Route>
-          <Route path="/guide">
-            <Guide />
-          </Route>
-          <Route path="/profile">
-            <Profile user={userFromDB} updateProfile={updateProfile} />
-          </Route>
-          <Route path="/blogs/:id">
-            <Blog blogs={blogs} addEntry={addEntry} user={userFromDB} commentEntry={commentEntry} likeEntry={likeEntry} />
-          </Route>
-          <Route path="/blogs">
-            <BlogList blogs={blogs} user={userFromDB} updateProfile={updateProfile} />
-          </Route>
-          <Route path="/">
-            <WineList wines={wines} />
-          </Route>
-        </Switch>
+          <Notification />
+          <ErrorMessage />
+          <Switch>
+            <Route path="/wines/:id">
+              <SingleWine wines={wines} user={userFromDB} reviews={reviews} addLike={addLike} addReview={addReview} updateProfile={updateProfile} />
+            </Route>
+            <Route path="/users/:id">
+              <SingleUser user={user} users={users} reviews={reviews} blogs={blogs} />
+            </Route>
+            <Route path="/create">
+              <WineForm addWine={addWine} user={user} wines={wines} />
+            </Route>
+            <Route path="/registration">
+              <RegistrationForm addUser={addUser} users={users} />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/users">
+              <UserList user={user} users={users} />
+            </Route>
+            <Route path="/guide">
+              <Guide />
+            </Route>
+            <Route path="/profile">
+              <Profile user={userFromDB} updateProfile={updateProfile} />
+            </Route>
+            <Route path="/blogs/:id">
+              <Blog blogs={blogs} addEntry={addEntry} user={userFromDB} commentEntry={commentEntry} likeEntry={likeEntry} />
+            </Route>
+            <Route path="/blogs">
+              <BlogList blogs={blogs} user={userFromDB} updateProfile={updateProfile} />
+            </Route>
+            <Route path="/">
+              <WineList wines={wines} />
+            </Route>
+          </Switch>
         </div>
       </div>
     </Router>
   )
 }
 
-export default App;
+export default App

@@ -3,12 +3,12 @@ import wineService from '../services/wines'
 const wineReducer = (state = [], action) => {
 
   switch(action.type) {
-    case 'INIT_WINES':
-      return action.data
-    case 'NEW_WINE':
-      return [...state, action.data]
-    default:
-      return state
+  case 'INIT_WINES':
+    return action.data
+  case 'NEW_WINE':
+    return [...state, action.data]
+  default:
+    return state
   }
 }
 
