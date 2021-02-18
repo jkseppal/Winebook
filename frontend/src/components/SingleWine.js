@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { Table, Form, Button } from 'react-bootstrap'
 
 const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
@@ -72,6 +72,15 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
     return null
   }
 
+  const linkCheck = (reviewer) => {
+    if (user) {
+      return (
+        <Link to={`/users/${reviewer.id}`}>{reviewer.username}</Link>
+      )
+    }
+    return reviewer.username
+  }
+
   const SubmitButton = () => {
     if (points === 'valitse') {
       return (
@@ -111,7 +120,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
             {reviewsByLikes(reviewsToShow)}
             {reviewsToShow.map(r =>
               <tr key={r.id}>
-                <td>{r.user.username}</td>
+                <td>{linkCheck(r.user)}</td>
                 <td>{r.vintage}</td>
                 <td>{r.likes}</td>
                 <td>{r.points}</td>

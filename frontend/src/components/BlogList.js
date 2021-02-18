@@ -101,7 +101,6 @@ const BlogList = (user) => {
           {blogsToShow.map(b =>
             <tr key={b.id}>
               <td><Link to={`blogs/${b.id}`}>{b.title}</Link></td>
-              {/*<td>{b.user.username}</td>*/}
               <td>{linkCheck(b.user)}</td>
               <td>{b.blogEntries.length}</td>
               <td>{latestEntry(b.blogEntries)}</td>
@@ -119,7 +118,9 @@ const BlogList = (user) => {
             value={title}
             onChange={({ target }) => setTitle(target.value)}
           />
-          <Button type="submit" id="add-blog">lisää</Button>
+          <div className="buttonWrapper">
+            <Button type="submit" id="add-blog">lisää</Button>
+          </div>
         </Form>
       </div>}
     </div>

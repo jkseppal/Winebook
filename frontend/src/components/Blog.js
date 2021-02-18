@@ -168,7 +168,9 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
                       value={comment}
                       onChange={({ target }) => setComment(target.value)}
                     />
-                    <Button id="add-comment" onClick={() => handleCommentAdd(index)}>lisää kommentti</Button>
+                    <div className="buttonWrapper">
+                      <Button id="add-comment" onClick={() => handleCommentAdd(index)}>lisää kommentti</Button>
+                    </div>
                   </Form>
                 </Modal.Body>
                 <Modal.Footer>
@@ -227,7 +229,9 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
                 }}
                 onEditorChange={handleEditorChange}
               />
-              <Button type="submit" id="add-entry">lisää</Button>
+              <div className="buttonWrapper">
+                <Button type="submit" id="add-entry">lisää</Button>
+              </div>
             </Form>
           </Modal.Body>
           <Modal.Footer>

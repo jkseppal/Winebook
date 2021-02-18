@@ -50,8 +50,7 @@ code {
 }
 
 .tableWrapper {
-  border-style: solid;
-  border-radius: 10px;
+  border-style: double;
   border-color: rgb(50, 145, 253);
   padding-top: 5px;
   padding-bottom: 5px
