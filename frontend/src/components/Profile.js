@@ -17,6 +17,12 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
   const [retypePassword, setRetypePassword] = useState('')
   const [showPasswordChange, setShowPasswordChange] = useState(false)
 
+  /**
+   * user päivittyy komponenttiin virheellisesti, selvitetään.
+   * ...
+   * Korjattu!
+   */
+
   useEffect(() => {
     if (user) {
       console.log('user in profilepage: ', user)

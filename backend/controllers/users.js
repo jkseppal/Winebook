@@ -3,6 +3,11 @@ const usersRouter = require('express').Router()
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
+/**
+ * Jostain syystä arvostelut putoavat pois profiilin päivityksen yhteydessä.
+ * Selvitetään
+ */
+
 usersRouter.get('/', async (request, response, next) => {
   const users = await User.find({})
   .populate('wines', { name: 1, region: 1 })
@@ -86,7 +91,7 @@ usersRouter.put('/:id', async (request, response, next) => {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
   
-  console.log('body: ', body)
+  console.log('body in updateUser: ', body)
   const wines = body.wines.map(w => w.id)
   const reviews = body.reviews.map(r => r.id)
   const blogs = body.blogs.map(b => b.id)
@@ -98,6 +103,7 @@ usersRouter.put('/:id', async (request, response, next) => {
     reviews: reviews,
   }
   const savedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true, useFindAndModify: false })
+  console.log('saved user in updateUser: ', savedUser)
   response.json(savedUser.toJSON())
 })
 
