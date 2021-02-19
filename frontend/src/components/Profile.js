@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
-const Profile = ({ user, updateProfile }) => {
+const Profile = ({ user, updateProfile, updatePassword }) => {
 
   const [description, setDescription] = useState('')
   const [name, setName] = useState('')
@@ -13,6 +13,7 @@ const Profile = ({ user, updateProfile }) => {
   const [showInstagram, setShowInstagram] = useState('')
   const [twitter, setTwitter] = useState('')
   const [showTwitter, setShowTwitter] = useState('')
+  const [newPassword, setNewPassword] = useState('')
 
   useEffect(() => {
     if (user) {
@@ -104,6 +105,16 @@ const Profile = ({ user, updateProfile }) => {
     await updateProfile(newUser)
   }
 
+  const handlePasswordChange = async (event) => {
+    event.preventDefault()
+    const newUser = {
+      ...user,
+      password: newPassword
+    }
+    console.log('new user: ', newUser)
+    await updatePassword(newUser)
+  }
+
   const emailChanger = async () => {
     await setShowEmail(!showEmail)
     console.log('show email status: ', showEmail)
@@ -129,6 +140,16 @@ const Profile = ({ user, updateProfile }) => {
     <div className='guide'>
       <h2>Oma profiili: {user.username}</h2>
       <div>
+        <Form onSubmit={handlePasswordChange}>
+          <Form.Label>uusi salasana:</Form.Label>
+          <Form.Control
+            type="password"
+            id="new-password-field"
+            value={newPassword}
+            onChange={({ target }) => setNewPassword(target.value)}
+          />
+          <Button type="submit">vaihda salasana</Button>
+        </Form>
         <Form onSubmit={handleNameChange}>
           <Form.Label>Nimi:</Form.Label>
           <Form.Control

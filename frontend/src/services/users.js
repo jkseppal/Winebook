@@ -27,9 +27,20 @@ const updateUser = async (id, newObject) => {
   return response.data
 }
 
+const updatePassword = async (id, newObject) => {
+  const config = {
+    headers: { Authorization: token }
+  }
+
+  const request = axios.put(`${baseUrl}/password/${id}`, newObject, config)
+  const response = await request
+  return response.data
+}
+
 export default {
   setToken: setToken,
   createUser: createUser,
   getUsers: getUsers,
-  updateUser: updateUser
+  updateUser: updateUser,
+  updatePassword: updatePassword
 }

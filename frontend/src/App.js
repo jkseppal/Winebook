@@ -116,6 +116,17 @@ const App = () => {
     }
   }
 
+  const passwordUpdate = async (userObject) => {
+    try {
+      const id = userObject.id
+      console.log('id: ', id)
+      await userService.updatePassword(id, userObject)
+      dispatch(notificationChange('salasana päivitetty', 5))
+    } catch (exception) {
+      dispatch(errorMessageChange('Salasanan päivitys epäonnistui', 5))
+    }
+  }
+
   const updateProfile = async (userObject) => {
     try {
       dispatch(updateUser(userFromDB.id, userObject))
@@ -209,7 +220,7 @@ const App = () => {
               <Guide />
             </Route>
             <Route path="/profile">
-              <Profile user={userFromDB} updateProfile={updateProfile} />
+              <Profile user={userFromDB} updateProfile={updateProfile} updatePassword={passwordUpdate} />
             </Route>
             <Route path="/blogs/:id">
               <Blog blogs={blogs} addEntry={addEntry} user={userFromDB} commentEntry={commentEntry} likeEntry={likeEntry} />
