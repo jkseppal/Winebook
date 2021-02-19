@@ -53,5 +53,6 @@
 18.02.2021: 1h, Sovelluksen ulkoasun kehitystä.
 18.02.2021: 2h, Ratkaistu eslint-ongelmia.
 19.02.2021: 4h, Lisätty mahdollisuus vaihtaa salasanaa.
+19.02.2021: 1h, Salasanan muuttaminen siirretty tapahtumaan modaalilomakkeella.
 
-yhteensä: 165h
+yhteensä: 166h

@@ -162,7 +162,7 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
   }
 
   const PasswordChecker = () => {
-    if (newPassword && retypePassword) {
+    if (newPassword === retypePassword) {
       return null
     }
     return (
