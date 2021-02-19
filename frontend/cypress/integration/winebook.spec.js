@@ -182,6 +182,21 @@ describe('Winebook', function() {
       cy.get('#username').click()
       cy.get('a[href*="twitter.com/testaaja"]')
     })
+
+    it('user can change password', function() {
+      cy.contains('oma profiili').click({ force:true })
+      cy.get('#change-password-form').click()
+      cy.get('#new-password-field').type('password2')
+      cy.get('#retype-password-field').type('password2')
+      cy.get('#change-password-button').click()
+      cy.contains('kirjaudu ulos').click()
+      cy.wait(3000)
+      cy.contains('kirjaudu sisään').click()
+      cy.get('#username').type('testaaja')
+      cy.get('#password').type('password2')
+      cy.get('#login-button').click()
+      cy.contains('testaaja kirjautunut sisään')
+    })
   })
 
   describe('while logged out', function() {

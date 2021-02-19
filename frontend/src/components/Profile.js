@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Modal } from 'react-bootstrap'
 
 const Profile = ({ user, updateProfile, updatePassword }) => {
 
@@ -14,6 +14,8 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
   const [twitter, setTwitter] = useState('')
   const [showTwitter, setShowTwitter] = useState('')
   const [newPassword, setNewPassword] = useState('')
+  const [retypePassword, setRetypePassword] = useState('')
+  const [showPasswordChange, setShowPasswordChange] = useState(false)
 
   useEffect(() => {
     if (user) {
@@ -113,6 +115,9 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
     }
     console.log('new user: ', newUser)
     await updatePassword(newUser)
+    setNewPassword('')
+    setRetypePassword('')
+    setShowPasswordChange(false)
   }
 
   const emailChanger = async () => {
@@ -132,6 +137,39 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
     await setShowTwitter(!showTwitter)
   }
 
+  const handleClose = () => setShowPasswordChange(false)
+  const handleShow = () => setShowPasswordChange(true)
+
+  let approved = false
+  if (newPassword === retypePassword && newPassword.length > 4) {
+    approved = true
+  }
+
+  const PasswordButton = () => {
+    if (approved === false) {
+      return (
+        <Button type="submit" disabled>päivitä salasana</Button>
+      )
+    }
+    return (
+      <Button
+        type="submit"
+        id="change-password-button"
+      >
+        päivitä salasana
+      </Button>
+    )
+  }
+
+  const PasswordChecker = () => {
+    if (newPassword && retypePassword) {
+      return null
+    }
+    return (
+      <div style={{ color: 'red' }}>salasanat eivät täsmää</div>
+    )
+  }
+
   if (!user) {
     return null
   }
@@ -140,16 +178,6 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
     <div className='guide'>
       <h2>Oma profiili: {user.username}</h2>
       <div>
-        <Form onSubmit={handlePasswordChange}>
-          <Form.Label>uusi salasana:</Form.Label>
-          <Form.Control
-            type="password"
-            id="new-password-field"
-            value={newPassword}
-            onChange={({ target }) => setNewPassword(target.value)}
-          />
-          <Button type="submit">vaihda salasana</Button>
-        </Form>
         <Form onSubmit={handleNameChange}>
           <Form.Label>Nimi:</Form.Label>
           <Form.Control
@@ -238,6 +266,38 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
           </div>
         </Form>
       </div>
+      <div className="buttonWrapper">
+        <Button id="change-password-form" variant="danger" onClick={handleShow}>vaihda salasanaa</Button>
+      </div>
+      <Modal show={showPasswordChange} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Vaihda salasanaa</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handlePasswordChange}>
+            <Form.Label>Uusi salasana</Form.Label>
+            <Form.Control
+              type="password"
+              id="new-password-field"
+              value={newPassword}
+              onChange={({ target }) => setNewPassword(target.value)}
+            />
+            <Form.Control
+              type="password"
+              id="retype-password-field"
+              value={retypePassword}
+              onChange={({ target }) => setRetypePassword(target.value)}
+            />
+            <PasswordChecker />
+            <div className="buttonWrapper">
+              <PasswordButton type="submit">vaihda salasana</PasswordButton>
+            </div>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>peruuta</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }
