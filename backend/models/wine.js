@@ -31,4 +31,6 @@ wineSchema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('Wine', wineSchema)
+const Wine = mongoose.model('Wine', wineSchema)
+
+module.exports = Wine
