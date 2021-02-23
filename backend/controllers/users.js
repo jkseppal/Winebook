@@ -8,20 +8,20 @@ const jwt = require('jsonwebtoken')
  * Selvitetään
  */
 
-usersRouter.get('/', async (request, response, next) => {
+usersRouter.get('/', async (_request, response) => {
   const users = await User.find({})
-  .populate('wines', { name: 1, region: 1 })
-  .populate('blogs', { title: 1 })
-  .populate({
-    path : 'reviews',
-    populate : {
-      path : 'wine'
-    }
-  })
+    .populate('wines', { name: 1, region: 1 })
+    .populate('blogs', { title: 1 })
+    .populate({
+      path : 'reviews',
+      populate : {
+        path : 'wine'
+      }
+    })
   response.json(users.map(u => u.toJSON()))
 })
 
-usersRouter.post('/', async (request, response, next) => {
+usersRouter.post('/', async (request, response) => {
   const body = request.body
   console.log('body: ', body)
   if (body.password.length < 5) {
@@ -47,7 +47,7 @@ usersRouter.post('/', async (request, response, next) => {
   response.json(savedUser)
 })
 
-usersRouter.put('/password/:id', async (request, response, next) => {
+usersRouter.put('/password/:id', async (request, response) => {
   const body = request.body
   console.log('request.body: ', body)
 
@@ -80,7 +80,7 @@ usersRouter.put('/password/:id', async (request, response, next) => {
   response.json(savedUser.toJSON())
 })
 
-usersRouter.put('/:id', async (request, response, next) => {
+usersRouter.put('/:id', async (request, response) => {
   const body = request.body
   
   if (request.token === undefined) {

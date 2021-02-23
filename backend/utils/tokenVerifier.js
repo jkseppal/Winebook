@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const tokenVerifier = (token) => {
   if (token === undefined) {
     return response.status(401).json({ error: 'token missing' })

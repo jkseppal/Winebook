@@ -5,7 +5,7 @@ const User = require('../models/user')
 const Wine = require('../models/wine')
 const jwt = require('jsonwebtoken')
 
-reviewRouter.get('/', async (request, response, next) => {
+reviewRouter.get('/', async (_request, response) => {
   const reviews = await Review
     .find({})
     .populate('user', { username: 1, name: 1 })
@@ -13,7 +13,7 @@ reviewRouter.get('/', async (request, response, next) => {
   response.json(reviews.map(r => r.toJSON()))
 })
 
-reviewRouter.post('/:id', async (request, response, next) => {
+reviewRouter.post('/:id', async (request, response) => {
   const body = request.body
   if (request.token === undefined) {
     return response.status(401).json({ error: 'token missing' })

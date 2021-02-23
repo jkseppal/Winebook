@@ -6,7 +6,7 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 //const tokenVerifier = require('../utils/tokenVerifier')
 
-winesRouter.get('/', async (request, response, next) => {
+winesRouter.get('/', async (_request, response) => {
   const wines = await Wine
     .find({})
     .populate('user', { username: 1, name: 1 })

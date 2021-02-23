@@ -4,14 +4,14 @@ const jwt = require('jsonwebtoken')
 const Blog = require('../models/blog')
 const User = require('../models/user')
 
-blogRouter.get('/', async (request, response, next) => {
+blogRouter.get('/', async (_request, response) => {
   const blogs = await Blog
     .find({})
     .populate('user', { username: 1, name: 1 })
   response.json(blogs.map(b => b.toJSON()))
 })
 
-blogRouter.post('/', async (request, response, next) => {
+blogRouter.post('/', async (request, response) => {
   const body = request.body
   if (request.token === undefined) {
     return response.status(401).json({ error: 'token missing' })
@@ -35,7 +35,7 @@ blogRouter.post('/', async (request, response, next) => {
   response.json(savedBlog.toJSON())
 })
 
-blogRouter.put('/:id', async (request, response, next) => {
+blogRouter.put('/:id', async (request, response) => {
   const body = request.body
 
   const blog = {
