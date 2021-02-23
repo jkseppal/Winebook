@@ -231,6 +231,140 @@ test('a blog entry can be added', async () => {
     .expect(200)
 })
 
+test('a blog entry can be commented', async () => {
+  const newBlog = {
+    title: 'testiblogi'
+  }
+  const newUser = {
+    name: 'testaaja3',
+    username: 'testaaja3',
+    email: 'testaaja3@gmail.com',
+    password: 'password3'
+  }
+
+  await api
+    .post('/api/users')
+    .send(newUser)
+    .expect(200)
+
+  const response = await api
+    .post('/api/login')
+    .send(newUser)
+    .expect(200)
+
+  const token = response.body.token
+
+  await api
+    .post('/api/blogs')
+    .set('Authorization', `bearer ${token}`)
+    .send(newBlog)
+    .expect(200)
+
+  let blogResponse = await api
+    .get('/api/blogs')
+
+  let blog = blogResponse.body
+
+  const date = new Date()
+
+  const newEntry = {
+    entryTitle: 'Title',
+    entryContent: 'Content',
+    entryDate: date.toDateString(),
+    likes: 0,
+    comments: []
+  }
+
+  const blogToUpdate = {
+    ...blog[0],
+    user: blog[0].user.id,
+    blogEntries: [newEntry]
+  }
+
+  await api
+    .put(`/api/blogs/${blog[0].id}`)
+    .send(blogToUpdate)
+    .expect(200)
+
+  const newComment = {
+    user: newUser.username,
+    text: 'text',
+    commentDate: date.toDateString()
+  }
+
+  blogResponse = await api
+    .get('/api/blogs')
+
+  blog = blogResponse.body
+
+  const blogWithComment = {
+    ...blog[0],
+    user: blog[0].user.id,
+    blogEntries: [
+      blog[0].blogEntries[0] = {
+        ...blog[0].blogEntries[0],
+        comments: [newComment]
+      }
+    ]
+  }
+
+  const newResponse = await api
+    .put(`/api/blogs/${blog[0].id}`)
+    .send(blogWithComment)
+    .expect(200)
+  
+  expect(newResponse.body.blogEntries[0].comments).toHaveLength(1)
+})
+
+test('profile can only be updated with token', async () => {
+  const newUser = {
+    name: 'testaaja3',
+    username: 'testaaja3',
+    email: 'testaaja3@gmail.com',
+    password: 'password3'
+  }
+
+  await api
+    .post('/api/users')
+    .send(newUser)
+    .expect(200)
+
+  const response = await api
+    .post('/api/login')
+    .send(newUser)
+    .expect(200)
+
+  const token = response.body.token
+
+  const usersResponse = await api
+    .get('/api/users')
+    .expect(200)
+
+  const userFromDB = usersResponse.body[2]
+
+  const profileToUpdate = {
+    ...userFromDB,
+    facebook: 'http://facebook.com/testaaja3',
+    instagram: 'http://instagram.com/testaaja3',
+    twitter: 'http://twitter.com/testaaja3'
+  }
+
+  await api
+    .put(`/api/users/${userFromDB.id}`)
+    .send(profileToUpdate)
+    .expect(401)
+
+  const putResponse = await api
+    .put(`/api/users/${userFromDB.id}`)
+    .set('Authorization', `bearer ${token}`)
+    .send(profileToUpdate)
+    .expect(200)
+
+  expect(putResponse.body).toHaveProperty('facebook', 'http://facebook.com/testaaja3')
+  expect(putResponse.body).toHaveProperty('instagram', 'http://instagram.com/testaaja3')
+  expect(putResponse.body).toHaveProperty('twitter', 'http://twitter.com/testaaja3')
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
