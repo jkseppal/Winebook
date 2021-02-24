@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState } from 'react'
 import { Table, Form, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -80,52 +81,74 @@ const WineList = ({ wines }) => {
   return (
     <div className='wineList'>
       <h2>Sovellukseen lisätyt viinit:</h2>
-      Näytä:
-      <select
-        value={selectFilter}
-        onChange={handleSelectFilterChange}
-      >
-        <option>kaikki viinit</option>
-        <option>punaviini</option>
-        <option>valkoviini</option>
-        <option>roseeviini</option>
-        <option>kuohuviini</option>
-        <option>maustettu viini</option>
-        <option>väkevä viini</option>
-        <option>jäkiruokaviini</option>
-        <option>muu</option>
-      </select>
-        Maa:
-      <select
-        value={countryFilter}
-        onChange={handleCountryFilterChange}
-      >
-        <option>kaikki maat</option>
-        <option>Ranska</option>
-        <option>Italia</option>
-        <option>Espanja</option>
-        <option>Saksa</option>
-        <option>Portugali</option>
-        <option>Chile</option>
-        <option>Australia</option>
-        <option>Argentina</option>
-        <option>Etelä-Afrikka</option>
-        <option>Uusi-Seelanti</option>
-        <option>Itävalta</option>
-        <option>Yhdysvallat</option>
-        <option>Unkari</option>
-        <option>muu</option>
-      </select>
-        Hae viinin nimellä:
-      <input
-        placeholder="hae..."
-        value={findFilter}
-        onChange={handleFindFilterChange}
-      />
+      <table>
+        <tbody>
+          <tr>
+            <td className="padding50right">Näytä:</td>
+            <td className="padding50right">Maa:</td>
+            <td className="padding50right">Hae viinin nimellä</td>
+          </tr>
+          <tr>
+            <td className="padding50right">
+                <Form.Control
+                  size="sm"
+                  as="select"
+                  className="select"
+                  value={selectFilter}
+                  onChange={handleSelectFilterChange}
+                >
+                  <option>kaikki viinit</option>
+                  <option>punaviini</option>
+                  <option>valkoviini</option>
+                  <option>roseeviini</option>
+                  <option>kuohuviini</option>
+                  <option>maustettu viini</option>
+                  <option>väkevä viini</option>
+                  <option>jäkiruokaviini</option>
+                  <option>muu</option>
+                </Form.Control>
+            </td>
+            <td className="padding50right">
+                <Form.Control
+                  size="sm"
+                  as="select"
+                  className="select"
+                  value={countryFilter}
+                  onChange={handleCountryFilterChange}
+                >
+                  <option>kaikki maat</option>
+                  <option>Ranska</option>
+                  <option>Italia</option>
+                  <option>Espanja</option>
+                  <option>Saksa</option>
+                  <option>Portugali</option>
+                  <option>Chile</option>
+                  <option>Australia</option>
+                  <option>Argentina</option>
+                  <option>Etelä-Afrikka</option>
+                  <option>Uusi-Seelanti</option>
+                  <option>Itävalta</option>
+                  <option>Yhdysvallat</option>
+                  <option>Unkari</option>
+                  <option>muu</option>
+                </Form.Control>
+            </td>
+            <td className="padding50right">
+                <Form.Control
+                  size="sm"
+                  placeholder="hae..."
+                  type="text"
+                  value={findFilter}
+                  onChange={handleFindFilterChange}
+                />
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <Form>
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2} style={{ paddingTop: 20 }}>
-              Lajittele viinit
+              Järjestä viinit
           </Form.Label>
           <Col sm={10} style={{ paddingTop: 20 }}>
             <Form.Check

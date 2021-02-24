@@ -94,6 +94,7 @@ const Guide = () => {
       <p>
         Oma profiili -sivulla rekisteröitynyt käyttäjä voi määrittää, mitä tietoja itsestään hän haluaa näyttää muille käyttäjille.
         Sivulla pystyy mm. vaihtamaan sähköpostiosoitteen sekä sen näkyvyyden, asettamaan lyhyen kuvauksen itsestään, sekä asettamaan linkkejä omille some-profiilisivuille.
+        Oma profiili -sivulla käyttäjän on myös mahdollista vaihtaa oma salasana.
       </p>
     </div>
   )

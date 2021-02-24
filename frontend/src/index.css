@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color:rgb(250, 243, 214);
 }
 
 code {
@@ -22,7 +23,6 @@ code {
   padding-top: 5px;
   padding-bottom: 5px;
   background-color: lightgray;
-  border-radius: 10px;
 }
 
 .entryWrapper {
@@ -65,4 +65,20 @@ code {
   padding-bottom: 1%;
   border-bottom-color: rgb(50, 145, 253);
   border-bottom-style: dotted;
+}
+
+.padding5px {
+  padding: 5px;
+}
+
+.padding50right {
+  padding-right: 50px;
+}
+
+input[type=text], input[type=password] {
+  background-color: floralwhite;
+}
+
+.select {
+  background-color: floralwhite;
 }

@@ -53,7 +53,6 @@ const App = () => {
   let users = useSelector(state => state.users)
   let reviews = useSelector(state => state.reviews)
   let blogs = useSelector(state => state.blogs)
-  //console.log('blogs: ', blogs)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -89,8 +88,6 @@ const App = () => {
     try {
       await dispatch(createWine(wineObject))
       await dispatch(initializeUsers())
-      //const updatedUser = await users.find(u => u.id === userFromDB.id)
-      //setUserFromDB(updatedUser)
       dispatch(notificationChange(`viini ${wineObject.name} lisätty`, 5))
     } catch (exception) {
       dispatch(errorMessageChange('viinin lisääminen epäonnistui', 5))
@@ -141,10 +138,6 @@ const App = () => {
       await dispatch(createReview(id, reviewObject))
       await dispatch(initializeUsers())
       await dispatch(initializeWines())
-      //const updatedUser = await users.find(u => u.id === userFromDB.id)
-      //await setUserFromDB(updatedUser)
-      //console.log('updated user after addReview: ', updatedUser)
-      //console.log('new user from db after addReview: ', userFromDB)
       dispatch(notificationChange('Arvostelu lisätty', 5))
     } catch (exception) {
       dispatch(errorMessageChange('arvostelun lisääminen epäonnistui', 5))

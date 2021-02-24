@@ -90,6 +90,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Control
                   as="select"
+                  className="select"
                   id="type"
                   value={type}
                   onChange={({ target }) => setType(target.value)}
@@ -112,6 +113,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Control
                   as="select"
+                  className="select"
                   id="country"
                   value={country}
                   onChange={({ target }) => setCountry(target.value)}

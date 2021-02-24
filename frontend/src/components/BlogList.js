@@ -71,9 +71,39 @@ const BlogList = (user) => {
     return null
   }
   return (
-    <div className='guide'>
+    <div className="guide">
       <h2>Käyttäjien blogit</h2>
-      <div className="buttonWrapper">
+      <div className="blockWrapper">
+        <table>
+          <tbody>
+            <tr>
+              <td className="padding50right">Hae blogin otsikon perusteella:</td>
+              <td className="padding50right">Hae kirjoittajan perusteella</td>
+            </tr>
+            <tr>
+              <td className="padding50right">
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  placeholder="hae..."
+                  value={blogFilter}
+                  onChange={handleBlogFilterChange}
+                />
+              </td>
+              <td className="padding50right">
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  placeholder="hae..."
+                  value={nameFilter}
+                  onChange={handleNameFilterChange}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      {/*<div className="buttonWrapper">
       Hae blogin otsikon perusteella:
         <input
           placeholder="hae..."
@@ -87,7 +117,7 @@ const BlogList = (user) => {
           value={nameFilter}
           onChange={handleNameFilterChange}
         />
-      </div>
+  </div>*/}
       <Table striped className='tableWrapper'>
         <thead>
           <tr>

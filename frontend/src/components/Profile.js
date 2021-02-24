@@ -262,6 +262,7 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
           <Form.Label>Kuvaus:</Form.Label>
           <Form.Control
             as="textarea"
+            className="select"
             id="description"
             rows={4}
             value={description}
@@ -282,18 +283,24 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
         <Modal.Body>
           <Form onSubmit={handlePasswordChange}>
             <Form.Label>Uusi salasana</Form.Label>
-            <Form.Control
-              type="password"
-              id="new-password-field"
-              value={newPassword}
-              onChange={({ target }) => setNewPassword(target.value)}
-            />
-            <Form.Control
-              type="password"
-              id="retype-password-field"
-              value={retypePassword}
-              onChange={({ target }) => setRetypePassword(target.value)}
-            />
+            <div className="padding5px">
+              <Form.Control
+                type="password"
+                id="new-password-field"
+                placeholder="väh. 5 merkkiä"
+                value={newPassword}
+                onChange={({ target }) => setNewPassword(target.value)}
+              />
+            </div>
+            <div className="padding5px">
+              <Form.Control
+                type="password"
+                id="retype-password-field"
+                placeholder="väh. 5 merkkiä"
+                value={retypePassword}
+                onChange={({ target }) => setRetypePassword(target.value)}
+              />
+            </div>
             <PasswordChecker />
             <div className="buttonWrapper">
               <PasswordButton type="submit">vaihda salasana</PasswordButton>

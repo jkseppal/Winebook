@@ -5,8 +5,7 @@ import Togglable from './Togglable'
 import dompurify from 'dompurify'
 import { Editor } from '@tinymce/tinymce-react'
 
-// eslint-disable-next-line no-unused-vars
-const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent }) => {
+const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
   const [newEntryTitle, setNewEntryTitle] = useState('')
   const [newContent, setNewContent] = useState('')
   const [show, setShow] = useState(false)
@@ -19,7 +18,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
   const sanitizer = dompurify.sanitize
 
   // eslint-disable-next-line no-unused-vars
-  const handleEditorChange = (content, editor) => {
+  const handleEditorChange = (content, _editor) => {
     setNewContent(content)
     console.log('content:', content)
   }
@@ -146,11 +145,11 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry, editorContent })
       {blogToShow.blogEntries && blogToShow.blogEntries.map(b =>
         <div key={b._id} className="blockWrapper">
           <div className="tableWrapper">
-            <h3>{b.entryTitle}</h3>
-            <i>{b.entryDate}</i><br />
-            <Togglable id="full-view" shortString={stripper(b.entryContent)} buttonLabel='Näytä kokonaan' ref={entryRef}>
-              <div dangerouslySetInnerHTML={ { __html: sanitizer(b.entryContent) } } /><br />
-              <i id="likes">Tykkäyksiä: {b.likes}</i><br />
+            <h3 className="padding5px">{b.entryTitle}</h3>
+            <i className="padding5px">{b.entryDate}</i><br />
+            <Togglable className="padding5px" id="full-view" shortString={stripper(b.entryContent)} buttonLabel='Näytä kokonaan' ref={entryRef}>
+              <div className="padding5px" dangerouslySetInnerHTML={ { __html: sanitizer(b.entryContent) } } /><br />
+              <i className="padding5px" id="likes">Tykkäyksiä: {b.likes}</i><br />
               <div className="buttonWrapper">
                 <Button id="like-button" onClick={(e) => handleLike(blogToShow.blogEntries.indexOf(b), e)}>Tykkää</Button><br />
               </div>

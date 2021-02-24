@@ -51,12 +51,21 @@ const UserList = ({ users, user }) => {
   return (
     <div className='wineList'>
       <h2>rekisteröityneet käyttäjät:</h2>
-      Hae käyttäjätunnuksella:
-      <input
-        placeholder="hae..."
-        value={findFilter}
-        onChange={handleFindFilterChange}
-      />
+      <table>
+        <tbody>
+          <tr>
+            <td className="padding50right">Hae käyttäjätunnuksella:</td>
+            <td className="padding50right">
+              <Form.Control
+                size="sm"
+                placeholder="hae..."
+                value={findFilter}
+                onChange={handleFindFilterChange}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <Form>
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2} style={{ paddingTop: 20 }}>
