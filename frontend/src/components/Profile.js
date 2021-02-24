@@ -13,6 +13,7 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
   const [showInstagram, setShowInstagram] = useState('')
   const [twitter, setTwitter] = useState('')
   const [showTwitter, setShowTwitter] = useState('')
+  const [password, setPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [retypePassword, setRetypePassword] = useState('')
   const [showPasswordChange, setShowPasswordChange] = useState(false)
@@ -120,7 +121,8 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
       password: newPassword
     }
     console.log('new user: ', newUser)
-    await updatePassword(newUser)
+    await updatePassword(newUser, password)
+    setPassword('')
     setNewPassword('')
     setRetypePassword('')
     setShowPasswordChange(false)
@@ -282,25 +284,31 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handlePasswordChange}>
-            <Form.Label>Uusi salasana</Form.Label>
-            <div className="padding5px">
-              <Form.Control
-                type="password"
-                id="new-password-field"
-                placeholder="väh. 5 merkkiä"
-                value={newPassword}
-                onChange={({ target }) => setNewPassword(target.value)}
-              />
-            </div>
-            <div className="padding5px">
-              <Form.Control
-                type="password"
-                id="retype-password-field"
-                placeholder="väh. 5 merkkiä"
-                value={retypePassword}
-                onChange={({ target }) => setRetypePassword(target.value)}
-              />
-            </div>
+            <Form.Label>Vanha salasana:</Form.Label>
+            <Form.Control
+              type="password"
+              id="old-password-field"
+              placeholder="väh. 5 merkkiä"
+              value={password}
+              onChange={({ target }) => setPassword(target.value)}
+            />
+            <Form.Label>Uusi salasana:</Form.Label>
+            <Form.Control
+              type="password"
+              id="new-password-field"
+              placeholder="väh. 5 merkkiä"
+              value={newPassword}
+              onChange={({ target }) => setNewPassword(target.value)}
+            />
+            <Form.Label>Uusi salasana uudestaan:</Form.Label>
+            <Form.Control
+              label="uusi salasana uudestaan"
+              type="password"
+              id="retype-password-field"
+              placeholder="väh. 5 merkkiä"
+              value={retypePassword}
+              onChange={({ target }) => setRetypePassword(target.value)}
+            />
             <PasswordChecker />
             <div className="buttonWrapper">
               <PasswordButton type="submit">vaihda salasana</PasswordButton>
