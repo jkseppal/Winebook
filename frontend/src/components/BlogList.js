@@ -103,22 +103,7 @@ const BlogList = (user) => {
           </tbody>
         </table>
       </div>
-      {/*<div className="buttonWrapper">
-      Hae blogin otsikon perusteella:
-        <input
-          placeholder="hae..."
-          value={blogFilter}
-          onChange={handleBlogFilterChange}
-        />
-
-      Hae kirjoittajan perusteella:
-        <input
-          placeholder="hae..."
-          value={nameFilter}
-          onChange={handleNameFilterChange}
-        />
-  </div>*/}
-      <Table striped className='tableWrapper'>
+      <Table striped variant="dark" className='tableWrapper' hover>
         <thead>
           <tr>
             <td>blogi</td>
@@ -142,12 +127,14 @@ const BlogList = (user) => {
         <h2>Lisää blogi:</h2>
         <Form onSubmit={handleBlogAdd}>
           <Form.Label>Otsikko:</Form.Label>
-          <Form.Control
-            type="text"
-            id="blog-field"
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
-          />
+          <div className="newBlog">
+            <Form.Control
+              type="text"
+              id="blog-field"
+              value={title}
+              onChange={({ target }) => setTitle(target.value)}
+            />
+          </div>
           <div className="buttonWrapper">
             <Button type="submit" id="add-blog">lisää</Button>
           </div>

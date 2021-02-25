@@ -105,7 +105,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
       {average ? <h3>arvostelujen keskiarvo: {average}</h3> : null}
       <div>
         <h3>Arvostelut:</h3>
-        <Table striped>
+        <Table striped variant="dark" className="tableWrapper" hover>
           <thead>
             <tr>
               <th>arvostelija</th>
@@ -136,7 +136,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
       {user && <div>
         <h3>Lisää arvostelu:</h3>
         <Form onSubmit={handleReviewAdd}>
-          <Table>
+          <Table variant="dark">
             <tbody>
               <tr>
                 <td>
@@ -144,6 +144,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
                 </td>
                 <td>
                   <Form.Control
+                    className="select"
                     as="select"
                     id="vintage"
                     value={vintage}
@@ -162,6 +163,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
                 </td>
                 <td>
                   <Form.Control
+                    className="select"
                     as="textarea"
                     id="description"
                     rows={4}
@@ -176,6 +178,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
                 </td>
                 <td>
                   <Form.Control
+                    className="select"
                     as="select"
                     id="points"
                     value={points}

@@ -69,7 +69,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Label>nimi</Form.Label>
               </td>
-              <td>
+              <td className="blockWrapper">
                 <Form.Control
                   type="text"
                   id="name"
@@ -87,7 +87,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Label>tyyppi</Form.Label>
               </td>
-              <td>
+              <td className="blockWrapper">
                 <Form.Control
                   as="select"
                   className="select"
@@ -110,7 +110,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Label>maa</Form.Label>
               </td>
-              <td>
+              <td className="blockWrapper">
                 <Form.Control
                   as="select"
                   className="select"
@@ -140,7 +140,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Label>alue</Form.Label>
               </td>
-              <td>
+              <td className="blockWrapper">
                 <Form.Control
                   type="text"
                   id="region"
@@ -154,7 +154,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Label>laatuluokitus</Form.Label>
               </td>
-              <td>
+              <td className="blockWrapper">
                 <Form.Control
                   type="text"
                   id="appellation"
@@ -168,7 +168,7 @@ const WineForm = ({ addWine, user, wines }) => {
               <td>
                 <Form.Label>rypäleet</Form.Label>
               </td>
-              <td>
+              <td className="blockWrapper">
                 <Form.Control
                   type="text"
                   id="grapes"

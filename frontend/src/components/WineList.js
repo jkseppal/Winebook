@@ -175,7 +175,7 @@ const WineList = ({ wines }) => {
           </Col>
         </Form.Group>
       </Form>
-      <Table striped className='tableWrapper'>
+      <Table striped variant="dark" className='tableWrapper' hover>
         <thead>
           <tr>
             <td>Viini</td>

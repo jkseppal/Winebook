@@ -183,7 +183,7 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
   }
 
   return (
-    <div className='guide'>
+    <div className='profileWrapper'>
       <h2>Oma profiili: {user.username}</h2>
       <div>
         <Form onSubmit={handleNameChange}>
@@ -195,7 +195,7 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
             onChange={({ target }) => setName(target.value)}
           />
           <div className='buttonWrapper'>
-            <Button id="change-name" type="submit">vaihda nimi</Button>
+            <Button variant="success" id="change-name" type="submit">vaihda nimi</Button>
           </div>
         </Form>
       </div>
@@ -210,7 +210,7 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
           />
           <Form.Check id="email-switch" type="switch" checked={showEmail} onChange={emailChanger} label='näytä sähköpostiosoite muille käyttäjille' />
           <div className='buttonWrapper'>
-            <Button id="update-email" type="submit">päivitä sähköpostiosoite tai sen näkyvyys</Button>
+            <Button variant="success" id="update-email" type="submit">päivitä sähköpostiosoite tai sen näkyvyys</Button>
           </div>
         </Form>
       </div>
@@ -225,7 +225,7 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
           />
           <Form.Check id="facebook-switch" type="switch" checked={showFacebook} onChange={facebookChanger} label='näytä facebook muille käyttäjille' />
           <div className='buttonWrapper'>
-            <Button id="update-facebook" type="submit">päivitä facebook tai sen näkyvyys</Button>
+            <Button variant="success" id="update-facebook" type="submit">päivitä facebook tai sen näkyvyys</Button>
           </div>
         </Form>
       </div>
@@ -240,7 +240,7 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
           />
           <Form.Check id="instagram-switch" type="switch" checked={showInstagram} onChange={instagramChanger} label='näytä instagram muille käyttäjille' />
           <div className='buttonWrapper'>
-            <Button id="update-instagram" type="submit">päivitä instagram tai sen näkyvyys</Button>
+            <Button variant="success" id="update-instagram" type="submit">päivitä instagram tai sen näkyvyys</Button>
           </div>
         </Form>
       </div>
@@ -255,7 +255,7 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
           />
           <Form.Check id="twitter-switch" type="switch" checked={showTwitter} onChange={twitterChanger} label='näytä twitter muille käyttäjille' />
           <div className='buttonWrapper'>
-            <Button id="update-twitter" type="submit">päivitä twitter tai sen näkyvyys</Button>
+            <Button variant="success" id="update-twitter" type="submit">päivitä twitter tai sen näkyvyys</Button>
           </div>
         </Form>
       </div>
@@ -271,7 +271,7 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
             onChange={({ target }) => setDescription(target.value)}
           />
           <div className='buttonWrapper'>
-            <Button id="add-description" type="submit">päivitä kuvaus</Button>
+            <Button variant="success" id="add-description" type="submit">päivitä kuvaus</Button>
           </div>
         </Form>
       </div>

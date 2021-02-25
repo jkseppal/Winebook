@@ -59,6 +59,7 @@ const UserList = ({ users, user }) => {
               <Form.Control
                 size="sm"
                 placeholder="hae..."
+                type="text"
                 value={findFilter}
                 onChange={handleFindFilterChange}
               />
@@ -97,7 +98,7 @@ const UserList = ({ users, user }) => {
         </Form.Group>
       </Form>
       {sorter(usersToShow)}
-      <Table striped className='tableWrapper'>
+      <Table striped variant="dark" className='tableWrapper' hover>
         <thead>
           <tr>
             <td>Käyttäjänimi</td>
