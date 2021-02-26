@@ -172,7 +172,7 @@ const WineForm = ({ addWine, user, wines }) => {
                 <Form.Control
                   type="text"
                   id="grapes"
-                  placeholder="esim. cabernet sauvignon, merlot"
+                  placeholder="esim. Cabernet Sauvignon, Merlot"
                   value={grapes}
                   onChange={({ target }) => setGrapes(target.value)}
                 />

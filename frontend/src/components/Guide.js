@@ -40,7 +40,7 @@ const Guide = () => {
       </p>
       <p>
         Kenttään <b>rypäleet</b> voit kirjoittaa pilkulla erotettuna rypäleet, joista kyseinen viini on valmistettu.
-        Jos rypäleet eivät ole tiedossa, voit jättää kentän tyhjäksi. Hyvä esimerkki syötteestä tähän kenttään on <i>cabernet sauvignon, merlot.</i>
+        Jos rypäleet eivät ole tiedossa, voit jättää kentän tyhjäksi. Hyvä esimerkki syötteestä tähän kenttään on <i>Cabernet Sauvignon, Merlot.</i>
       </p>
       <h3>Arvostelun lisääminen</h3>
       <p>
