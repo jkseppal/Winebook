@@ -52,11 +52,20 @@ code {
 }
 
 .tableWrapper {
-  border-style: double;
-  border-color: rgb(0, 255, 42);
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow:  0px 0px 0px 1px rgb(0, 255, 42);
   padding-top: 5px;
   padding-bottom: 5px;
-  color: white;
+}
+
+.blogEntryWrapper {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(0, 255, 42);
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .iconWrapper {
@@ -66,6 +75,7 @@ code {
 .divWrapper {
   padding-top: 1%;
   padding-bottom: 1%;
+  border-bottom-width: 1px;
   border-bottom-color: rgb(253, 141, 50);
   border-bottom-style: dotted;
 }
@@ -83,11 +93,11 @@ code {
 }
 
 input[type=text], input[type=password] {
-  background-color: rgb(27, 27, 27);
+  background-color: rgb(27, 27, 27) !important;
 }
 
 .select {
-  background-color: rgb(27, 27, 27);
+  background-color: rgb(27, 27, 27) !important;
 }
 
 .profileWrapper {
@@ -97,5 +107,9 @@ input[type=text], input[type=password] {
 }
 
 a {
-  color: rgb(0, 183, 255);
+  color: rgb(0, 163, 228);
+}
+
+.modal .modal-content {
+  background-color: rgb(34, 34, 34);
 }

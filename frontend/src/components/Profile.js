@@ -18,12 +18,6 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
   const [retypePassword, setRetypePassword] = useState('')
   const [showPasswordChange, setShowPasswordChange] = useState(false)
 
-  /**
-   * user päivittyy komponenttiin virheellisesti, selvitetään.
-   * ...
-   * Korjattu!
-   */
-
   useEffect(() => {
     if (user) {
       console.log('user in profilepage: ', user)
@@ -278,7 +272,7 @@ const Profile = ({ user, updateProfile, updatePassword }) => {
       <div className="buttonWrapper">
         <Button id="change-password-form" variant="danger" onClick={handleShow}>vaihda salasanaa</Button>
       </div>
-      <Modal show={showPasswordChange} onHide={handleClose}>
+      <Modal show={showPasswordChange} onHide={handleClose} className="modal">
         <Modal.Header closeButton>
           <Modal.Title>Vaihda salasanaa</Modal.Title>
         </Modal.Header>

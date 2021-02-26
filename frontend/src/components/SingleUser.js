@@ -27,13 +27,6 @@ const SingleUser = ({ users, user }) => {
         <h3>Kuvaus:</h3>
         <i>{userToShow.description}</i>
       </div>}
-      {/*(userToShow.showEmail === true)
-        ? <div className="divWrapper">
-          <h3>Sähköpostiosoite:</h3>
-          {userToShow.email}
-        </div>
-        : null
-      */}
       {userToShow.showEmail && <div className="divWrapper">
         <h3>Sähköpostiosoite:</h3>
         {userToShow.email}

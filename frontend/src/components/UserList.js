@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { Table, Form, Row, Col } from 'react-bootstrap'
-//import { useDispatch, useSelector } from 'react-redux'
-//import { initializeUsers } from '../reducers/usersReducer'
 import { Link } from 'react-router-dom'
 
 const UserList = ({ users, user }) => {

@@ -136,7 +136,7 @@ const SingleWine = ({ wines, user, reviews, addLike, addReview }) => {
       {user && <div>
         <h3>Lisää arvostelu:</h3>
         <Form onSubmit={handleReviewAdd}>
-          <Table variant="dark">
+          <Table variant="dark" className="tableWrapper">
             <tbody>
               <tr>
                 <td>

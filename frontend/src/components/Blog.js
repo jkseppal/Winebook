@@ -144,19 +144,20 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
       Kirjoittaja: {blogToShow.user.username}
       {blogToShow.blogEntries && blogToShow.blogEntries.map(b =>
         <div key={b._id} className="blockWrapper">
-          <div className="tableWrapper">
+          <div className="blogEntryWrapper">
             <h3 className="padding5px">{b.entryTitle}</h3>
             <i className="padding5px">{b.entryDate}</i><br />
-            <Togglable className="padding5px" id="full-view" shortString={stripper(b.entryContent)} buttonLabel='Näytä kokonaan' ref={entryRef}>
+            <Togglable className="padding5px" id="full-view" shortString={stripper(b.entryContent)} buttonLabel='Näytä kokonaan' closeText='näytä vähemmän' ref={entryRef}>
               <div className="padding5px" dangerouslySetInnerHTML={ { __html: sanitizer(b.entryContent) } } /><br />
               <i className="padding5px" id="likes">Tykkäyksiä: {b.likes}</i><br />
+              <i className="padding5px">Kommentteja: {b.comments.length}</i><br />
               <div className="buttonWrapper">
                 <Button id="like-button" onClick={(e) => handleLike(blogToShow.blogEntries.indexOf(b), e)}>Tykkää</Button><br />
               </div>
               <div className="buttonWrapper">
                 <Button id="comment-form" variant="success" onClick={(e) => handleShowComment(blogToShow.blogEntries.indexOf(b), e)}>lisää kommentti</Button>
               </div>
-              <Modal size="lg" show={showComment} onHide={handleCloseComment}>
+              <Modal size="lg" show={showComment} onHide={handleCloseComment} className="modal">
                 <Modal.Header closeButton>
                   <Modal.Title>Lisää kommentti</Modal.Title>
                 </Modal.Header>
@@ -178,7 +179,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
                   <Button variant="secondary" onClick={handleCloseComment}>peruuta</Button>
                 </Modal.Footer>
               </Modal>
-              <Togglable id="show-comments" buttonLabel='näytä kommentit' ref={commentRef}>
+              <Togglable id="show-comments" buttonLabel='näytä kommentit' closeText='piilota kommentit' ref={commentRef}>
                 {b.comments && b.comments.map(c =>
                   <div key={b.comments.indexOf(c)}>
                     <p className="commentWrapper">
@@ -198,7 +199,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
         <div className="buttonWrapper">
           <Button id="add-entry-form" onClick={handleShow}>lisää blogimerkintä</Button>
         </div>
-        <Modal size="lg" show={show} onHide={handleClose}>
+        <Modal size="lg" show={show} onHide={handleClose} className="modal">
           <Modal.Header closeButton>
             <Modal.Title>Lisää uusi blogimerkintä</Modal.Title>
           </Modal.Header>
@@ -218,6 +219,7 @@ const Blog = ({ blogs, addEntry, user, commentEntry, likeEntry }) => {
                 init={{
                   height: 500,
                   menubar: false,
+                  content_css: 'dark',
                   plugins: [
                     'advlist autolink lists link image charmap print preview anchor',
                     'searchreplace visualblocks code fullscreen',
