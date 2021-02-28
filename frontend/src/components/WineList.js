@@ -103,7 +103,7 @@ const WineList = ({ wines }) => {
                 <option>kuohuviini</option>
                 <option>maustettu viini</option>
                 <option>väkevä viini</option>
-                <option>jäkiruokaviini</option>
+                <option>jälkiruokaviini</option>
                 <option>muu</option>
               </Form.Control>
             </td>
