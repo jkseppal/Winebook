@@ -163,6 +163,35 @@ const App = () => {
     dispatch(addEntryLike(id, entryObject))
   }
 
+  const countryList = [
+    'muu',
+    'Ranska',
+    'Italia',
+    'Espanja',
+    'Saksa',
+    'Portugali',
+    'Chile',
+    'Australia',
+    'Argentina',
+    'Etelä-Afrikka',
+    'Uusi-Seelanti',
+    'Itävalta',
+    'Yhdysvallat',
+    'Unkari',
+    'Kreikka'
+  ]
+
+  const typeList = [
+    'punaviini',
+    'valkoviini',
+    'roseeviini',
+    'kuohuviini',
+    'maustettu viini',
+    'väkevä viini',
+    'jälkiruokaviini',
+    'muu'
+  ]
+
   const NavBarLink = (props) => {
     return (
       <Nav.Link href="#" as="span">
@@ -202,7 +231,7 @@ const App = () => {
               <SingleUser user={user} users={users} reviews={reviews} blogs={blogs} />
             </Route>
             <Route path="/create">
-              <WineForm addWine={addWine} user={user} wines={wines} />
+              <WineForm addWine={addWine} user={user} wines={wines} countryList={countryList} typeList={typeList} />
             </Route>
             <Route path="/registration">
               <RegistrationForm addUser={addUser} users={users} />
@@ -226,7 +255,7 @@ const App = () => {
               <BlogList blogs={blogs} user={userFromDB} updateProfile={updateProfile} />
             </Route>
             <Route path="/">
-              <WineList wines={wines} />
+              <WineList wines={wines} countryList={countryList} typeList={typeList} />
             </Route>
           </Switch>
         </div>

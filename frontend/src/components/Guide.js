@@ -61,7 +61,7 @@ const Guide = () => {
         On kuitenkin hyvä muistaa, että arvostelut ovat subjektiivisia, joten väärää arvostelua ei ole olemassa. Jos jostain viinistä haluaa kirjoittaa vaikka ainoastaan: pahaa, on se täysin hyväksyttävää.
       </p>
       <p>
-        arvostelulomakkeen viimeisessä kentässä <b>pisteet</b> annetaan pisteet arvioidulle viinille 100 pisteen asteikolla.
+        Arvostelulomakkeen viimeisessä kentässä <b>pisteet</b> annetaan pisteet arvioidulle viinille 100 pisteen asteikolla.
         Arvioita luettaessa ja annettaessa on syytä pitää mielessä että niin pisteet kuin arvostelu ylipäätään on arvioijan subjektiivinen mielipide viinistä.
         Hyvänä ohjenuorana pisteiden antoon voi pitää seuraavaa:
       </p>

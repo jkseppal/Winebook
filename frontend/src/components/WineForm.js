@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
-const WineForm = ({ addWine, user, wines }) => {
+const WineForm = ({ addWine, user, wines, countryList, typeList }) => {
   const [name, setName] = useState('')
   const [country, setCountry] = useState('muu')
   const [type, setType] = useState('punaviini')
@@ -95,14 +95,9 @@ const WineForm = ({ addWine, user, wines }) => {
                   value={type}
                   onChange={({ target }) => setType(target.value)}
                 >
-                  <option>punaviini</option>
-                  <option>valkoviini</option>
-                  <option>roseeviini</option>
-                  <option>kuohuviini</option>
-                  <option>maustettu viini</option>
-                  <option>väkevä viini</option>
-                  <option>jälkiruokaviini</option>
-                  <option>muu</option>
+                  {typeList.map(t => (
+                    <option key={t}>{t}</option>
+                  ))}
                 </Form.Control>
               </td>
             </tr>
@@ -118,21 +113,9 @@ const WineForm = ({ addWine, user, wines }) => {
                   value={country}
                   onChange={({ target }) => setCountry(target.value)}
                 >
-                  <option>muu</option>
-                  <option>Ranska</option>
-                  <option>Italia</option>
-                  <option>Espanja</option>
-                  <option>Saksa</option>
-                  <option>Portugali</option>
-                  <option>Chile</option>
-                  <option>Australia</option>
-                  <option>Argentina</option>
-                  <option>Etelä-Afrikka</option>
-                  <option>Uusi-Seelanti</option>
-                  <option>Itävalta</option>
-                  <option>Yhdysvallat</option>
-                  <option>Unkari</option>
-                  <option>Kreikka</option>
+                  {countryList.map(c => (
+                    <option key={c}>{c}</option>
+                  ))}
                 </Form.Control>
               </td>
             </tr>

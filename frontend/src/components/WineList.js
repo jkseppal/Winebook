@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Table, Form, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-const WineList = ({ wines }) => {
+const WineList = ({ wines, countryList, typeList }) => {
   const [selectFilter, setSelectFilter] = useState('kaikki viinit')
   const [findFilter, setFindFilter] = useState('')
   const [countryFilter, setCountryFilter] = useState('kaikki maat')
@@ -97,14 +97,9 @@ const WineList = ({ wines }) => {
                 onChange={handleSelectFilterChange}
               >
                 <option>kaikki viinit</option>
-                <option>punaviini</option>
-                <option>valkoviini</option>
-                <option>roseeviini</option>
-                <option>kuohuviini</option>
-                <option>maustettu viini</option>
-                <option>väkevä viini</option>
-                <option>jälkiruokaviini</option>
-                <option>muu</option>
+                {typeList.map(t => (
+                  <option key={t}>{t}</option>
+                ))}
               </Form.Control>
             </td>
             <td className="padding50right">
@@ -116,20 +111,9 @@ const WineList = ({ wines }) => {
                 onChange={handleCountryFilterChange}
               >
                 <option>kaikki maat</option>
-                <option>Ranska</option>
-                <option>Italia</option>
-                <option>Espanja</option>
-                <option>Saksa</option>
-                <option>Portugali</option>
-                <option>Chile</option>
-                <option>Australia</option>
-                <option>Argentina</option>
-                <option>Etelä-Afrikka</option>
-                <option>Uusi-Seelanti</option>
-                <option>Itävalta</option>
-                <option>Yhdysvallat</option>
-                <option>Unkari</option>
-                <option>muu</option>
+                {countryList.map(c => (
+                  <option key={c}>{c}</option>
+                ))}
               </Form.Control>
             </td>
             <td className="padding50right">
